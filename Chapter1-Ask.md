@@ -11,6 +11,7 @@ By identifying trends in smart device usage, we can provide recommendations that
 The key stakeholders in this project are:
 
 - **Urška Sršen**: Cofounder and Chief Creative Officer at Bellabeat, who is looking for data insights to support the company's growth.
+- **Sando Mur**: Mathematician and Bellabeat’s cofounder; key member of the Bellabeat executive team.
 - **Bellabeat Marketing Team**: They will use these insights to adjust their marketing strategy and better connect with customers.
 
 These stakeholders will use the analysis results to make more informed, data-driven decisions for the company's marketing and product strategies.
