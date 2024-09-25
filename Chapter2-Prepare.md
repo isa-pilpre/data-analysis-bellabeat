@@ -61,7 +61,9 @@ This folder contains a PDF of the original survey questionnaire and an Excel fil
 
 ## 3. Credibility and Limitations
 
-While the FitBit data offers detailed, minute-level insights, its small sample size (30 users) limits its generalizability, and the data was collected in 2016. The survey dataset from MDPI, with data from 2020 and over 500 respondents, helps address these limitations by providing a broader, more recent perspective on how users interact with their smart devices. However, potential biases remain: Fitbit users might be more active or health-conscious than the average population, and survey respondents may represent a specific demographic.
+While the FitBit data provides detailed minute-by-minute insights, the small sample size (30 users) makes it difficult to draw conclusions that apply to a larger population. Additionally, the data was collected in 2016, which may not reflect current trends.
+In contrast, the survey dataset from MDPI includes responses from over 500 participants collected in 2020, and thus addresses the first dataset's limitations by offering a more recent and broader perspective. It also adds psychological insights on how users interact with their smart devices.
+However, there are still potential biases because Fitbit users may be more active or health-conscious than the average person, and the survey respondents might represent only a specific demographic. It is also important to investigate how and where the survey was conducted to better understand the significance of the results.
 
 To ensure data quality, I will:
 - Clean the data for missing values or inconsistencies.
