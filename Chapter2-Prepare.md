@@ -76,4 +76,4 @@ Both datasets are GDPR-compliant and do not contain personally identifiable info
 
 ---
 
-*This document outlines the data preparation for the Bellabeat project, makin sure the selected datasets are ready for process/cleaning in the next phase.*
+*This document outlines the data preparation for the Bellabeat project, making sure the selected datasets are ready for cleaning phase.*
