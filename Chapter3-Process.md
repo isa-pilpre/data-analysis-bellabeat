@@ -1,29 +1,16 @@
 # Chapter 3: Process Phase
 
-## 1) Folder Organization
+## 1) Transforming the data so I can work with it effectively
 
 I noticed that many files had the same exact name in both Fitbit folder 1 and folder 2. When opening these "twin" files, I realized they have the same structure, except they have different dates.
-So I will combine the twin files into a new folder called Recap. That reorganization will make the cleaning and analysis process much easier in the future.
-
-### Objective: Combine twin files and check file integrity.
-Steps:
-- Moved all files to a single folder named "Recap".
-- Verified that the files were correctly combined by counting the number of files in the folder and ensuring each file was processed without errors.
-        
-Example Code:
-```{}
-# Verify file count
-recap_files <- list.files(here("BELLABEAT", "Recap"), full.names = TRUE)
-length(recap_files)
-```
-
-## 2) File Concatenation
-
-### Objective: Make sure the "twin" files were concatenated correctly.
+So I combined the twin files into a new folder called Recap. That reorganization will make the cleaning and analysis process much easier in the future.
 
 Steps:
-- Loop through the files in the "Recap" folder, check for twin files, and concatenate their content.
-- Verified the number of rows in each combined file matched the total number of rows from the original twin files.
+- Created a new folder named "Recap".
+- Looped through the files in the Fitbit folders 1 and 2, checked for twin files. If they existed, concatenated their content and saved the combined file to the Recap folder.
+- Saved the remaining files to the Recap folder as well, in order to have the entire dataset in one folder.
+- Checked if the process went well: verified if the number of rows in each combined file matched the total number of rows from the original twin files.
+- Results: now my Fitbit dataset is stored in one single folder, "Recap", which contains 18 csv files.
 
 Example Code:
 ```{}
@@ -34,12 +21,10 @@ for (file in recap_files) {
 }
 ```
 
-## 3) Summarize and Save File Information
-
-### Objective: Get an overview of the structure of each file, including column names, number of rows, and other useful details.
+## 2) Getting an overview of the data
 
 Steps:
-- Generated a summary of each file using functions like summary(), colnames(), and str().
+- Generated a summary and a glimpse of each file with functions like summary(), colnames(), str(), glimpse() and head().
 - Saved the information to a text file for easier inspection and future reference.
 
 Example Code:
@@ -59,12 +44,12 @@ for (file in recap_files) {
 }
 
 ```
-## 4) Data Quality Checks (Nulls, Range Validation):
 
-### Objective: Check for null values and validate the data ranges (e.g., ensuring TotalSteps is within a realistic range).
+## 3) Data Cleaning and Quality Checks (Nulls, Range Validation):
 
 Steps:
-- Used R functions to detect missing values in each file and ensure numeric values fell within the expected ranges.
+- Checked for missing values in each file.
+- Verified if all numeric values fell within the expected ranges.
 - Documented any issues and steps to clean or address the data.
 
 Example Code:
