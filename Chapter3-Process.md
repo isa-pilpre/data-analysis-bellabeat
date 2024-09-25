@@ -45,7 +45,7 @@ for (file in recap_files) {
 
 ```
 
-## 3) Data Cleaning and Quality Checks (Nulls, Range Validation):
+## 3) Data Cleaning and Quality Checks (Nulls, Range Validation)
 
 Steps:
 - Checked for missing values in each file.
