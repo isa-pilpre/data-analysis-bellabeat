@@ -4,7 +4,7 @@
 
 For this analysis, I am using two publicly available datasets, each providing different perspectives on user behavior with smart devices:
 
-**FitBit Fitness Tracker Data (Kaggle)**: Available [here](https://www.kaggle.com/datasets/arashnic/fitbit), this dataset, recommended by Bellabeat’s cofounder and Chief Creative Officer, Urška Sršen, contains detailed daily activity, heart rate, and sleep patterns from 30 Fitbit users. The data is from 2016 and is valuable for understanding user behavior at a granular level, but the small sample size and dated collection period posed limitations. This is why I looked for a complementary data source (see below).
+**FitBit Fitness Tracker Data (Kaggle)**: Available [here](https://www.kaggle.com/datasets/arashnic/fitbit), this dataset, recommended by Bellabeat’s cofounder and Chief Creative Officer, Urška Sršen, contains detailed daily activity, heart rate, and sleep patterns from 30 Fitbit users. The data is from 2016 and is valuable for understanding user behavior at a granular level, but the small sample size and dated collection period show limitations. This is why I looked for a complementary data source (see below).
 
 **A Dataset for Studying the Relationship between Humans and Smart Devices (MDPI)**: Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020, and provides insights into user attitudes and interactions with smart devices. This behavioral data complements the Fitbit data by adding a psychological dimension to the analysis.
 
@@ -56,7 +56,7 @@ Contains 18 CSV files with data from April 12 to May 12, 2016. The data structur
 
 ### Questionnaire Data
 
-This folder contains a PDF of the original survey questionnaire and an Excel file named *Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx*, which is the actual dataset from the survey. It contains responses from over 500 individuals, collected in 2020. The survey includes user opinions, behaviors, and interactions with their smart devices.
+This folder contains a PDF of the original survey questionnaire and an Excel file named *Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx*, which is the actual dataset from the survey. It contains responses from over 500 individuals, collected in 2020. The survey includes user opinions, behaviors, and interactions with their smart devices. The Excel file is in long (narrow) format.
 
 
 ## 3. Credibility and Limitations
@@ -74,4 +74,4 @@ Both datasets are GDPR-compliant and do not contain personally identifiable info
 
 ---
 
-*This document outlines the data preparation for the Bellabeat project, ensuring the selected datasets are ready for analysis in the next phase.*
+*This document outlines the data preparation for the Bellabeat project, makin sure the selected datasets are ready for process/cleaning in the next phase.*
