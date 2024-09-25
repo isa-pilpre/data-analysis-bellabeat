@@ -31,4 +31,4 @@ My analysis will focus on answering the following questions:
 
 
 ---
-*This document outlines the goals and direction for the Bellabeat data analysis project, to make sure that my work aligns with the company's business objectives.*
+*This document outlines the goals and direction for the Bellabeat data analysis project, making sure that my work aligns with the company's business objectives before going to the data preparation phase.*
