@@ -2,7 +2,7 @@
 
 ## 1) Getting an overview of the data
 
-With my datasets now well organized in the "FitBit_Complete_Data" folder and the "Questionnaire_Date" folder, the next step is to get a high-level overview of the data to assess its structure and completeness.
+With my datasets now well organized and stored in the "FitBit_Complete_Data" folder and the "Questionnaire_Data" folder, the next step is to get a high-level overview of the data to assess its structure and completeness.
 
 Steps:
 - Generated a summary and a glimpse of each file with functions like summary(), colnames(), str(), glimpse() and head().
