@@ -106,7 +106,12 @@ Contains 18 CSV files with data from March 12 to May 12, 2016. These files inclu
 
 #### B) "Questionnaire_Data" Folder
 
-This folder contains a PDF of the original survey questionnaire and an Excel file named *Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx*, which is the actual dataset from the survey. It contains responses from over 500 individuals, collected in 2020. The survey includes user opinions, behaviors, and interactions with their smart devices. The Excel file is in long (narrow) format.
+Contains 1 PDF file (the original, blank survey questionnaire) and 1 Excel file (the actual dataset). 
+The Excel file contains data from May to July 2020, from over 500 individuals who filled out the survey:
+
+* *Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx*: User opinions and interactions with their smart devices.
+
+The Excel file is in long (narrow) format.
 
 
 ## 3. Credibility and Limitations
