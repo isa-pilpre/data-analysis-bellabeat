@@ -42,7 +42,7 @@ I also applied conditional formatting in Google Sheets to highlight cells with m
 
 Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "FitBit_Complete_Data". This new, unified folder contains 18 CSV files (11 combined twin files and 7 additional files from the initial folder2). 
 
-Part of my code for file concatenation:
+Part of my [code](BELLABEAT_Combining_Twin_Files.R) for file concatenation:
 
 ```{}
 # List files in each folder
