@@ -1,33 +1,14 @@
-# Chapter 3: Process Phase
+# Chapter 3: Process & Clean Phase
 
-## 1) Transforming the data so I can work with it effectively
+## 1) Getting an overview of the data
 
-I noticed that many files had the same exact name in both Fitbit folder 1 and folder 2. When opening these "twin" files, I realized they have the same structure, except they have different dates.
-So I combined the twin files into a new folder called Recap. That reorganization will make the cleaning and analysis process much easier in the future.
-
-Steps:
-- Created a new folder named "Recap".
-- Looped through the files in the Fitbit folders 1 and 2, checked for twin files. If they existed, concatenated their content and saved the combined file to the Recap folder.
-- Saved the remaining files to the Recap folder as well, in order to have the entire dataset in one folder.
-- Checked if the process went well: verified if the number of rows in each combined file matched the total number of rows from the original twin files.
-- Results: now my Fitbit dataset is stored in one single folder, "Recap", which contains 18 csv files.
-
-Example Code:
-```{}
-# Check the number of rows in each file
-for (file in recap_files) {
-  data <- read_csv(file)
-  cat("File:", basename(file), "- Number of rows:", nrow(data), "\n")
-}
-```
-
-## 2) Getting an overview of the data
+With my datasets now well organized in the "FitBit_Complete_Data" folder and the "Questionnaire_Date" folder, the next step is to get a high-level overview of the data to assess its structure and completeness.
 
 Steps:
 - Generated a summary and a glimpse of each file with functions like summary(), colnames(), str(), glimpse() and head().
 - Saved the information to a text file for easier inspection and future reference.
 
-Example Code:
+Sample Code:
 ```{}
 # Capture file summaries
 summary_file <- here("BELLABEAT", "Recap_summary.txt")
@@ -45,18 +26,32 @@ for (file in recap_files) {
 
 ```
 
-## 3) Data Cleaning and Quality Checks (Nulls, Range Validation)
+## 2) Data Cleaning and Quality Checks (Nulls, Range Validation)
 
 Steps:
-- Checked for missing values in each file.
-- Verified if all numeric values fell within the expected ranges.
-- Documented any issues and steps to clean or address the data.
+- Checked for missing (null) values in each file and documented any nulls found.
+- Verified that all numeric values fell within expected ranges for columns like TotalSteps, Calories, etc.
+- Documented any outliers or potential issues that needed to be addressed in the cleaning phase.
 
-Example Code:
+
+Sample Code:
 ```{}
 for (file in recap_files) {
   data <- read_csv(file)
+  
+  # Check for null values
   nulls <- sapply(data, function(x) sum(is.na(x)))
   cat("File:", basename(file), "- Null values per column:", nulls, "\n")
+  
+  # Check if numeric values are within a valid range (example for steps)
+  if ("TotalSteps" %in% colnames(data)) {
+    invalid_steps <- data %>% filter(TotalSteps < 0 | TotalSteps > 50000)
+    cat("File:", basename(file), "- Invalid steps entries:", nrow(invalid_steps), "\n")
+  }
 }
+
 ```
+
+## 3) Final Review Before Moving to the Analysis Phase
+
+Once the data was cleaned and issues were documented, I reviewed the data structure and quality to ensure it was ready for analysis. This included reviewing the column names, data types, and potential issues with missing or invalid values.
