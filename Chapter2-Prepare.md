@@ -40,7 +40,7 @@ Then I compared the filenames manually using Google Sheets. I imported both text
 
 I also applied conditional formatting in Google Sheets to highlight cells with matching filenames, which confirmed that all the 11 files from the first folder had "twin" files in the second folder. The second folder contained an additional 7 files not found in the first.
 
-Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`FitBit_Complete_Data`". This new, unified folder contains 18 CSV files (11 combined twin files and 7 additional files from the initial folder2). 
+Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`FitBit_Complete_Data`". 
 
 Part of my [code](BELLABEAT_Combining_Twin_Files.R) for file concatenation:
 
@@ -75,9 +75,19 @@ for (file in unique(c(basename(files1), basename(files2)))) {
 
 ```
     
+Checking if I get all the required files in the new, unified folder with the command line:
+
+```bash
+cd FitBit_Complete_Data/
+ls > total_files.txt
+cat total_files.txt
+wc -l total_files.txt
+```
+
+So there are 18 total .CSV files (11 combined "twin" files, and 7 additional files from the initial folder #2). 
+
 Now, the FitBit dataset is fully organized, with all the FitBit files stored in one unified folder called `FitBit_Complete_Data` on my local machine.
 As for the Survey data, it is stored in a folder called Questionnaire_Data in the same directory as the Fitbit folder.
-
 So we now have two unified folders for two datasets (FitBit users and Survey data):
 
 #### A) "FitBit_Complete_Data" Folder
