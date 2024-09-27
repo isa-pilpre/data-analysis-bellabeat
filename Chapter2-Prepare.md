@@ -36,7 +36,7 @@ Then I compared the filenames manually using Google Sheets. I imported both text
 
 * If a match is found, `MATCH()` returns the row number where it found the value in Column B. If no match found, it returns an error (`#N/A`).
 
-* Then `ISNUMBER()` checks if the return value is a number. And IF() evaluates the result of `ISNUMBER()` for `TRUE` or `FALSE`.
+* Then `ISNUMBER()` checks if the return value is a number. And `IF()` evaluates the result of `ISNUMBER()` for `TRUE` or `FALSE`.
 
 I also applied conditional formatting in Google Sheets to highlight cells with matching filenames, which confirmed that all the 11 files from the first folder had "twin" files in the second folder. The second folder contained an additional 7 files not found in the first.
 
