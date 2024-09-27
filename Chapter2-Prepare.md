@@ -12,39 +12,39 @@ For this analysis, I am using two publicly available datasets, each providing di
 ## 2. Data Organization
 
 During my exploration of the FitBit datasets, I found out that the data unzipped into 2 separate folders, called:
-"Fitabase Data 3.12.16 - 4.11.16" 
+"`Fitabase Data 3.12.16 - 4.11.16`" 
 and 
-"Fitabase Data 4.12.16 - 5.12.16".
+"`Fitabase Data 4.12.16 - 5.12.16`".
 I noticed that many files from the first FitBit folder (containing 11 csv files) seemed to have a matching filename in the second FitBit folder (containing 18 csv files), only with different time periods. I decided to investigate further:
 
 First, I used the command line to list the filenames from both FitBit folders and saved them into text files using the following commands:
 
-```{}
+```bash
 ls > filelist_1.txt
 ls > filelist_2.txt
 ```
 
 Then I compared the filenames manually using Google Sheets. I imported both text files into separate columns and applied a matching formula to check for identical filenames:
 
-```{}
+```excel
 =IF(ISNUMBER(MATCH(A1, B:B, 0)), "Match", "No Match")
 ```
 
-*Quick reminder on how the MATCH() function works in Excel and Google Sheets:*
+*Quick reminder on how the `MATCH()` function works in Excel and Google Sheets:*
 
-* MATCH() checks if the value in cell A1 exists anywhere in Column B. The 0 at the end means it looks for an exact match.
+* `MATCH()` checks if the value in cell A1 exists anywhere in Column B. The 0 at the end means it looks for an exact match.
 
-* If a match is found, MATCH() returns the row number where it found the value in Column B. If no match found, it returns an error (#N/A).
+* If a match is found, `MATCH()` returns the row number where it found the value in Column B. If no match found, it returns an error (`#N/A`).
 
-* Then ISNUMBER() checks if the return value is a number. And IF() evaluates the result of ISNUMBER() for TRUE or FALSE.
+* Then `ISNUMBER()` checks if the return value is a number. And IF() evaluates the result of `ISNUMBER()` for `TRUE` or `FALSE`.
 
 I also applied conditional formatting in Google Sheets to highlight cells with matching filenames, which confirmed that all the 11 files from the first folder had "twin" files in the second folder. The second folder contained an additional 7 files not found in the first.
 
-Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "FitBit_Complete_Data". This new, unified folder contains 18 CSV files (11 combined twin files and 7 additional files from the initial folder2). 
+Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`FitBit_Complete_Data`". This new, unified folder contains 18 CSV files (11 combined twin files and 7 additional files from the initial folder2). 
 
 Part of my code for file concatenation:
 
-```{}
+```r
 # List files in each folder
 files1 <- list.files(folder1, pattern = "*.csv", full.names = TRUE)
 files2 <- list.files(folder2, pattern = "*.csv", full.names = TRUE)
@@ -75,7 +75,7 @@ for (file in unique(c(basename(files1), basename(files2)))) {
 
 ```
     
-Now, the FitBit dataset is fully organized, with all the FitBit files stored in one unified folder called FitBit_Complete_Data on my local machine.
+Now, the FitBit dataset is fully organized, with all the FitBit files stored in one unified folder called `FitBit_Complete_Data` on my local machine.
 As for the Survey data, it is stored in a folder called Questionnaire_Data in the same directory as the Fitbit folder.
 
 So we now have two unified folders for two datasets (FitBit users and Survey data):
@@ -84,32 +84,35 @@ So we now have two unified folders for two datasets (FitBit users and Survey dat
 
 Contains 18 CSV files with data from March 12 to May 12, 2016. These files include minute-level and daily data, organized as follows:
 
-* *dailyActivity_merged.csv*: Daily summary of activity levels, steps, and calories burned.
-* *heartrate_seconds_merged.csv*: Second-by-second heart rate data.
-* *hourlyCalories_merged.csv*: Hourly calorie data.
-* *hourlyIntensities_merged.csv*: Hourly intensity data.
-* *hourlySteps_merged.csv*: Hourly step data.
-* *minuteCaloriesNarrow_merged.csv*: Narrow minute-level calorie data.
-* *minuteIntensitiesNarrow_merged.csv*: Narrow minute-level intensity data.
-* *minuteMETsNarrow_merged.csv*: Narrow minute-level MET data.
-* *minuteSleep_merged.csv*: Minute-level sleep data.
-* *minuteStepsNarrow_merged.csv*: Narrow minute-level step data.
-* *weightLogInfo_merged.csv*: Weight log information.
-* *dailyCalories_merged.csv*: Daily calorie data.
-* *dailyIntensities_merged.csv*: Daily intensity data.
-* *dailySteps_merged.csv*: Daily step data.
-* *minuteCaloriesWide_merged.csv*: Wide minute-level calorie data.
-* *minuteIntensitiesWide_merged.csv*: Wide minute-level intensity data.
-* *minuteStepsWide_merged.csv*: Wide minute-level step data.
-* *sleepDay_merged.csv*: Daily summary of sleep data.
-
+File                     | Description
+-------------------------|-----------------------------
+`dailyActivity_merged.csv` | Daily summary of activity levels, steps, and calories burned.
+`heartrate_seconds_merged.csv` | Second-by-second heart rate data.
+`hourlyCalories_merged.csv` | Hourly calorie data.
+`hourlyIntensities_merged.csv` | Hourly intensity data.
+`hourlySteps_merged.csv` | Hourly step data.
+`minuteCaloriesNarrow_merged.csv` | Narrow minute-level calorie data.
+`minuteIntensitiesNarrow_merged.csv` | Narrow minute-level intensity data.
+`minuteMETsNarrow_merged.csv` | Narrow minute-level MET data.
+`minuteSleep_merged.csv` | Minute-level sleep data.
+`minuteStepsNarrow_merged.csv` | Narrow minute-level step data.
+`weightLogInfo_merged.csv` | Weight log information.
+`dailyCalories_merged.csv` | Daily calorie data.
+`dailyIntensities_merged.csv` | Daily intensity data.
+`dailySteps_merged.csv` | Daily step data.
+`minuteCaloriesWide_merged.csv` | Wide minute-level calorie data.
+`minuteIntensitiesWide_merged.csv` | Wide minute-level intensity data.
+`minuteStepsWide_merged.csv` | Wide minute-level step data.
+`sleepDay_merged.csv` | Daily summary of sleep data.
 
 #### B) "Questionnaire_Data" Folder
 
 Contains 1 PDF file (the original, blank survey questionnaire) and 1 Excel file (the actual dataset). 
 The Excel file contains data from May to July 2020, from over 500 individuals who filled out the survey:
 
-* *Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx*: User opinions and interactions with their smart devices.
+File                     | Description
+-------------------------|-----------------------------
+`Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx` | User opinions and interactions with their smart devices.
 
 The Excel file is in long (narrow) format.
 
