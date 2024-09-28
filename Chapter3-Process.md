@@ -13,11 +13,55 @@ Let's remember that I need to answer the following key questions:
 
 ## 2) Breaking down the 18 files into categories
 
+So the 18 Fitbit files are the following:
+
+combined_dailyActivity_merged.csv
+combined_heartrate_seconds_merged.csv
+combined_hourlyCalories_merged.csv
+combined_hourlyIntensities_merged.csv
+combined_hourlySteps_merged.csv
+combined_minuteCaloriesNarrow_merged.csv
+combined_minuteIntensitiesNarrow_merged.csv
+combined_minuteMETsNarrow_merged.csv
+combined_minuteSleep_merged.csv
+combined_minuteStepsNarrow_merged.csv
+combined_weightLogInfo_merged.csv
+dailyCalories_merged.csv
+dailyIntensities_merged.csv
+dailySteps_merged.csv
+minuteCaloriesWide_merged.csv
+minuteIntensitiesWide_merged.csv
+minuteStepsWide_merged.csv
+sleepDay_merged.csv
+
 To make the dataset more manageable, I categorized the 18 files into 3 categories:
 
-- Activity: daily and minute-level activity data like steps, distance, and intensity.
-- Heart rate: users' heart rate data, which provides insights into health and fitness levels.
-- Sleep: sleep duration and quality, to help understand user recovery and wellness.
+- Activity: daily and minute-level activity data like steps, distance, intensity.
+- Heart rate: users' heart rate data.
+- Sleep: sleep duration.
+
+Daily activity
+combined_dailyActivity_merged.csv
+combined_hourlyIntensities_merged.csv
+combined_hourlySteps_merged.csv
+combined_minuteIntensitiesNarrow_merged.csv
+dailyIntensities_merged.csv
+dailySteps_merged.csv
+minuteIntensitiesWide_merged.csv
+minuteStepsWide_merged.csv
+combined_hourlyCalories_merged.csv
+combined_minuteCaloriesNarrow_merged.csv
+combined_minuteStepsNarrow_merged.csv
+combined_weightLogInfo_merged.csv
+dailyCalories_merged.csv
+minuteCaloriesWide_merged.csv
+
+Sleep
+combined_minuteSleep_merged.csv
+sleepDay_merged.csv
+
+Heart rate
+combined_heartrate_seconds_merged.csv
 
 When addressing the business task, I will analyze the trends regarding activity, sleep and heart rate.
 
@@ -40,9 +84,7 @@ Additional files for deeper analysis:
 
 ## 4) Overview of the data
 
-Let's performe an overview of all the files to make sure I didn't miss anything important and to assess the general structure. 
-I wrote an R script to get basic info (structure, summary, column names) for each file.
-
+I performed an overview of all the files to make sure I didn't miss anything important and to assess the general structure. 
 
 Sample code:
 
