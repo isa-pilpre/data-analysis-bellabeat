@@ -151,7 +151,7 @@ However, the Fitbit dataset has four key limitations:
 
 #### Context and authors
 
-The survey dataset was conducted by Francesco Lelli (Professor at Tilburg University) and Heidi Toivonen (PostDoc at Ghent University) using the Qualtrics platform. Data was collected globally from over 500 participants between May and July 2020, with no specific pre-selection of respondents. The study was ethically approved by the IRB of TiSEM (IRB EXE 2020-007), adding credibility to the dataset.
+The survey dataset was conducted by [Francesco Lelli](https://francescolelli.info/) (Professor at Tilburg University) and [Heidi Toivonen](https://www.heiditoivonen.com/) (PostDoc at Ghent University) using the Qualtrics platform. Data was collected globally from over 500 participants between May and July 2020, with no specific pre-selection of respondents. The study was ethically approved by the IRB of TiSEM (IRB EXE 2020-007), adding credibility to the dataset.
 
 #### Strengths
 
