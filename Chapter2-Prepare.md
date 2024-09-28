@@ -1,23 +1,22 @@
 # Chapter 2: Prepare Phase
 
-## 1. Data Sources
+## 1. Data sources
 
 For this analysis, I am using two publicly available datasets, each providing different perspectives on user behavior with smart devices:
 
-**FitBit Fitness Tracker Data (Kaggle)**: Available [here](https://www.kaggle.com/datasets/arashnic/fitbit), this dataset, recommended by Bellabeat’s cofounder and Chief Creative Officer, Urška Sršen, contains detailed daily activity, heart rate, and sleep patterns from 30 Fitbit users. The data is from 2016 and is valuable for understanding user behavior at a granular level, but the small sample size and dated collection period show limitations. This is why I looked for a complementary data source (see below).
+**Fitbit Fitness Tracker Data (Kaggle)**: Available [here](https://www.kaggle.com/datasets/arashnic/fitbit), this dataset, recommended by Bellabeat's COO, contains detailed daily activity data from 30 Fitbit users. The data is from 2016 and provides valuable insights into user behavior at a granular level. However the small sample size and dated collection period show limitations. Furthermore, Bellabeat is primarily focused on women’s wellness, as stated on their website: “A pioneer in the fem-tech realm, Bellabeat helps women track their cycles, pregnancies, and live more in sync with their cycles.". Since the Fitbit dataset does not provide specific insights into women's usage, and because it is both small (30 users) and dated (from 2016), I looked for a complementary data source (see below).
 
-**A Dataset for Studying the Relationship between Humans and Smart Devices (MDPI)**: Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020, and provides insights into user attitudes and interactions with smart devices. This behavioral data complements the Fitbit data by adding a psychological dimension to the analysis.
+**A dataset for studying the relationship between humans and their smart devices (MDPI)**: Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020. The larger, more recent sample makes it more representative and relevant. Additionally, the survey asked respondents whether they were male (1) or female (2), making it better suited to Bellabeat’s focus on women. Lastly, this dataset adds a psychological dimension to the analysis by exploring user attitudes and interactions with their smart devices, nicely complementing the Fitbit data.
 
+## 2. Data organization
 
-## 2. Data Organization
-
-During my exploration of the FitBit datasets, I found out that the data unzipped into 2 separate folders, called:
+During my exploration of the Fitbit datasets, I found out that the data unzipped into 2 separate folders, called:
 "`Fitabase Data 3.12.16 - 4.11.16`" 
 and 
 "`Fitabase Data 4.12.16 - 5.12.16`".
-I noticed that many files from the first FitBit folder (containing 11 csv files) seemed to have a matching filename in the second FitBit folder (containing 18 csv files), only with different time periods. I decided to investigate further:
+I noticed that many files from the first Fitbit folder (containing 11 csv files) seemed to have a matching filename in the second Fitbit folder (containing 18 csv files), only with different time periods. I decided to investigate further:
 
-First, I used the command line to list the filenames from both FitBit folders and saved them into text files using the following commands:
+First, I used the command line to list the filenames from both Fitbit folders and saved them into text files using the following commands:
 
 ```bash
 ls > filelist_1.txt
@@ -34,15 +33,15 @@ Then I compared the filenames manually using Google Sheets. I imported both text
 
 * `MATCH()` checks if the value in cell A1 exists anywhere in Column B. The 0 at the end means it looks for an exact match.
 
-* If a match is found, `MATCH()` returns the row number where it found the value in Column B. If no match found, it returns an error (`#N/A`).
+* If a match is found, `MATCH()` returns the row number where it found the value in Column B. If no match is found, it returns an error (`#N/A`).
 
-* Then `ISNUMBER()` checks if the return value is a number. And `IF()` evaluates the result of `ISNUMBER()` for `TRUE` or `FALSE`.
+* `ISNUMBER()` checks if the return value is a number, and `IF()` evaluates whether `ISNUMBER()` returns `TRUE` or `FALSE`.
 
 I also applied conditional formatting in Google Sheets to highlight cells with matching filenames, which confirmed that all the 11 files from the first folder had "twin" files in the second folder. The second folder contained an additional 7 files not found in the first.
 
-Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`FitBit_Complete_Data`". 
+Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`FitBit_Complete_Data`", (along with the remaining files from Fitbit folder 2 that had no matching filenames). 
 
-Part of my [code](BELLABEAT_Combining_Twin_Files.R) for file concatenation:
+Here's part of my [code](BELLABEAT_Combining_Twin_Files.R) for file concatenation:
 
 ```r
 # List files in each folder
@@ -75,7 +74,7 @@ for (file in unique(c(basename(files1), basename(files2)))) {
 
 ```
     
-Checking if I get all the required files in the new, unified folder with the command line:
+To confirm the final file organization, I checked if all required files were present in the new, unified folder with the following command line:
 
 ```bash
 cd FitBit_Complete_Data/
@@ -84,15 +83,15 @@ cat total_files.txt
 wc -l total_files.txt
 ```
 
-So there are 18 total .CSV files (11 combined "twin" files, and 7 additional files from the initial folder #2). 
+This process resulted in a total of 18 Fitbit .csv files (11 combined "twin" files and 7 additional files from the second folder).
 
-Now, the FitBit dataset is fully organized, with all the FitBit files stored in one unified folder called `FitBit_Complete_Data` on my local machine.
-As for the Survey data, it is stored in a folder called Questionnaire_Data in the same directory as the Fitbit folder.
-So we now have two unified folders for two datasets (FitBit users and Survey data):
+Now, the Fitbit dataset is fully organized, with all the files stored in one unified folder called `Fitbit_Complete_Data`.
+As for the survey data, it is stored separately in a folder called `Questionnaire_Data` in the same directory. 
+As a result, I now have two organized folders for both datasets: one folder for the Fitbit users and one for the survey data.
 
-#### A) "FitBit_Complete_Data" Folder
+#### A) "Fitbit_Complete_Data" folder
 
-Contains 18 CSV files with data from March 12 to May 12, 2016. These files include minute-level and daily data, organized as follows:
+Contains 18 .csv files with data from March 12 to May 12, 2016, organized as follows:
 
 File                     | Description
 -------------------------|-----------------------------
@@ -115,10 +114,14 @@ File                     | Description
 `minuteStepsWide_merged.csv` | Wide minute-level step data.
 `sleepDay_merged.csv` | Daily summary of sleep data.
 
-#### B) "Questionnaire_Data" Folder
+#### B) "Questionnaire_Data" folder
 
-Contains 1 PDF file (the original, blank survey questionnaire) and 1 Excel file (the actual dataset). 
-The Excel file contains data from May to July 2020, from over 500 individuals who filled out the survey:
+Contains:
+- A 'Data Report' PDF file providing the research context, names of the survey authors, etc.
+- The original blank survey questionnaire (PDF)
+- The actual dataset in Excel format.
+  
+The Excel file contains data collected from over 500 individuals between May and July 2020. It focuses on user opinions and interactions with their smart devices:
 
 File                     | Description
 -------------------------|-----------------------------
@@ -126,22 +129,29 @@ File                     | Description
 
 The Excel file is in long (narrow) format.
 
+## 3. Credibility and limitations
 
-## 3. Credibility and Limitations
+While the Fitbit dataset provides detailed minute-by-minute insights, it has three key limitations:
 
-While the FitBit data provides detailed minute-by-minute insights, the small sample size (30 users) makes it difficult to draw conclusions that apply to a larger population. Additionally, the data was collected in 2016, which may not reflect current trends.
-In contrast, the survey dataset from MDPI includes responses from over 500 participants collected in 2020, and thus addresses the first dataset's limitations by offering a more recent and broader perspective. It also adds psychological insights on how users interact with their smart devices.
-However, there are still potential biases because Fitbit users may be more active or health-conscious than the average person, and the survey respondents might represent only a specific demographic. It is also important to investigate how and where the survey was conducted to better understand the significance of the results.
+- a) small sample size (30 users): not representative, makes it difficult to draw conclusions that apply to a larger population;
+- b) outdated data (collected in 2016): the dataset may not reflect current trends in smart device usage;
+- c) lack of gender differentiation: since Bellabeat focuses on women's health and wellness, the lack of gender-specific data makes it less relevant for this business task.
 
-To ensure data quality, I will:
-- Clean the data for missing values or inconsistencies.
-- Verify that all metrics (e.g., steps, heart rate) are within realistic ranges.
-- Ensure GDPR compliance with anonymized responses in the survey data.
+In contrast, the survey dataset from MDPI:
 
-## 4. Data Integrity and Privacy
+- a) larger sample size (500+ participants): provides a more robust and representative perspective;
+- b) more recent data (collected in 2020): provides a more recent perspective;
+- c) gender differentiation: includes data that distinguishes between men and women (using a '1' or '2' code), which makes it more relevant to Bellabeat’s focus on women;
+- d) psychological insights: adds an understanding of how users feel about and interact with their smart devices.
 
-Both datasets are GDPR-compliant and do not contain personally identifiable information. They are publicly available and licensed for open use (FitBit data via Kaggle and the survey data via MDPI's open access). They have been downloaded and stored locally, to ensure the privacy and integrity of the data before proceeding to the cleaning phase.
+The Data Report from the MDPI dataset provides useful context about the survey’s methodology and organization. The survey was conducted by Francesco Lelli (Professor at Tilburg University) and Heidi Toivonen (PostDoc at Ghent University) using Qualtrics, between May and July 2020. The research was distributed globally, with no specific pre-selection of participants, and was ethically approved by the IRB of TiSEM (IRB EXE 2020-007), which supports the reliability of the data.
 
----
+While this dataset is larger and more recent, it’s important to note that the respondents may still represent a specific demographic. This could limit the generalization of the results.
 
-*This document outlines the data preparation for the Bellabeat project, making sure the selected datasets are ready for the next phase (Process & Cleaning).*
+Lastly, Fitbit users may be more health-conscious or active than the average person, which could introduce bias in interpreting the findings.  
+
+
+## 4. Data integrity and privacy
+
+Both datasets are GDPR-compliant and do not contain any personally identifiable information. They are publicly available and licensed for open use (Fitbit data via Kaggle and the survey data via MDPI's open access). These datasets have been downloaded and stored locally to ensure privacy and data integrity before moving to the cleaning phase.
+
