@@ -1,18 +1,56 @@
-# Chapter 3: Process & Clean Phase
+# Chapter 3: Process & Clean phase (Fitbit)
 
-With my datasets now well organized and stored in the "`FitBit_Complete_Data`" folder and the "`Questionnaire_Data`" folder, the next step is to get a high-level overview of the data to assess its structure and completeness, and to clean the data when needed.
-Let's start with the FitBit dataset in the first section below, as it was recommended by the BELLABEAT cofounder.
-Then I will process and clean the Survey dataset in the second section.
+With my Fitbit dataset now well organized and stored in the "`Fitbit_Complete_Data`" folder, the next step is to get a high-level overview of the data to assess its structure and completeness, to check for anamolies (Nulls, duplicates, out-of-range date, outliers), and then to clean the data when needed.
 
-## 1) FitBit Dataset
-### 1.1) Selecting the most relevant files out of the 18 files
+## 1) Remembering my business task
 
-Very important point, let's remember what the business task is:
-The BELLABEAT cofounder asked me "to analyze smart device usage data in order to gain insight into how consumers use non-Bellabeat smart
-devices." She then wants me "to select one Bellabeat product to apply these insights to in your presentation."
-The main questions are: What are some trends in smart device usage? How could these trends apply to Bellabeat customers? How could these trends help influence Bellabeat marketing strategy?"
+Let's remember the main questions I need to answer:
 
-Given that, the most relevant files for my business task would be the ones focused on daily habits and metrics like activity, heart rate, and sleep:
+1. What are some trends in smart device usage?
+2. How could these trends apply to Bellabeat customers?
+3. How could these trends help influence Bellabeat marketing strategy?Selecting the most relevant files out of the 18 files?
+
+In the real world, I could ask questions to Bellabeat COO in order to clarify that they mean by "trends". Instead, since I cannot do that, I will have to rely on what I have at hands, that is the Fitbit dataset.
+
+## 2) Breaking down the 18 files into wider categories
+
+Given that the Fitbit dataset contains 18 .csv files, I need to break them down in smaller categories to make them more manageable for cleaning and future analysis. Incidentally, I notice that the filenames comply with the following syntax:
+
+`text_text_text.csv`
+
+Example: `dailyIntensities_merged.csv` or `combined_minuteIntensitiesNarrow_merged.csv`
+
+To help me with creating categories, I come up with a step-by-step strategy:
+
+- Extract the filenames and split them into individual words.
+- Count the frequency of each word across the 18 filenames.
+- Use the most frequent words to define categories and group similar files.
+
+Indeed, the highest-count word will more likely be a category, which might qualify as a "trend" in my business task.
+
+Here's the approach in R:
+
+``` r
+# Reading the filenames into R
+filenames <- readLines("combined_files.txt")
+
+# Split the filenames into individual words and remove the ".csv" extension
+words <- unlist(strsplit(filenames, "[_.]"))
+
+# Count the frequency of each word
+word_count <- table(words)
+
+# Sort the word count to see which words are most frequent
+sorted_word_count <- sort(word_count, decreasing = TRUE)
+
+# Display the top words
+print(sorted_word_count)
+
+```
+
+## 3) Selecting the most relevant files
+
+From these categories, the most relevant files for my business task would be the ones focused on daily habits and metrics like activity, heart rate, and sleep:
 
 - '*combined_dailyActivity_merged.csv*': contains daily activity, including steps, distance, and calories burned, which directly relates to trends in physical activity.
 - '*combined_heartrate_seconds_merged.csv*': will give me detailed heart rate data, useful for understanding user health trends and potential fitness habits.
@@ -25,12 +63,12 @@ Additional files (useful for deeper analysis, which I may do later on):
 - '*combined_minuteSleep_merged.csv*': If you want to analyze minute-level sleep patterns for more precise insights.
 - '*combined_weightLogInfo_merged.csv*': Contains weight and BMI information, which could help connect physical activity with health trends.
 
-### 1.2) Getting an overview of the data
+## 4) Getting an overview of the data
 
-I wrote an R script to get basic info (structure, column names, summary, NA counts) with functions like `summary()`, `colnames()`, `str()`, and `head()`.
-I saved the information to a text file for easier inspection and future reference.
+I wrote an R script to get basic info (structure, column names, summary) with functions like `summary()`, `colnames()`, `str()`, and `head()`.
+I saved the information to a text file for easier inspection.
 
-Sample Code:
+Sample code:
 
 ```r
 # Goal: Get basic info (structure, colnames, summary) for each file in "FitBit_Complete_Data"
@@ -70,7 +108,7 @@ for (file in all_files) {
 
 ```
 
-### 1.3) Data cleaning and quality checks (nulls, duplicates, range validation)
+## 5) Data cleaning and quality checks (nulls, duplicates, range validation)
 
 The following R script focuses specifically on:
 - Checking NAs
@@ -78,7 +116,7 @@ The following R script focuses specifically on:
 - Identifying and handling outliers
 
 
-Sample Code:
+Sample code:
 ```r
 # Goal: Check for NAs, duplicates, outliers
 
@@ -101,10 +139,8 @@ for (file in all_files) {
 
 ```
 
-## 2) Survey Dataset
+## 6) Double-checking and validation
 
-### 2.2) Getting an overview of the data
 
-### 2.3) Data cleaning and quality checks (nulls, duplicates, range validation)
 
 
