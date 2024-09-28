@@ -83,7 +83,7 @@ Based on the main categories (activity, heart rate, sleep), the most relevant fi
     combined_heartrate_seconds_merged.csv: heart rate data (fitness levels).
     sleepDay_merged.csv: sleep data (for recovery patterns).
 
-Additional files for deeper analysis:
+(Optional) Additional files for deeper analysis:
 
     combined_hourlyCalories_merged.csv: hourly calories burned (activity trends).
     combined_hourlySteps_merged.csv: hourly steps (detailed activity).
@@ -134,6 +134,15 @@ for (file in all_files) {
 }
 
 ```
+
+### What I gathered from the `Recap.txt` file, about the 3 most releval files:
+
+- The `combined_dailyActivity_merged.csv` file tracks daily steps, distance, minutes of activity (light, moderate, very active), sedentary time, and calories burned. There are no missing values, but the units for distance and calories are not specified (likely km or miles for distance and kcal or joules for calories). Total steps range from 0 to 36,019, and calorie burn ranges from 0 to 4,900. It's important to verify the units and check for any unrealistic data points, such as unusually high steps or calorie values.
+
+- The `combined_heartrate_seconds_merged.csv` file contains second-by-second heart rate data with no missing values. However, the unit for the heart rate value (presumably beats per minute) is not explicitly stated. Heart rate values range from 36 to 203 bpm. Key next steps include confirming the unit and investigating extreme values for potential outliers. Given the granularity of the data, aggregating it will be necessary for meaningful analysis.
+
+- The `sleepDay_merged.csv` file provides sleep data, including total minutes asleep, total time in bed, and the number of sleep records. There are no missing values, and units for sleep time are in minutes. Total sleep time ranges from 58 to 796 minutes, while time in bed ranges from 61 to 961 minutes. Analyzing sleep efficiency (comparing time asleep to time in bed) and looking into outliers for unusually short or long sleep durations would be useful.
+
 
 ## 5) Data cleaning and quality checks (nulls, duplicates, range validation)
 
