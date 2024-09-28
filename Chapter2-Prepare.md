@@ -65,15 +65,15 @@ for (file in unique(c(basename(files1), basename(files2)))) {
     # Combine the data
     combined_data <- rbind(data1, data2)
    
-    # Save the combined file in the folder "FitBit_Complete_Data"
-    write_csv(combined_data, here("BELLABEAT", "FitBit_Complete_Data", paste0("combined_", file)))
+    # Save the combined file in the folder "Fitbit_Complete_Data"
+    write_csv(combined_data, here("BELLABEAT", "Fitbit_Complete_Data", paste0("combined_", file)))
    
   } else {
-    # Copy non-matching files to the folder "FitBit_Complete_Data" as well
+    # Copy non-matching files to the folder "Fitbit_Complete_Data" as well
     if (file %in% basename(files1)) {
-      file.copy(file.path(folder1, file), here("BELLABEAT", "FitBit_Complete_Data", file))
+      file.copy(file.path(folder1, file), here("BELLABEAT", "Fitbit_Complete_Data", file))
     } else {
-      file.copy(file.path(folder2, file), here("BELLABEAT", "FitBit_Complete_Data", file))
+      file.copy(file.path(folder2, file), here("BELLABEAT", "Fitbit_Complete_Data", file))
     }
   }
 }
@@ -83,7 +83,7 @@ for (file in unique(c(basename(files1), basename(files2)))) {
 To confirm the final file organization, I checked if all required files were present in the new, unified folder with the following command line:
 
 ```bash
-cd FitBit_Complete_Data/
+cd Fitbit_Complete_Data/
 ls > total_files.txt
 cat total_files.txt
 wc -l total_files.txt
