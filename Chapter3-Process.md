@@ -1,19 +1,19 @@
 # Chapter 3: Process & Clean phase (Fitbit)
 
-With my Fitbit dataset now organized and stored in the `Fitbit_Complete_Data` folder, the next step is to get a high-level overview of the data, to check for anomalies (nulls, duplicates, out-of-range values, outliers), and then to clean the data when needed.
+With the Fitbit dataset now organized and stored in the `Fitbit_Complete_Data` folder, the next step is to assess the data's structure, check for anomalies (nulls, duplicates, out-of-range values, outliers), and clean it when necessary.
 
 ## 1) Reminder of the business task
 
-Let's remember that I need to answer the following key questions:
+To stay aligned with the business task, I need to address the following key questions:
    
 - What are some trends in smart device usage?
 - How could these trends apply to Bellabeat customers?
 - How could these trends help influence Bellabeat marketing strategy?
 
 
-## 2) Breaking down the 18 files into categories
+## 2) Categorizing the 18 files
 
-So the 18 Fitbit files are the following:
+The Fitbit dataset contains the following 18 files:
 
 combined_dailyActivity_merged.csv
 combined_heartrate_seconds_merged.csv
@@ -34,13 +34,14 @@ minuteIntensitiesWide_merged.csv
 minuteStepsWide_merged.csv
 sleepDay_merged.csv
 
-To make the dataset more manageable, I categorized the 18 files into 3 categories:
+To simplify the analysis, I have grouped the files into three broad categories:
 
-- Activity: daily and minute-level activity data like steps, distance, intensity.
-- Heart rate: users' heart rate data.
-- Sleep: sleep duration.
+### 2.1) Activity
 
-Daily activity
+Files related to daily and minute-level activity, such as steps, distance, and intensity.
+
+Files:
+
 combined_dailyActivity_merged.csv
 combined_hourlyIntensities_merged.csv
 combined_hourlySteps_merged.csv
@@ -56,35 +57,43 @@ combined_weightLogInfo_merged.csv
 dailyCalories_merged.csv
 minuteCaloriesWide_merged.csv
 
-Sleep
+### 2.2) Sleep
+
+Files related to sleep duration and patterns.
+
+Files:
+
 combined_minuteSleep_merged.csv
 sleepDay_merged.csv
 
-Heart rate
+### 2.3) Heart rate
+
+Files related to heart rate tracking.
+
+File:
+
 combined_heartrate_seconds_merged.csv
 
-When addressing the business task, I will analyze the trends regarding activity, sleep and heart rate.
-
     
-## 3) Selecting the most relevant files
+## 3) Selection of the most relevant files
 
-Based on the three main categories (activity, heart rate, sleep), the following three files will be the core focus of my analysis:
+Based on the main categories (activity, heart rate, sleep), the most relevant files are as follows:
 
-    combined_dailyActivity_merged.csv: Daily activity (steps, calories burned, and distance).
-    combined_heartrate_seconds_merged.csv: Heart rate data (fitness levels).
-    sleepDay_merged.csv: Sleep data (user recovery and rest).
+    combined_dailyActivity_merged.csv: daily activity (steps, distance, calories burned).
+    combined_heartrate_seconds_merged.csv: heart rate data (fitness levels).
+    sleepDay_merged.csv: sleep data (for recovery patterns).
 
 Additional files for deeper analysis:
 
-    combined_hourlyCalories_merged.csv: Hourly calories burned (activity trends).
-    combined_hourlySteps_merged.csv: Hourly steps (detailed activity).
-    combined_minuteSleep_merged.csv: Minute-level sleep patterns (precise insights).
-    combined_weightLogInfo_merged.csv: Weight and BMI data (potential health trends).
+    combined_hourlyCalories_merged.csv: hourly calories burned (activity trends).
+    combined_hourlySteps_merged.csv: hourly steps (detailed activity).
+    combined_minuteSleep_merged.csv: minute-level sleep patterns (precise insights).
+    combined_weightLogInfo_merged.csv: weight and BMI data (potential health trends).
 
 
-## 4) Overview of the data
+## 4) Initial overview of the data
 
-I performed an overview of all the files to make sure I didn't miss anything important and to assess the general structure. 
+Before cleaning, I performed a basic overview of all the files to understand their structure. Here’s the R script I used to check the column names, data types, and summaries. 
 
 Sample code:
 
