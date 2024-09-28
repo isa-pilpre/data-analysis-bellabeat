@@ -1,6 +1,6 @@
 # Chapter 3: Process & Clean phase (Fitbit)
 
-With my Fitbit dataset now organized and stored in the "`Fitbit_Complete_Data`" folder, the next step is to get a high-level overview of the data to assess its structure and completeness, to check for anomalies (nulls, duplicates, out-of-range values, outliers), and then to clean the data when needed.
+With my Fitbit dataset now organized and stored in the `Fitbit_Complete_Data` folder, the next step is to get a high-level overview of the data, to check for anomalies (nulls, duplicates, out-of-range values, outliers), and then to clean the data when needed.
 
 ## 1) Reminder of the business task
 
@@ -11,18 +11,20 @@ Let's remember that I need to answer the following key questions:
 - How could these trends help influence Bellabeat marketing strategy?
 
 
-## 2) Breaking down the 18 files into 3 main categories
+## 2) Breaking down the 18 files into categories
 
 To make the dataset more manageable, I categorized the 18 files into 3 categories:
 
-- Activity: Includes daily and minute-level activity data like steps, distance, and intensity.
-- Heart Rate: Tracks users' heart rate data, which provides insights into health and fitness levels.
-- Sleep: Covers sleep duration and quality, essential for understanding user recovery and wellness.
-    
+- Activity: daily and minute-level activity data like steps, distance, and intensity.
+- Heart rate: users' heart rate data, which provides insights into health and fitness levels.
+- Sleep: sleep duration and quality, to help understand user recovery and wellness.
 
+When addressing the business task, I will analyze the trends regarding activity, sleep and heart rate.
+
+    
 ## 3) Selecting the most relevant files
 
-Based on the trends that Bellabeat is most interested in (activity, heart rate, sleep), the following three files will be the core focus of my analysis:
+Based on the three main categories (activity, heart rate, sleep), the following three files will be the core focus of my analysis:
 
     combined_dailyActivity_merged.csv: Daily activity (steps, calories burned, and distance).
     combined_heartrate_seconds_merged.csv: Heart rate data (fitness levels).
@@ -38,17 +40,18 @@ Additional files for deeper analysis:
 
 ## 4) Overview of the data
 
-Before running the cleaning process, I performed a quick overview of all the files to make sure I didn't miss any important insights and to assess the general file structure. I wrote an R script to get a basic summary (column names, data types, NA counts, etc.) for each file.
+Let's performe an overview of all the files to make sure I didn't miss anything important and to assess the general structure. 
+I wrote an R script to get basic info (structure, summary, column names) for each file.
 
 
 Sample code:
 
 ```r
-# Goal: Get basic info (structure, colnames, summary) for each file in "FitBit_Complete_Data"
+# Goal: Get basic info (structure, colnames, summary) for each file in "Fitbit_Complete_Data"
 # And write all this info into text file "Recap.txt"
 
 # Folder path using 'here()'
-folder <- here("FitBit_Complete_Data")
+folder <- here("Fitbit_Complete_Data")
 
 # Get all CSV files from the FitBit folder
 all_files <- list.files(folder, pattern = "*.csv", full.names = TRUE)
