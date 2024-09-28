@@ -29,7 +29,7 @@ ls > filelist_1.txt
 ls > filelist_2.txt
 ```
 
-Then I compared the filenames manually using Google Sheets. I imported both text files into separate columns and applied a matching formula to check for identical filenames:
+Then I compared the filenames using Google Sheets. I imported both text files into a spreadsheet, pasted them side by side in two columns, then applied an Excel formula to check for identical filenames:
 
 ```excel
 =IF(ISNUMBER(MATCH(A1, B:B, 0)), "Match", "No Match")
@@ -45,7 +45,7 @@ Then I compared the filenames manually using Google Sheets. I imported both text
 
 I also applied conditional formatting in Google Sheets to highlight cells with matching filenames, which confirmed that all the 11 files from the first folder had "twin" files in the second folder. The second folder contained an additional 7 files not found in the first.
 
-Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`FitBit_Complete_Data`", (along with the remaining files from Fitbit folder 2 that had no matching filenames). 
+Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`Fitbit_Complete_Data`", (along with the remaining files that had no matching filenames). 
 
 Here's part of my [code](BELLABEAT_Combining_Twin_Files.R) for file concatenation:
 
@@ -150,7 +150,7 @@ The Fitbit dataset has four key limitations:
 - a) Small sample size (30 users): not representative, makes it difficult to draw conclusions that can be applied to a larger population;
 - b) Outdated data (collected in 2016): the dataset may not reflect current trends in smart device usage;
 - c) Lack of gender differentiation: since Bellabeat focuses on women's health and wellness, the lack of gender-specific data makes it less relevant for this business task.
-- d) Potential bias: Fitbit users might be more health-conscious or active than the general population, which could introduce bias in the analysis.
+- d) Potential bias: Fitbit users might be more active than the general population, which could introduce bias in the analysis.
 
 
 ### B) Survey dataset
@@ -169,7 +169,7 @@ The survey dataset was conducted by [Francesco Lelli](https://francescolelli.inf
 
 #### Limitations
 
-However, the survey respondents might represent a specific demographic and could limit the generalization of the results.
+However, the survey respondents might still represent a specific demographic and could limit the generalization of the results.
 
 
 ## 4. Data integrity and privacy
