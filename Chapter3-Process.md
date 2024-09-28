@@ -1,20 +1,25 @@
 # Chapter 3: Process & Clean phase (Fitbit)
 
-With my Fitbit dataset now well organized and stored in the "`Fitbit_Complete_Data`" folder, the next step is to get a high-level overview of the data to assess its structure and completeness, to check for anamolies (Nulls, duplicates, out-of-range date, outliers), and then to clean the data when needed.
+With my Fitbit dataset now organized and stored in the "`Fitbit_Complete_Data`" folder, the next step is to get a high-level overview of the data to assess its structure and completeness, to check for anomalies (nulls, duplicates, out-of-range values, outliers), and then to clean the data when needed.
 
-## 1) Remembering my business task
+## 1) Reminder of the business task
 
-Let's remember the main questions I need to answer:
+Let's remember that I need to answer the following key questions:
+   
+- What are some trends in smart device usage?
+- How could these trends apply to Bellabeat customers?
+- How could these trends help influence Bellabeat marketing strategy?
 
-1. What are some trends in smart device usage?
-2. How could these trends apply to Bellabeat customers?
-3. How could these trends help influence Bellabeat marketing strategy?Selecting the most relevant files out of the 18 files?
 
-In the real world, I could ask questions to Bellabeat COO in order to clarify that they mean by "trends". Instead, since I cannot do that, I will have to rely on what I have at hands, that is the Fitbit dataset.
+## 2) Breaking down the 18 files into 3 main categories
 
-## 2) Breaking down the 18 files into categories
+To make the dataset more manageable, I categorized the 18 files into 3 categories:
 
-Given that the Fitbit dataset contains 18 .csv files, this number is not easily manageable to make sense of the data.
+- Activity: Includes daily and minute-level activity data like steps, distance, and intensity.
+- Heart Rate: Tracks users' heart rate data, which provides insights into health and fitness levels.
+- Sleep: Covers sleep duration and quality, essential for understanding user recovery and wellness.
+    
+    Given that the Fitbit dataset contains 18 .csv files, this number is not easily manageable to make sense of the data.
 I need to put the files into categories to make them more manageable for cleaning and future analysis. Incidentally, I notice that the filenames comply with the following syntax (CamelCase and underscores):
 
 `textTextText_text.csv`
