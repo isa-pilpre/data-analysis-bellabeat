@@ -151,14 +151,15 @@ However, the Fitbit dataset has four key limitations:
 
 #### Context and authors
 
-The survey dataset was conducted by [Francesco Lelli](https://francescolelli.info/) (Professor at Tilburg University) and [Heidi Toivonen](https://www.heiditoivonen.com/) (PostDoc at Ghent University) using the Qualtrics platform. Data was collected globally from over 500 participants between May and July 2020, with no specific pre-selection of respondents. The study was ethically approved by the IRB of TiSEM (IRB EXE 2020-007), adding credibility to the dataset.
-
+The survey dataset was conducted by [Francesco Lelli](https://francescolelli.info/) (Professor at Tilburg University) and [Heidi Toivonen](https://www.heiditoivonen.com/) (PostDoc at Ghent University) using the Qualtrics platform. Data was collected from over 500 participants between May and July 2020, with no specific pre-selection of respondents. 
 #### Strengths
 
 - a) Larger sample size (500+ participants): provides a more robust and representative perspective;
 - b) More recent data (collected in 2020): provides a more recent perspective;
-- c) Gender differentiation: includes data that distinguishes between men and women (using a '1' or '2' code), which makes it more relevant to Bellabeat’s focus on women;
-- d) Psychological insights: adds an understanding of how users feel about and interact with their smart devices.
+- c) Gender differentiation: includes data that distinguishes between men and women (coded as '1' or '2'), which makes it more relevant to Bellabeat’s focus on women;
+- d) Ethical approval: received a stamp of ethical approval (IRB EXE 2020-007) for data collection integrity and participant protection.
+- e) Global collection: distributed globally, so there was a diverse pool of respondents, which adds to the dataset's generalizability.
+- f) Psychological insights: adds an understanding of how users feel about and interact with their smart devices.
 
 #### Limitations
 
