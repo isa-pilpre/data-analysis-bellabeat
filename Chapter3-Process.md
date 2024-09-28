@@ -12,11 +12,12 @@ Let's remember the main questions I need to answer:
 
 In the real world, I could ask questions to Bellabeat COO in order to clarify that they mean by "trends". Instead, since I cannot do that, I will have to rely on what I have at hands, that is the Fitbit dataset.
 
-## 2) Breaking down the 18 files into wider categories
+## 2) Breaking down the 18 files into categories
 
-Given that the Fitbit dataset contains 18 .csv files, I need to break them down in smaller categories to make them more manageable for cleaning and future analysis. Incidentally, I notice that the filenames comply with the following syntax:
+Given that the Fitbit dataset contains 18 .csv files, this number is not easily manageable to make sense of the data.
+I need to put the files into categories to make them more manageable for cleaning and future analysis. Incidentally, I notice that the filenames comply with the following syntax (CamelCase and underscores):
 
-`text_text_text.csv`
+`textTextText_text.csv`
 
 Example: `dailyIntensities_merged.csv` or `combined_minuteIntensitiesNarrow_merged.csv`
 
@@ -28,40 +29,73 @@ To help me with creating categories, I come up with a step-by-step strategy:
 
 Indeed, the highest-count word will more likely be a category, which might qualify as a "trend" in my business task.
 
-Here's the approach in R:
+Here's my approach in R:
 
 ``` r
-# Reading the filenames into R
+# Reading the filenames into R from the text file 'combined_files.txt'
 filenames <- readLines("combined_files.txt")
 
-# Split the filenames into individual words and remove the ".csv" extension
-words <- unlist(strsplit(filenames, "[_.]"))
+# Function to split CamelCase (e.g., dailyActivity -> daily, Activity)
+split_camel_case <- function(x) {
+  # Split the string where a lowercase letter is followed by an uppercase letter
+  # and also split on underscores and periods.
+  # Explanation of the regex:
+  # "(?<!^)" ensures that it does not split at the start of the string.
+  # "(?=[A-Z])" matches the position right before an uppercase letter (used to split CamelCase).
+  # "[_\\.]" splits on underscores (_) or periods (.) in the string.
+  unlist(strsplit(x, "(?<!^)(?=[A-Z])|[_\\.]", perl=TRUE))
+}
 
-# Count the frequency of each word
-word_count <- table(words)
+# lapply applies the 'split_camel_case' function to each element (filename) in the 'filenames' list
+# It returns a list of the split words from each filename, which is then flattened into a single vector using unlist()
+words <- unlist(lapply(filenames, split_camel_case))
 
-# Sort the word count to see which words are most frequent
+# Remove unnecessary words like "csv", "merged", "combined", "wide", and "narrow" from the list
+words <- words[!tolower(words) %in% c("csv", "merged", "combined", "wide", "narrow")]
+
+# Count the frequency of each word and convert all to lowercase to avoid case-sensitive duplicates
+word_count <- table(tolower(words))
+
+# Sort the word count in descending order (most frequent words first)
 sorted_word_count <- sort(word_count, decreasing = TRUE)
 
-# Display the top words
+# Display the top words and their frequencies
 print(sorted_word_count)
 
 ```
 
 ## 3) Selecting the most relevant files
 
-From these categories, the most relevant files for my business task would be the ones focused on daily habits and metrics like activity, heart rate, and sleep:
+The results from my R script show:
 
-- '*combined_dailyActivity_merged.csv*': contains daily activity, including steps, distance, and calories burned, which directly relates to trends in physical activity.
-- '*combined_heartrate_seconds_merged.csv*': will give me detailed heart rate data, useful for understanding user health trends and potential fitness habits.
-- '*sleepDay_merged.csv*': contains sleep data, which can help reveal insights into user habits around rest and recovery.
+     minute    calories       daily intensities       steps      hourly       sleep 
+          8           4           4           4           4           3           2 
+   activity         day           e       files   heartrate        info         log 
+          1           1           1           1           1           1           1 
+          m     seconds          ts         txt      weight 
+          1           1           1           1           1 
+          
+
+Based on my analysis of the filenames, the following categories stand out as most relevant for understanding smart device usage trends related to activity, heart rate, and sleep, which align with Bellabeat's business goals:
+
+    Activity: Includes daily and minute-level activity data like steps, distance, and intensity.
+    Heart Rate: Tracks users' heart rate, which provides insights into health and fitness levels.
+    Sleep: Covers sleep duration and quality, essential for understanding user recovery and wellness.
+    
+Relevant Files for Analysis:
+
+- '*combined_dailyActivity_merged.csv*': contains daily activity, including steps, calories burned, and distance.
+- '*combined_heartrate_seconds_merged.csv*': provides heart rate data, useful for assessing fitness levels.
+- '*sleepDay_merged.csv*': contains sleep data, which can help reveal insights into users' rest and recovery.
 
 Additional files (useful for deeper analysis, which I may do later on):
 
-- '*combined_hourlyCalories_merged.csv*': Hourly calories burned can show more granular trends in activity throughout the day.
-- '*combined_hourlySteps_merged.csv*': Hourly steps can also provide more detailed activity data.
-- '*combined_minuteSleep_merged.csv*': If you want to analyze minute-level sleep patterns for more precise insights.
-- '*combined_weightLogInfo_merged.csv*': Contains weight and BMI information, which could help connect physical activity with health trends.
+- '*combined_hourlyCalories_merged.csv*': hourly calories burned can show more granular trends in activity throughout the day.
+- '*combined_hourlySteps_merged.csv*': hourly steps can also provide more detailed activity data.
+- '*combined_minuteSleep_merged.csv*': if I want to analyze minute-level sleep patterns for more precise insights.
+- '*combined_weightLogInfo_merged.csv*': contains weight and BMI information, which could help connect physical activity with health trends.
+
+For now, the first three files will form the core of my analysis.
 
 ## 4) Getting an overview of the data
 
