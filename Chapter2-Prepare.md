@@ -131,24 +131,38 @@ The Excel file is in long (narrow) format.
 
 ## 3. Credibility and limitations
 
-While the Fitbit dataset provides detailed minute-by-minute insights, it has three key limitations:
+### A) Fitbit dataset
 
-- a) small sample size (30 users): not representative, makes it difficult to draw conclusions that apply to a larger population;
-- b) outdated data (collected in 2016): the dataset may not reflect current trends in smart device usage;
-- c) lack of gender differentiation: since Bellabeat focuses on women's health and wellness, the lack of gender-specific data makes it less relevant for this business task.
+#### Context and authors
 
-In contrast, the survey dataset from MDPI:
+The Fitbit dataset was compiled and made publicly available by [Möbius](https://www.kaggle.com/arashnic) on [Kaggle](https://www.kaggle.com/datasets/arashnic/fitbit). It includes data collected through Fitbit’s API, which offers insights into user habits at a granular level.
 
-- a) larger sample size (500+ participants): provides a more robust and representative perspective;
-- b) more recent data (collected in 2020): provides a more recent perspective;
-- c) gender differentiation: includes data that distinguishes between men and women (using a '1' or '2' code), which makes it more relevant to Bellabeat’s focus on women;
-- d) psychological insights: adds an understanding of how users feel about and interact with their smart devices.
+#### Limitations
 
-The Data Report from the MDPI dataset provides useful context about the survey’s methodology and organization. The survey was conducted by Francesco Lelli (Professor at Tilburg University) and Heidi Toivonen (PostDoc at Ghent University) using Qualtrics, between May and July 2020. The research was distributed globally, with no specific pre-selection of participants, and was ethically approved by the IRB of TiSEM (IRB EXE 2020-007), which supports the reliability of the data.
+However, the Fitbit dataset has four key limitations:
 
-While this dataset is larger and more recent, it’s important to note that the respondents may still represent a specific demographic. This could limit the generalization of the results.
+- a) Small sample size (30 users): not representative, makes it difficult to draw conclusions that can be applied to a larger population;
+- b) Outdated data (collected in 2016): the dataset may not reflect current trends in smart device usage;
+- c) Lack of gender differentiation: since Bellabeat focuses on women's health and wellness, the lack of gender-specific data makes it less relevant for this business task.
+- d) Potential bias: Fitbit users might be more health-conscious or active than the general population, which could introduce bias in the analysis.
 
-Lastly, Fitbit users may be more health-conscious or active than the average person, which could introduce bias in interpreting the findings.  
+
+### B) Survey dataset
+
+#### Context and authors
+
+The survey dataset was conducted by Francesco Lelli (Professor at Tilburg University) and Heidi Toivonen (PostDoc at Ghent University) using the Qualtrics platform. Data was collected globally from over 500 participants between May and July 2020, with no specific pre-selection of respondents. The study was ethically approved by the IRB of TiSEM (IRB EXE 2020-007), adding credibility to the dataset.
+
+#### Strengths
+
+- a) Larger sample size (500+ participants): provides a more robust and representative perspective;
+- b) More recent data (collected in 2020): provides a more recent perspective;
+- c) Gender differentiation: includes data that distinguishes between men and women (using a '1' or '2' code), which makes it more relevant to Bellabeat’s focus on women;
+- d) Psychological insights: adds an understanding of how users feel about and interact with their smart devices.
+
+#### Limitations
+
+However, the survey respondents might represent a specific demographic and could limit the generalization of the results.
 
 
 ## 4. Data integrity and privacy
