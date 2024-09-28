@@ -19,92 +19,27 @@ To make the dataset more manageable, I categorized the 18 files into 3 categorie
 - Heart Rate: Tracks users' heart rate data, which provides insights into health and fitness levels.
 - Sleep: Covers sleep duration and quality, essential for understanding user recovery and wellness.
     
-    Given that the Fitbit dataset contains 18 .csv files, this number is not easily manageable to make sense of the data.
-I need to put the files into categories to make them more manageable for cleaning and future analysis. Incidentally, I notice that the filenames comply with the following syntax (CamelCase and underscores):
-
-`textTextText_text.csv`
-
-Example: `dailyIntensities_merged.csv` or `combined_minuteIntensitiesNarrow_merged.csv`
-
-To help me with creating categories, I come up with a step-by-step strategy:
-
-- Extract the filenames and split them into individual words.
-- Count the frequency of each word across the 18 filenames.
-- Use the most frequent words to define categories and group similar files.
-
-Indeed, the highest-count word will more likely be a category, which might qualify as a "trend" in my business task.
-
-Here's my approach in R:
-
-``` r
-# Reading the filenames into R from the text file 'combined_files.txt'
-filenames <- readLines("combined_files.txt")
-
-# Function to split CamelCase (e.g., dailyActivity -> daily, Activity)
-split_camel_case <- function(x) {
-  # Split the string where a lowercase letter is followed by an uppercase letter
-  # and also split on underscores and periods.
-  # Explanation of the regex:
-  # "(?<!^)" ensures that it does not split at the start of the string.
-  # "(?=[A-Z])" matches the position right before an uppercase letter (used to split CamelCase).
-  # "[_\\.]" splits on underscores (_) or periods (.) in the string.
-  unlist(strsplit(x, "(?<!^)(?=[A-Z])|[_\\.]", perl=TRUE))
-}
-
-# lapply applies the 'split_camel_case' function to each element (filename) in the 'filenames' list
-# It returns a list of the split words from each filename, which is then flattened into a single vector using unlist()
-words <- unlist(lapply(filenames, split_camel_case))
-
-# Remove unnecessary words like "csv", "merged", "combined", "wide", and "narrow" from the list
-words <- words[!tolower(words) %in% c("csv", "merged", "combined", "wide", "narrow")]
-
-# Count the frequency of each word and convert all to lowercase to avoid case-sensitive duplicates
-word_count <- table(tolower(words))
-
-# Sort the word count in descending order (most frequent words first)
-sorted_word_count <- sort(word_count, decreasing = TRUE)
-
-# Display the top words and their frequencies
-print(sorted_word_count)
-
-```
 
 ## 3) Selecting the most relevant files
 
-The results from my R script show:
+Based on the trends that Bellabeat is most interested in (activity, heart rate, sleep), the following three files will be the core focus of my analysis:
 
-     minute    calories       daily intensities       steps      hourly       sleep 
-          8           4           4           4           4           3           2 
-   activity         day           e       files   heartrate        info         log 
-          1           1           1           1           1           1           1 
-          m     seconds          ts         txt      weight 
-          1           1           1           1           1 
-          
+    combined_dailyActivity_merged.csv: Daily activity (steps, calories burned, and distance).
+    combined_heartrate_seconds_merged.csv: Heart rate data (fitness levels).
+    sleepDay_merged.csv: Sleep data (user recovery and rest).
 
-From these categories, the most relevant files for my business task are those related to daily activity, health/weight, heart rate, and sleep.  
-Here's how I'll categorize them:
+Additional files for deeper analysis:
 
-    Activity: 
-        combined_dailyActivity_merged.csv
-        dailySteps_merged.csv
-        combined_hourlySteps_merged.csv
-
-    Calories & Weight:
-        combined_hourlyCalories_merged.csv
-        combined_weightLogInfo_merged.csv
-
-    Heart Rate: 
-        combined_heartrate_seconds_merged.csv
-
-    Sleep: 
-        sleepDay_merged.csv
-        combined_minuteSleep_merged.csv
+    combined_hourlyCalories_merged.csv: Hourly calories burned (activity trends).
+    combined_hourlySteps_merged.csv: Hourly steps (detailed activity).
+    combined_minuteSleep_merged.csv: Minute-level sleep patterns (precise insights).
+    combined_weightLogInfo_merged.csv: Weight and BMI data (potential health trends).
 
 
-## 4) Getting an overview of the data
+## 4) Overview of the data
 
-I wrote an R script to get basic info (structure, column names, summary) with functions like `summary()`, `colnames()`, `str()`, and `head()`.
-I saved the information to a text file for easier inspection.
+Before running the cleaning process, I performed a quick overview of all the files to make sure I didn't miss any important insights and to assess the general file structure. I wrote an R script to get a basic summary (column names, data types, NA counts, etc.) for each file.
+
 
 Sample code:
 
