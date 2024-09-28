@@ -145,7 +145,7 @@ The Fitbit dataset was compiled and made publicly available by [Möbius](https:/
 
 #### Limitations
 
-However, the Fitbit dataset has four key limitations:
+The Fitbit dataset has four key limitations:
 
 - a) Small sample size (30 users): not representative, makes it difficult to draw conclusions that can be applied to a larger population;
 - b) Outdated data (collected in 2016): the dataset may not reflect current trends in smart device usage;
