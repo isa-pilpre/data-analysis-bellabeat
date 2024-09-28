@@ -76,26 +76,25 @@ The results from my R script show:
           1           1           1           1           1 
           
 
-Based on my analysis of the filenames, the following categories stand out as most relevant for understanding smart device usage trends related to activity, heart rate, and sleep, which align with Bellabeat's business goals:
+From these categories, the most relevant files for my business task are those related to daily activity, health/weight, heart rate, and sleep.  
+Here's how I'll categorize them:
 
-    Activity: Includes daily and minute-level activity data like steps, distance, and intensity.
-    Heart Rate: Tracks users' heart rate, which provides insights into health and fitness levels.
-    Sleep: Covers sleep duration and quality, essential for understanding user recovery and wellness.
-    
-Relevant Files for Analysis:
+    Activity: 
+        combined_dailyActivity_merged.csv
+        dailySteps_merged.csv
+        combined_hourlySteps_merged.csv
 
-- '*combined_dailyActivity_merged.csv*': contains daily activity, including steps, calories burned, and distance.
-- '*combined_heartrate_seconds_merged.csv*': provides heart rate data, useful for assessing fitness levels.
-- '*sleepDay_merged.csv*': contains sleep data, which can help reveal insights into users' rest and recovery.
+    Calories & Weight:
+        combined_hourlyCalories_merged.csv
+        combined_weightLogInfo_merged.csv
 
-Additional files (useful for deeper analysis, which I may do later on):
+    Heart Rate: 
+        combined_heartrate_seconds_merged.csv
 
-- '*combined_hourlyCalories_merged.csv*': hourly calories burned can show more granular trends in activity throughout the day.
-- '*combined_hourlySteps_merged.csv*': hourly steps can also provide more detailed activity data.
-- '*combined_minuteSleep_merged.csv*': if I want to analyze minute-level sleep patterns for more precise insights.
-- '*combined_weightLogInfo_merged.csv*': contains weight and BMI information, which could help connect physical activity with health trends.
+    Sleep: 
+        sleepDay_merged.csv
+        combined_minuteSleep_merged.csv
 
-For now, the first three files will form the core of my analysis.
 
 ## 4) Getting an overview of the data
 
