@@ -2,7 +2,7 @@
 
 ## 1. Data sources
 
-For this analysis, I am using two publicly available datasets, each providing different perspectives on user behavior with smart devices:
+For this analysis, I am using two publicly available datasets, wich provide different perspectives on user behaviors and relationships with their smart devices:
 
 - **A) Fitbit Fitness Tracker Data (Kaggle)**
 
@@ -12,7 +12,7 @@ However, because of this dataset's limitations (small sample size, data collecte
 
 - **B) 'A dataset for studying the relationship between humans and their smart devices' (MDPI)**
 
-Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020. The larger, more recent sample makes it more representative and relevant. Additionally, the survey asked respondents whether they were male (1) or female (2), making it better suited to Bellabeat’s focus on women. Lastly, this dataset adds a psychological dimension to the analysis by exploring user attitudes and interactions with their smart devices, nicely complementing the Fitbit data.
+Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020. The larger, more recent sample makes it more representative and relevant. Additionally, the survey asked respondents whether they were male (1) or female (2), which makes it better suited to Bellabeat’s focus on women. Lastly, this dataset adds a psychological dimension to the analysis by exploring user attitudes and interactions with their smart devices, which is nice addition to the Fitbit data.
 
 ## 2. Data organization
 
