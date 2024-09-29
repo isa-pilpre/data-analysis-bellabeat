@@ -42,23 +42,42 @@ Before cleaning, I performed a basic overview of all the .csv files to understan
 Sample code of my [R script](BELLABEAT_Overview_Data):
 
 ```r
-# Loop through all .csv files and save summaries to the overview file
+# Loop through all .csv files and check for nulls, duplicates & outliers
 for (file in all_files) {
   data <- read_csv(file)
- 
+  
   # Capture summary output
   summary_output <- capture.output({
-   
+    
     cat("File: ", basename(file), "\n")
-    print((head(data)))                          # displays a tibble (first few lines & columns)
-    print(str(data))                             # structure with data types
-    cat("Column names: ", colnames(data), "\n")  # column names
-    print(summary(data))                         # summary w/ min, max, mean, median & quartiles
+    
+    # Check for NA values and print only if they exist
+    na_count <- colSums(is.na(data))
+    if (any(na_count > 0)) {
+      cat("Null values detected in file", basename(file), ":\n")
+      print(na_count[na_count > 0])  # Print columns where NA > 0
+    }
+    
+    # Check for duplicates and print only if they exist
+    duplicate_count <- nrow(data) - nrow(data %>% distinct())
+    if (duplicate_count > 0) {
+      cat("Duplicates detected in file", basename(file), ":", duplicate_count, "duplicates found\n")
+    }
+    
+    # Check for outliers in numeric data using IQR and print only if outliers exist
+    numeric_columns <- sapply(data, is.numeric)
+    outliers_detected <- sapply(data[, numeric_columns], detect_outliers)
+    outlier_count <- colSums(outliers_detected)
+    if (any(outlier_count > 0)) {
+      cat("Outliers detected in file", basename(file), ":\n")
+      print(outlier_count[outlier_count > 0])  # Print columns where outliers were detected
+    }
+    
     cat("\n---------------------------------\n")
   })
- 
-  # Write summary to the overview file
-  write(summary_output, overview_file, append = TRUE)
+  
+  # Write summary to the cleaning results file
+  write(summary_output, cleaning_results_file, append = TRUE)
 }
 
 ```
@@ -71,7 +90,7 @@ Based on the initial overview of the Fitbit dataset, here are my key observation
 
 From the file structures and column names, several trends could emerge:
 
-- Activity trends: nderstanding when users are most active (morning, afternoon, evening) based on the `ActivityDate` and `ActivityHour` columns.
+- Activity trends: insights into when users are most active (morning, afternoon, evening) based on the `ActivityDate` and `ActivityHour` columns.
 - Intensity trends: insights into users' activity levels via the `VeryActiveMinutes`, `FairlyActiveMinutes`, and `LightlyActiveMinutes` columns.
 - Sleep patterns: insights into sleep duration and habits via the `TotalMinutesAsleep` and `TotalTimeInBed` columns.
 - Recovery patterns: insights into recovery patterns via the `Value` column in the heart rate file.
@@ -89,10 +108,11 @@ After reviewing the `Overview.txt` file, I identified the following as the most 
 
 ## 4) Data cleaning and quality checks (nulls, duplicates, range validation)
 
-The following R script focuses specifically on:
-- Checking NAs
+For the data cleaning process, I will focus on three key checks:
+
+- Checking for null values (NAs)
 - Removing duplicates
-- Identifying and handling outliers
+- Identifying and handling outliers / abnormal values
 
 
 Sample code:
@@ -118,8 +138,42 @@ for (file in all_files) {
 
 ```
 
-## 6) Double-checking and validation
+### What I gathered from the [`Cleaning_Results.txt` file](Overview.txt)
 
+#### Missing values (NA)
+
+Null values were detected only in one file:
+
+- File `combined_weightLogInfo_merged.csv`
+Column `Fat`: 96 missing values detected.
+
+#### Duplicates
+
+Duplicates were detected in the following files:
+- File:  combined_heartrate_seconds_merged.csv 
+Duplicates detected in file combined_heartrate_seconds_merged.csv : 23424 duplicates found
+- File:  combined_hourlyCalories_merged.csv 
+Duplicates detected in file combined_hourlyCalories_merged.csv : 175 duplicates found
+- File:  combined_hourlyIntensities_merged.csv 
+Duplicates detected in file combined_hourlyIntensities_merged.csv : 175 duplicates found
+- File:  combined_hourlySteps_merged.csv 
+Duplicates detected in file combined_hourlySteps_merged.csv : 175 duplicates found
+- File:  combined_minuteCaloriesNarrow_merged.csv 
+Duplicates detected in file combined_minuteCaloriesNarrow_merged.csv : 10500 duplicates found
+- File:  combined_minuteIntensitiesNarrow_merged.csv 
+Duplicates detected in file combined_minuteIntensitiesNarrow_merged.csv : 10500 duplicates found
+- File:  combined_minuteMETsNarrow_merged.csv 
+Duplicates detected in file combined_minuteMETsNarrow_merged.csv : 10500 duplicates found
+- File:  combined_minuteSleep_merged.csv 
+Duplicates detected in file combined_minuteSleep_merged.csv : 4300 duplicates found
+- File:  combined_minuteStepsNarrow_merged.csv 
+Duplicates detected in file combined_minuteStepsNarrow_merged.csv : 10500 duplicates found
+- File:  combined_weightLogInfo_merged.csv 
+Duplicates detected in file combined_weightLogInfo_merged.csv : 2 duplicates found
+- File:  sleepDay_merged.csv 
+Duplicates detected in file sleepDay_merged.csv : 3 duplicates found
+
+#### Outliers and abnormal values
 
 
 
