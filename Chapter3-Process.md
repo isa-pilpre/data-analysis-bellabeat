@@ -88,13 +88,24 @@ After reviewing the `Overview.txt` file, I identified the following as the most 
 - `combined_heartrate_seconds_merged.csv`: this file provides heart rate data at a second-by-second granularity throughout the day, with the `Value` column providing heartrate values. This file seems to be valuable for analyzing recovery patterns, although no explicit units are provided (we can assume it is measured in beats per minute, BPM). It might be useful to aggregate this data at a higher level (hourly or daily) for some insights on recovery trends.
     
 
-## 4) Data cleaning and quality checks (nulls, duplicates, range validation)
+## 4) Data cleaning and quality checks
 
-For the data cleaning process, I will focus on three key checks:
+### Check for nulls and duplicates
+
+For the data cleaning process, I started with:
 
 - Checking for null values (NAs)
 - Removing duplicates
-- Identifying and handling outliers / abnormal values
+
+The cleaned data is saved in a new folder called `Cleaned_Fitbit`, while I kept the original dataset in the `Fitbit_Complete_Data` folder.
+
+### Handling outliers
+
+Outliers are more complex to deal with programmatically, because it's not always clear if they are acutual errors or legitimate values (for example, an extremely high heart rate could be a real data point for an athlete). Therefore, I decided not to remove outliers programmatically at this stage. I preferred to take a conservative approach and not risk deleting any valid data. I will further review or filter the data during the analysis phase if needed.
+
+### Additional Cleaning
+
+I might need to change or fix data types or do further filtering during the analysis or visualization phases, so the cleaning process may continue at that point if needed.
 
 
 Sample code:
@@ -120,16 +131,7 @@ for (file in all_files) {
     if (duplicate_count > 0) {
       cat("Duplicates detected in file", basename(file), ":", duplicate_count, "duplicates found\n")
     }
-    
-    # Check for outliers in numeric data using IQR and print only if outliers exist
-    numeric_columns <- sapply(data, is.numeric)
-    outliers_detected <- sapply(data[, numeric_columns], detect_outliers)
-    outlier_count <- colSums(outliers_detected)
-    if (any(outlier_count > 0)) {
-      cat("Outliers detected in file", basename(file), ":\n")
-      print(outlier_count[outlier_count > 0])  # Print columns where outliers were detected
-    }
-    
+   
     cat("\n---------------------------------\n")
   })
   
@@ -175,7 +177,6 @@ Duplicates detected in file combined_weightLogInfo_merged.csv : 2 duplicates fou
 - File:  sleepDay_merged.csv 
 Duplicates detected in file sleepDay_merged.csv : 3 duplicates found
 
-#### Outliers and abnormal values
 
 
 
