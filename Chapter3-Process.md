@@ -108,9 +108,9 @@ Outliers are more complex to deal with programmatically, because it's not always
 I might need to change or fix data types or do further filtering during the analysis or visualization phases, so the cleaning process may continue at that point if needed.
 
 
-Sample code:
+Sample code for nulls & duplicates check:
 ```r
-# Loop through all .csv files and check for nulls, duplicates & outliers
+# Loop through all .csv files and check for nulls and duplicates
 for (file in all_files) {
   data <- read_csv(file)
   
