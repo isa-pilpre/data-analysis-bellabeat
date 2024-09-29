@@ -1,0 +1,1229 @@
+File:  combined_dailyActivity_merged.csv 
+# A tibble: 6 × 15
+          Id ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivitiesDistance VeryActiveDistance
+       <dbl> <chr>             <dbl>         <dbl>           <dbl>                    <dbl>              <dbl>
+1 1503960366 3/25/2016         11004          7.11            7.11                        0               2.57
+2 1503960366 3/26/2016         17609         11.6            11.6                         0               6.92
+3 1503960366 3/27/2016         12736          8.53            8.53                        0               4.66
+4 1503960366 3/28/2016         13231          8.93            8.93                        0               3.19
+5 1503960366 3/29/2016         12041          7.85            7.85                        0               2.16
+6 1503960366 3/30/2016         10970          7.16            7.16                        0               2.36
+# ℹ 8 more variables: ModeratelyActiveDistance <dbl>, LightActiveDistance <dbl>, SedentaryActiveDistance <dbl>,
+#   VeryActiveMinutes <dbl>, FairlyActiveMinutes <dbl>, LightlyActiveMinutes <dbl>, SedentaryMinutes <dbl>, Calories <dbl>
+spc_tbl_ [1,397 × 15] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id                      : num [1:1397] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityDate            : chr [1:1397] "3/25/2016" "3/26/2016" "3/27/2016" "3/28/2016" ...
+ $ TotalSteps              : num [1:1397] 11004 17609 12736 13231 12041 ...
+ $ TotalDistance           : num [1:1397] 7.11 11.55 8.53 8.93 7.85 ...
+ $ TrackerDistance         : num [1:1397] 7.11 11.55 8.53 8.93 7.85 ...
+ $ LoggedActivitiesDistance: num [1:1397] 0 0 0 0 0 0 0 0 0 0 ...
+ $ VeryActiveDistance      : num [1:1397] 2.57 6.92 4.66 3.19 2.16 ...
+ $ ModeratelyActiveDistance: num [1:1397] 0.46 0.73 0.16 0.79 1.09 ...
+ $ LightActiveDistance     : num [1:1397] 4.07 3.91 3.71 4.95 4.61 ...
+ $ SedentaryActiveDistance : num [1:1397] 0 0 0 0 0 0 0 0 0 0 ...
+ $ VeryActiveMinutes       : num [1:1397] 33 89 56 39 28 30 33 47 40 15 ...
+ $ FairlyActiveMinutes     : num [1:1397] 12 17 5 20 28 13 12 21 11 30 ...
+ $ LightlyActiveMinutes    : num [1:1397] 205 274 268 224 243 223 239 200 244 314 ...
+ $ SedentaryMinutes        : num [1:1397] 804 588 605 1080 763 ...
+ $ Calories                : num [1:1397] 1819 2154 1944 1932 1886 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityDate = col_character(),
+  ..   TotalSteps = col_double(),
+  ..   TotalDistance = col_double(),
+  ..   TrackerDistance = col_double(),
+  ..   LoggedActivitiesDistance = col_double(),
+  ..   VeryActiveDistance = col_double(),
+  ..   ModeratelyActiveDistance = col_double(),
+  ..   LightActiveDistance = col_double(),
+  ..   SedentaryActiveDistance = col_double(),
+  ..   VeryActiveMinutes = col_double(),
+  ..   FairlyActiveMinutes = col_double(),
+  ..   LightlyActiveMinutes = col_double(),
+  ..   SedentaryMinutes = col_double(),
+  ..   Calories = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivitiesDistance VeryActiveDistance ModeratelyActiveDistance LightActiveDistance SedentaryActiveDistance VeryActiveMinutes FairlyActiveMinutes LightlyActiveMinutes SedentaryMinutes Calories 
+       Id             ActivityDate         TotalSteps    TotalDistance    TrackerDistance  LoggedActivitiesDistance
+ Min.   :1503960366   Length:1397        Min.   :    0   Min.   : 0.000   Min.   : 0.000   Min.   :0.0000          
+ 1st Qu.:2320127002   Class :character   1st Qu.: 3146   1st Qu.: 2.170   1st Qu.: 2.160   1st Qu.:0.0000          
+ Median :4445114986   Mode  :character   Median : 6999   Median : 4.950   Median : 4.950   Median :0.0000          
+ Mean   :4781210221                      Mean   : 7281   Mean   : 5.219   Mean   : 5.192   Mean   :0.1315          
+ 3rd Qu.:6962181067                      3rd Qu.:10544   3rd Qu.: 7.500   3rd Qu.: 7.480   3rd Qu.:0.0000          
+ Max.   :8877689391                      Max.   :36019   Max.   :28.030   Max.   :28.030   Max.   :6.7271          
+ VeryActiveDistance ModeratelyActiveDistance LightActiveDistance SedentaryActiveDistance VeryActiveMinutes
+ Min.   : 0.000     Min.   :0.0000           Min.   : 0.000      Min.   :0.000000        Min.   :  0.00   
+ 1st Qu.: 0.000     1st Qu.:0.0000           1st Qu.: 1.610      1st Qu.:0.000000        1st Qu.:  0.00   
+ Median : 0.100     Median :0.2000           Median : 3.240      Median :0.000000        Median :  2.00   
+ Mean   : 1.397     Mean   :0.5385           Mean   : 3.193      Mean   :0.001704        Mean   : 19.68   
+ 3rd Qu.: 1.830     3rd Qu.:0.7700           3rd Qu.: 4.690      3rd Qu.:0.000000        3rd Qu.: 30.00   
+ Max.   :21.920     Max.   :6.4800           Max.   :12.510      Max.   :0.110000        Max.   :210.00   
+ FairlyActiveMinutes LightlyActiveMinutes SedentaryMinutes    Calories   
+ Min.   :  0.0       Min.   :  0.0        Min.   :   0.0   Min.   :   0  
+ 1st Qu.:  0.0       1st Qu.:111.0        1st Qu.: 729.0   1st Qu.:1799  
+ Median :  6.0       Median :195.0        Median :1057.0   Median :2114  
+ Mean   : 13.4       Mean   :185.4        Mean   : 992.5   Mean   :2266  
+ 3rd Qu.: 18.0       3rd Qu.:262.0        3rd Qu.:1244.0   3rd Qu.:2770  
+ Max.   :660.0       Max.   :720.0        Max.   :1440.0   Max.   :4900  
+
+---------------------------------
+File:  combined_heartrate_seconds_merged.csv 
+# A tibble: 6 × 3
+          Id Time                Value
+       <dbl> <chr>               <dbl>
+1 2022484408 4/1/2016 7:54:00 AM    93
+2 2022484408 4/1/2016 7:54:05 AM    91
+3 2022484408 4/1/2016 7:54:10 AM    96
+4 2022484408 4/1/2016 7:54:15 AM    98
+5 2022484408 4/1/2016 7:54:20 AM   100
+6 2022484408 4/1/2016 7:54:25 AM   101
+spc_tbl_ [3,638,339 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id   : num [1:3638339] 2022484408 2022484408 2022484408 2022484408 2022484408 ...
+ $ Time : chr [1:3638339] "4/1/2016 7:54:00 AM" "4/1/2016 7:54:05 AM" "4/1/2016 7:54:10 AM" "4/1/2016 7:54:15 AM" ...
+ $ Value: num [1:3638339] 93 91 96 98 100 101 104 105 102 106 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   Time = col_character(),
+  ..   Value = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id Time Value 
+       Id                 Time               Value      
+ Min.   :2022484408   Length:3638339     Min.   : 36.0  
+ 1st Qu.:4020332650   Class :character   1st Qu.: 64.0  
+ Median :5553957443   Mode  :character   Median : 74.0  
+ Mean   :5462464830                      Mean   : 78.1  
+ 3rd Qu.:6962181067                      3rd Qu.: 88.0  
+ Max.   :8877689391                      Max.   :203.0  
+
+---------------------------------
+File:  combined_hourlyCalories_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityHour          Calories
+       <dbl> <chr>                    <dbl>
+1 1503960366 3/12/2016 12:00:00 AM       48
+2 1503960366 3/12/2016 1:00:00 AM        48
+3 1503960366 3/12/2016 2:00:00 AM        48
+4 1503960366 3/12/2016 3:00:00 AM        48
+5 1503960366 3/12/2016 4:00:00 AM        48
+6 1503960366 3/12/2016 5:00:00 AM        48
+spc_tbl_ [46,183 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id          : num [1:46183] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityHour: chr [1:46183] "3/12/2016 12:00:00 AM" "3/12/2016 1:00:00 AM" "3/12/2016 2:00:00 AM" "3/12/2016 3:00:00 AM" ...
+ $ Calories    : num [1:46183] 48 48 48 48 48 48 48 48 48 49 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityHour = col_character(),
+  ..   Calories = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityHour Calories 
+       Id             ActivityHour          Calories     
+ Min.   :1503960366   Length:46183       Min.   : 42.00  
+ 1st Qu.:2320127002   Class :character   1st Qu.: 62.00  
+ Median :4558609924   Mode  :character   Median : 80.00  
+ Mean   :4869714656                      Mean   : 95.76  
+ 3rd Qu.:6962181067                      3rd Qu.:106.00  
+ Max.   :8877689391                      Max.   :948.00  
+
+---------------------------------
+File:  combined_hourlyIntensities_merged.csv 
+# A tibble: 6 × 4
+          Id ActivityHour          TotalIntensity AverageIntensity
+       <dbl> <chr>                          <dbl>            <dbl>
+1 1503960366 3/12/2016 12:00:00 AM              0                0
+2 1503960366 3/12/2016 1:00:00 AM               0                0
+3 1503960366 3/12/2016 2:00:00 AM               0                0
+4 1503960366 3/12/2016 3:00:00 AM               0                0
+5 1503960366 3/12/2016 4:00:00 AM               0                0
+6 1503960366 3/12/2016 5:00:00 AM               0                0
+spc_tbl_ [46,183 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id              : num [1:46183] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityHour    : chr [1:46183] "3/12/2016 12:00:00 AM" "3/12/2016 1:00:00 AM" "3/12/2016 2:00:00 AM" "3/12/2016 3:00:00 AM" ...
+ $ TotalIntensity  : num [1:46183] 0 0 0 0 0 0 0 0 0 1 ...
+ $ AverageIntensity: num [1:46183] 0 0 0 0 0 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityHour = col_character(),
+  ..   TotalIntensity = col_double(),
+  ..   AverageIntensity = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityHour TotalIntensity AverageIntensity 
+       Id             ActivityHour       TotalIntensity  AverageIntensity 
+ Min.   :1503960366   Length:46183       Min.   :  0.0   Min.   :0.00000  
+ 1st Qu.:2320127002   Class :character   1st Qu.:  0.0   1st Qu.:0.00000  
+ Median :4558609924   Mode  :character   Median :  2.0   Median :0.03333  
+ Mean   :4869714656                      Mean   : 11.4   Mean   :0.19008  
+ 3rd Qu.:6962181067                      3rd Qu.: 15.0   3rd Qu.:0.25000  
+ Max.   :8877689391                      Max.   :180.0   Max.   :3.00000  
+
+---------------------------------
+File:  combined_hourlySteps_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityHour          StepTotal
+       <dbl> <chr>                     <dbl>
+1 1503960366 3/12/2016 12:00:00 AM         0
+2 1503960366 3/12/2016 1:00:00 AM          0
+3 1503960366 3/12/2016 2:00:00 AM          0
+4 1503960366 3/12/2016 3:00:00 AM          0
+5 1503960366 3/12/2016 4:00:00 AM          0
+6 1503960366 3/12/2016 5:00:00 AM          0
+spc_tbl_ [46,183 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id          : num [1:46183] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityHour: chr [1:46183] "3/12/2016 12:00:00 AM" "3/12/2016 1:00:00 AM" "3/12/2016 2:00:00 AM" "3/12/2016 3:00:00 AM" ...
+ $ StepTotal   : num [1:46183] 0 0 0 0 0 0 0 0 0 8 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityHour = col_character(),
+  ..   StepTotal = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityHour StepTotal 
+       Id             ActivityHour         StepTotal      
+ Min.   :1503960366   Length:46183       Min.   :    0.0  
+ 1st Qu.:2320127002   Class :character   1st Qu.:    0.0  
+ Median :4558609924   Mode  :character   Median :   20.0  
+ Mean   :4869714656                      Mean   :  302.5  
+ 3rd Qu.:6962181067                      3rd Qu.:  322.0  
+ Max.   :8877689391                      Max.   :10565.0  
+
+---------------------------------
+File:  combined_minuteCaloriesNarrow_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityMinute        Calories
+       <dbl> <chr>                    <dbl>
+1 1503960366 3/12/2016 12:00:00 AM    0.797
+2 1503960366 3/12/2016 12:01:00 AM    0.797
+3 1503960366 3/12/2016 12:02:00 AM    0.797
+4 1503960366 3/12/2016 12:03:00 AM    0.797
+5 1503960366 3/12/2016 12:04:00 AM    0.797
+6 1503960366 3/12/2016 12:05:00 AM    0.797
+spc_tbl_ [2,770,620 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id            : num [1:2770620] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityMinute: chr [1:2770620] "3/12/2016 12:00:00 AM" "3/12/2016 12:01:00 AM" "3/12/2016 12:02:00 AM" "3/12/2016 12:03:00 AM" ...
+ $ Calories      : num [1:2770620] 0.797 0.797 0.797 0.797 0.797 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityMinute = col_character(),
+  ..   Calories = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityMinute Calories 
+       Id             ActivityMinute        Calories      
+ Min.   :1503960366   Length:2770620     Min.   : 0.0000  
+ 1st Qu.:2320127002   Class :character   1st Qu.: 0.9357  
+ Median :4558609924   Mode  :character   Median : 1.2176  
+ Mean   :4869555935                      Mean   : 1.5961  
+ 3rd Qu.:6962181067                      3rd Qu.: 1.4310  
+ Max.   :8877689391                      Max.   :23.0126  
+
+---------------------------------
+File:  combined_minuteIntensitiesNarrow_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityMinute        Intensity
+       <dbl> <chr>                     <dbl>
+1 1503960366 3/12/2016 12:00:00 AM         0
+2 1503960366 3/12/2016 12:01:00 AM         0
+3 1503960366 3/12/2016 12:02:00 AM         0
+4 1503960366 3/12/2016 12:03:00 AM         0
+5 1503960366 3/12/2016 12:04:00 AM         0
+6 1503960366 3/12/2016 12:05:00 AM         0
+spc_tbl_ [2,770,620 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id            : num [1:2770620] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityMinute: chr [1:2770620] "3/12/2016 12:00:00 AM" "3/12/2016 12:01:00 AM" "3/12/2016 12:02:00 AM" "3/12/2016 12:03:00 AM" ...
+ $ Intensity     : num [1:2770620] 0 0 0 0 0 0 0 0 0 0 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityMinute = col_character(),
+  ..   Intensity = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityMinute Intensity 
+       Id             ActivityMinute       Intensity     
+ Min.   :1503960366   Length:2770620     Min.   :0.0000  
+ 1st Qu.:2320127002   Class :character   1st Qu.:0.0000  
+ Median :4558609924   Mode  :character   Median :0.0000  
+ Mean   :4869555935                      Mean   :0.1901  
+ 3rd Qu.:6962181067                      3rd Qu.:0.0000  
+ Max.   :8877689391                      Max.   :3.0000  
+
+---------------------------------
+File:  combined_minuteMETsNarrow_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityMinute         METs
+       <dbl> <chr>                 <dbl>
+1 1503960366 3/12/2016 12:00:00 AM    10
+2 1503960366 3/12/2016 12:01:00 AM    10
+3 1503960366 3/12/2016 12:02:00 AM    10
+4 1503960366 3/12/2016 12:03:00 AM    10
+5 1503960366 3/12/2016 12:04:00 AM    10
+6 1503960366 3/12/2016 12:05:00 AM    10
+spc_tbl_ [2,770,620 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id            : num [1:2770620] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityMinute: chr [1:2770620] "3/12/2016 12:00:00 AM" "3/12/2016 12:01:00 AM" "3/12/2016 12:02:00 AM" "3/12/2016 12:03:00 AM" ...
+ $ METs          : num [1:2770620] 10 10 10 10 10 10 10 10 10 10 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityMinute = col_character(),
+  ..   METs = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityMinute METs 
+       Id             ActivityMinute          METs       
+ Min.   :1503960366   Length:2770620     Min.   :  0.00  
+ 1st Qu.:2320127002   Class :character   1st Qu.: 10.00  
+ Median :4558609924   Mode  :character   Median : 10.00  
+ Mean   :4869555935                      Mean   : 14.45  
+ 3rd Qu.:6962181067                      3rd Qu.: 11.00  
+ Max.   :8877689391                      Max.   :189.00  
+
+---------------------------------
+File:  combined_minuteSleep_merged.csv 
+# A tibble: 6 × 4
+          Id date                 value       logId
+       <dbl> <chr>                <dbl>       <dbl>
+1 1503960366 3/13/2016 2:39:30 AM     1 11114919637
+2 1503960366 3/13/2016 2:40:30 AM     1 11114919637
+3 1503960366 3/13/2016 2:41:30 AM     1 11114919637
+4 1503960366 3/13/2016 2:42:30 AM     1 11114919637
+5 1503960366 3/13/2016 2:43:30 AM     1 11114919637
+6 1503960366 3/13/2016 2:44:30 AM     1 11114919637
+spc_tbl_ [387,080 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id   : num [1:387080] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ date : chr [1:387080] "3/13/2016 2:39:30 AM" "3/13/2016 2:40:30 AM" "3/13/2016 2:41:30 AM" "3/13/2016 2:42:30 AM" ...
+ $ value: num [1:387080] 1 1 1 1 1 1 2 2 1 1 ...
+ $ logId: num [1:387080] 11114919637 11114919637 11114919637 11114919637 11114919637 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   date = col_character(),
+  ..   value = col_double(),
+  ..   logId = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id date value logId 
+       Id                 date               value           logId            
+ Min.   :1503960366   Length:387080      Min.   :1.000   Min.   :11103653021  
+ 1st Qu.:3977333714   Class :character   1st Qu.:1.000   1st Qu.:11242403378  
+ Median :4702921684   Mode  :character   Median :1.000   Median :11366922636  
+ Mean   :4908215384                      Mean   :1.091   Mean   :11365564006  
+ 3rd Qu.:6775888955                      3rd Qu.:1.000   3rd Qu.:11496429833  
+ Max.   :8792009665                      Max.   :3.000   Max.   :11616251768  
+
+---------------------------------
+File:  combined_minuteStepsNarrow_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityMinute        Steps
+       <dbl> <chr>                 <dbl>
+1 1503960366 3/12/2016 12:00:00 AM     0
+2 1503960366 3/12/2016 12:01:00 AM     0
+3 1503960366 3/12/2016 12:02:00 AM     0
+4 1503960366 3/12/2016 12:03:00 AM     0
+5 1503960366 3/12/2016 12:04:00 AM     0
+6 1503960366 3/12/2016 12:05:00 AM     0
+spc_tbl_ [2,770,620 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id            : num [1:2770620] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityMinute: chr [1:2770620] "3/12/2016 12:00:00 AM" "3/12/2016 12:01:00 AM" "3/12/2016 12:02:00 AM" "3/12/2016 12:03:00 AM" ...
+ $ Steps         : num [1:2770620] 0 0 0 0 0 0 0 0 0 0 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityMinute = col_character(),
+  ..   Steps = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityMinute Steps 
+       Id             ActivityMinute         Steps        
+ Min.   :1503960366   Length:2770620     Min.   :  0.000  
+ 1st Qu.:2320127002   Class :character   1st Qu.:  0.000  
+ Median :4558609924   Mode  :character   Median :  0.000  
+ Mean   :4869555935                      Mean   :  5.041  
+ 3rd Qu.:6962181067                      3rd Qu.:  0.000  
+ Max.   :8877689391                      Max.   :220.000  
+
+---------------------------------
+File:  combined_weightLogInfo_merged.csv 
+# A tibble: 6 × 8
+          Id Date                 WeightKg WeightPounds   Fat   BMI IsManualReport         LogId
+       <dbl> <chr>                   <dbl>        <dbl> <dbl> <dbl> <lgl>                  <dbl>
+1 1503960366 4/5/2016 11:59:59 PM     53.3         118.    22  23.0 TRUE           1459900799000
+2 1927972279 4/10/2016 6:33:26 PM    130.          286.    NA  46.2 FALSE          1460313206000
+3 2347167796 4/3/2016 11:59:59 PM     63.4         140.    10  24.8 TRUE           1459727999000
+4 2873212765 4/6/2016 11:59:59 PM     56.7         125.    NA  21.5 TRUE           1459987199000
+5 2873212765 4/7/2016 11:59:59 PM     57.2         126.    NA  21.6 TRUE           1460073599000
+6 2891001357 4/5/2016 11:59:59 PM     88.4         195.    NA  25.0 TRUE           1459900799000
+spc_tbl_ [100 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id            : num [1:100] 1503960366 1927972279 2347167796 2873212765 2873212765 ...
+ $ Date          : chr [1:100] "4/5/2016 11:59:59 PM" "4/10/2016 6:33:26 PM" "4/3/2016 11:59:59 PM" "4/6/2016 11:59:59 PM" ...
+ $ WeightKg      : num [1:100] 53.3 129.6 63.4 56.7 57.2 ...
+ $ WeightPounds  : num [1:100] 118 286 140 125 126 ...
+ $ Fat           : num [1:100] 22 NA 10 NA NA NA NA NA NA NA ...
+ $ BMI           : num [1:100] 23 46.2 24.8 21.5 21.6 ...
+ $ IsManualReport: logi [1:100] TRUE FALSE TRUE TRUE TRUE TRUE ...
+ $ LogId         : num [1:100] 1459900799000 1460313206000 1459727999000 1459987199000 1460073599000 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   Date = col_character(),
+  ..   WeightKg = col_double(),
+  ..   WeightPounds = col_double(),
+  ..   Fat = col_double(),
+  ..   BMI = col_double(),
+  ..   IsManualReport = col_logical(),
+  ..   LogId = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id Date WeightKg WeightPounds Fat BMI IsManualReport LogId 
+       Id                 Date              WeightKg      WeightPounds        Fat             BMI        IsManualReport 
+ Min.   :1503960366   Length:100         Min.   : 52.6   Min.   :116.0   Min.   :10.00   Min.   :21.45   Mode :logical  
+ 1st Qu.:6962181067   Class :character   1st Qu.: 61.5   1st Qu.:135.6   1st Qu.:19.00   1st Qu.:24.00   FALSE:36       
+ Median :6962181067   Mode  :character   Median : 62.5   Median :137.8   Median :22.00   Median :24.39   TRUE :64       
+ Mean   :6833680593                      Mean   : 72.5   Mean   :159.8   Mean   :19.75   Mean   :25.37                  
+ 3rd Qu.:8877689391                      3rd Qu.: 85.3   3rd Qu.:188.1   3rd Qu.:22.75   3rd Qu.:25.59                  
+ Max.   :8877689391                      Max.   :133.5   Max.   :294.3   Max.   :25.00   Max.   :47.54                  
+                                                                         NA's   :96                                     
+     LogId              
+ Min.   :1459382399000  
+ 1st Qu.:1460181878750  
+ Median :1461079185000  
+ Mean   :1461173547730  
+ 3rd Qu.:1462147199000  
+ Max.   :1463097599000  
+                        
+
+---------------------------------
+File:  dailyCalories_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityDay Calories
+       <dbl> <chr>          <dbl>
+1 1503960366 4/12/2016       1985
+2 1503960366 4/13/2016       1797
+3 1503960366 4/14/2016       1776
+4 1503960366 4/15/2016       1745
+5 1503960366 4/16/2016       1863
+6 1503960366 4/17/2016       1728
+spc_tbl_ [940 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id         : num [1:940] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityDay: chr [1:940] "4/12/2016" "4/13/2016" "4/14/2016" "4/15/2016" ...
+ $ Calories   : num [1:940] 1985 1797 1776 1745 1863 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityDay = col_character(),
+  ..   Calories = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityDay Calories 
+       Id             ActivityDay           Calories   
+ Min.   :1503960366   Length:940         Min.   :   0  
+ 1st Qu.:2320127002   Class :character   1st Qu.:1828  
+ Median :4445114986   Mode  :character   Median :2134  
+ Mean   :4855407369                      Mean   :2304  
+ 3rd Qu.:6962181067                      3rd Qu.:2793  
+ Max.   :8877689391                      Max.   :4900  
+
+---------------------------------
+File:  dailyIntensities_merged.csv 
+# A tibble: 6 × 10
+          Id ActivityDay SedentaryMinutes LightlyActiveMinutes FairlyActiveMinutes VeryActiveMinutes SedentaryActiveDistance
+       <dbl> <chr>                  <dbl>                <dbl>               <dbl>             <dbl>                   <dbl>
+1 1503960366 4/12/2016                728                  328                  13                25                       0
+2 1503960366 4/13/2016                776                  217                  19                21                       0
+3 1503960366 4/14/2016               1218                  181                  11                30                       0
+4 1503960366 4/15/2016                726                  209                  34                29                       0
+5 1503960366 4/16/2016                773                  221                  10                36                       0
+6 1503960366 4/17/2016                539                  164                  20                38                       0
+# ℹ 3 more variables: LightActiveDistance <dbl>, ModeratelyActiveDistance <dbl>, VeryActiveDistance <dbl>
+spc_tbl_ [940 × 10] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id                      : num [1:940] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityDay             : chr [1:940] "4/12/2016" "4/13/2016" "4/14/2016" "4/15/2016" ...
+ $ SedentaryMinutes        : num [1:940] 728 776 1218 726 773 ...
+ $ LightlyActiveMinutes    : num [1:940] 328 217 181 209 221 164 233 264 205 211 ...
+ $ FairlyActiveMinutes     : num [1:940] 13 19 11 34 10 20 16 31 12 8 ...
+ $ VeryActiveMinutes       : num [1:940] 25 21 30 29 36 38 42 50 28 19 ...
+ $ SedentaryActiveDistance : num [1:940] 0 0 0 0 0 0 0 0 0 0 ...
+ $ LightActiveDistance     : num [1:940] 6.06 4.71 3.91 2.83 5.04 ...
+ $ ModeratelyActiveDistance: num [1:940] 0.55 0.69 0.4 1.26 0.41 ...
+ $ VeryActiveDistance      : num [1:940] 1.88 1.57 2.44 2.14 2.71 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityDay = col_character(),
+  ..   SedentaryMinutes = col_double(),
+  ..   LightlyActiveMinutes = col_double(),
+  ..   FairlyActiveMinutes = col_double(),
+  ..   VeryActiveMinutes = col_double(),
+  ..   SedentaryActiveDistance = col_double(),
+  ..   LightActiveDistance = col_double(),
+  ..   ModeratelyActiveDistance = col_double(),
+  ..   VeryActiveDistance = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityDay SedentaryMinutes LightlyActiveMinutes FairlyActiveMinutes VeryActiveMinutes SedentaryActiveDistance LightActiveDistance ModeratelyActiveDistance VeryActiveDistance 
+       Id             ActivityDay        SedentaryMinutes LightlyActiveMinutes FairlyActiveMinutes VeryActiveMinutes
+ Min.   :1503960366   Length:940         Min.   :   0.0   Min.   :  0.0        Min.   :  0.00      Min.   :  0.00   
+ 1st Qu.:2320127002   Class :character   1st Qu.: 729.8   1st Qu.:127.0        1st Qu.:  0.00      1st Qu.:  0.00   
+ Median :4445114986   Mode  :character   Median :1057.5   Median :199.0        Median :  6.00      Median :  4.00   
+ Mean   :4855407369                      Mean   : 991.2   Mean   :192.8        Mean   : 13.56      Mean   : 21.16   
+ 3rd Qu.:6962181067                      3rd Qu.:1229.5   3rd Qu.:264.0        3rd Qu.: 19.00      3rd Qu.: 32.00   
+ Max.   :8877689391                      Max.   :1440.0   Max.   :518.0        Max.   :143.00      Max.   :210.00   
+ SedentaryActiveDistance LightActiveDistance ModeratelyActiveDistance VeryActiveDistance
+ Min.   :0.000000        Min.   : 0.000      Min.   :0.0000           Min.   : 0.000    
+ 1st Qu.:0.000000        1st Qu.: 1.945      1st Qu.:0.0000           1st Qu.: 0.000    
+ Median :0.000000        Median : 3.365      Median :0.2400           Median : 0.210    
+ Mean   :0.001606        Mean   : 3.341      Mean   :0.5675           Mean   : 1.503    
+ 3rd Qu.:0.000000        3rd Qu.: 4.782      3rd Qu.:0.8000           3rd Qu.: 2.053    
+ Max.   :0.110000        Max.   :10.710      Max.   :6.4800           Max.   :21.920    
+
+---------------------------------
+File:  dailySteps_merged.csv 
+# A tibble: 6 × 3
+          Id ActivityDay StepTotal
+       <dbl> <chr>           <dbl>
+1 1503960366 4/12/2016       13162
+2 1503960366 4/13/2016       10735
+3 1503960366 4/14/2016       10460
+4 1503960366 4/15/2016        9762
+5 1503960366 4/16/2016       12669
+6 1503960366 4/17/2016        9705
+spc_tbl_ [940 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id         : num [1:940] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityDay: chr [1:940] "4/12/2016" "4/13/2016" "4/14/2016" "4/15/2016" ...
+ $ StepTotal  : num [1:940] 13162 10735 10460 9762 12669 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityDay = col_character(),
+  ..   StepTotal = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityDay StepTotal 
+       Id             ActivityDay          StepTotal    
+ Min.   :1503960366   Length:940         Min.   :    0  
+ 1st Qu.:2320127002   Class :character   1st Qu.: 3790  
+ Median :4445114986   Mode  :character   Median : 7406  
+ Mean   :4855407369                      Mean   : 7638  
+ 3rd Qu.:6962181067                      3rd Qu.:10727  
+ Max.   :8877689391                      Max.   :36019  
+
+---------------------------------
+File:  minuteCaloriesWide_merged.csv 
+# A tibble: 6 × 62
+          Id ActivityHour  Calories00 Calories01 Calories02 Calories03 Calories04 Calories05 Calories06 Calories07 Calories08
+       <dbl> <chr>              <dbl>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>      <dbl>
+1 1503960366 4/13/2016 12…      1.89       2.20       0.944      0.944      0.944      2.04       0.944      2.20       0.944
+2 1503960366 4/13/2016 1:…      0.786      0.786      0.786      0.786      0.944      0.944      0.944      0.786      0.944
+3 1503960366 4/13/2016 2:…      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786
+4 1503960366 4/13/2016 3:…      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786
+5 1503960366 4/13/2016 4:…      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786
+6 1503960366 4/13/2016 5:…      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786      0.786
+# ℹ 51 more variables: Calories09 <dbl>, Calories10 <dbl>, Calories11 <dbl>, Calories12 <dbl>, Calories13 <dbl>,
+#   Calories14 <dbl>, Calories15 <dbl>, Calories16 <dbl>, Calories17 <dbl>, Calories18 <dbl>, Calories19 <dbl>,
+#   Calories20 <dbl>, Calories21 <dbl>, Calories22 <dbl>, Calories23 <dbl>, Calories24 <dbl>, Calories25 <dbl>,
+#   Calories26 <dbl>, Calories27 <dbl>, Calories28 <dbl>, Calories29 <dbl>, Calories30 <dbl>, Calories31 <dbl>,
+#   Calories32 <dbl>, Calories33 <dbl>, Calories34 <dbl>, Calories35 <dbl>, Calories36 <dbl>, Calories37 <dbl>,
+#   Calories38 <dbl>, Calories39 <dbl>, Calories40 <dbl>, Calories41 <dbl>, Calories42 <dbl>, Calories43 <dbl>,
+#   Calories44 <dbl>, Calories45 <dbl>, Calories46 <dbl>, Calories47 <dbl>, Calories48 <dbl>, Calories49 <dbl>, …
+spc_tbl_ [21,645 × 62] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id          : num [1:21645] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityHour: chr [1:21645] "4/13/2016 12:00:00 AM" "4/13/2016 1:00:00 AM" "4/13/2016 2:00:00 AM" "4/13/2016 3:00:00 AM" ...
+ $ Calories00  : num [1:21645] 1.888 0.786 0.786 0.786 0.786 ...
+ $ Calories01  : num [1:21645] 2.202 0.786 0.786 0.786 0.786 ...
+ $ Calories02  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories03  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories04  : num [1:21645] 0.944 0.944 0.786 0.786 0.786 ...
+ $ Calories05  : num [1:21645] 2.045 0.944 0.786 0.786 0.786 ...
+ $ Calories06  : num [1:21645] 0.944 0.944 0.786 0.786 0.786 ...
+ $ Calories07  : num [1:21645] 2.202 0.786 0.786 0.786 0.786 ...
+ $ Calories08  : num [1:21645] 0.944 0.944 0.786 0.786 0.786 ...
+ $ Calories09  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories10  : num [1:21645] 0.944 0.944 0.786 0.786 0.786 ...
+ $ Calories11  : num [1:21645] 0.786 0.786 0.786 2.045 0.786 ...
+ $ Calories12  : num [1:21645] 0.786 0.944 0.786 0.944 0.786 ...
+ $ Calories13  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories14  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories15  : num [1:21645] 0.944 0.786 0.786 0.944 0.786 ...
+ $ Calories16  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories17  : num [1:21645] 0.786 0.786 0.786 0.944 0.786 ...
+ $ Calories18  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories19  : num [1:21645] 0.786 0.786 0.786 0.786 0.944 ...
+ $ Calories20  : num [1:21645] 1.888 0.786 0.786 0.786 0.786 ...
+ $ Calories21  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories22  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories23  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories24  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories25  : num [1:21645] 2.045 0.786 0.786 0.786 0.786 ...
+ $ Calories26  : num [1:21645] 2.359 0.786 0.786 0.786 0.786 ...
+ $ Calories27  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories28  : num [1:21645] 2.045 0.786 0.786 0.786 0.786 ...
+ $ Calories29  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories30  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories31  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories32  : num [1:21645] 2.045 0.786 0.786 0.786 0.786 ...
+ $ Calories33  : num [1:21645] 1.888 0.786 0.786 0.944 0.786 ...
+ $ Calories34  : num [1:21645] 0.944 0.786 0.786 2.045 0.786 ...
+ $ Calories35  : num [1:21645] 0.786 0.786 0.786 2.045 0.786 ...
+ $ Calories36  : num [1:21645] 0.786 0.786 0.786 1.888 0.786 ...
+ $ Calories37  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories38  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories39  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories40  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories41  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories42  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories43  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories44  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories45  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories46  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories47  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories48  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories49  : num [1:21645] 0.786 0.786 0.786 0.786 0.786 ...
+ $ Calories50  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories51  : num [1:21645] 2.045 0.786 0.786 0.786 0.786 ...
+ $ Calories52  : num [1:21645] 2.045 0.786 0.786 0.786 0.786 ...
+ $ Calories53  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories54  : num [1:21645] 2.359 0.786 0.786 0.786 0.786 ...
+ $ Calories55  : num [1:21645] 1.888 0.786 0.786 0.786 0.786 ...
+ $ Calories56  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories57  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories58  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ $ Calories59  : num [1:21645] 0.944 0.786 0.786 0.786 0.786 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityHour = col_character(),
+  ..   Calories00 = col_double(),
+  ..   Calories01 = col_double(),
+  ..   Calories02 = col_double(),
+  ..   Calories03 = col_double(),
+  ..   Calories04 = col_double(),
+  ..   Calories05 = col_double(),
+  ..   Calories06 = col_double(),
+  ..   Calories07 = col_double(),
+  ..   Calories08 = col_double(),
+  ..   Calories09 = col_double(),
+  ..   Calories10 = col_double(),
+  ..   Calories11 = col_double(),
+  ..   Calories12 = col_double(),
+  ..   Calories13 = col_double(),
+  ..   Calories14 = col_double(),
+  ..   Calories15 = col_double(),
+  ..   Calories16 = col_double(),
+  ..   Calories17 = col_double(),
+  ..   Calories18 = col_double(),
+  ..   Calories19 = col_double(),
+  ..   Calories20 = col_double(),
+  ..   Calories21 = col_double(),
+  ..   Calories22 = col_double(),
+  ..   Calories23 = col_double(),
+  ..   Calories24 = col_double(),
+  ..   Calories25 = col_double(),
+  ..   Calories26 = col_double(),
+  ..   Calories27 = col_double(),
+  ..   Calories28 = col_double(),
+  ..   Calories29 = col_double(),
+  ..   Calories30 = col_double(),
+  ..   Calories31 = col_double(),
+  ..   Calories32 = col_double(),
+  ..   Calories33 = col_double(),
+  ..   Calories34 = col_double(),
+  ..   Calories35 = col_double(),
+  ..   Calories36 = col_double(),
+  ..   Calories37 = col_double(),
+  ..   Calories38 = col_double(),
+  ..   Calories39 = col_double(),
+  ..   Calories40 = col_double(),
+  ..   Calories41 = col_double(),
+  ..   Calories42 = col_double(),
+  ..   Calories43 = col_double(),
+  ..   Calories44 = col_double(),
+  ..   Calories45 = col_double(),
+  ..   Calories46 = col_double(),
+  ..   Calories47 = col_double(),
+  ..   Calories48 = col_double(),
+  ..   Calories49 = col_double(),
+  ..   Calories50 = col_double(),
+  ..   Calories51 = col_double(),
+  ..   Calories52 = col_double(),
+  ..   Calories53 = col_double(),
+  ..   Calories54 = col_double(),
+  ..   Calories55 = col_double(),
+  ..   Calories56 = col_double(),
+  ..   Calories57 = col_double(),
+  ..   Calories58 = col_double(),
+  ..   Calories59 = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityHour Calories00 Calories01 Calories02 Calories03 Calories04 Calories05 Calories06 Calories07 Calories08 Calories09 Calories10 Calories11 Calories12 Calories13 Calories14 Calories15 Calories16 Calories17 Calories18 Calories19 Calories20 Calories21 Calories22 Calories23 Calories24 Calories25 Calories26 Calories27 Calories28 Calories29 Calories30 Calories31 Calories32 Calories33 Calories34 Calories35 Calories36 Calories37 Calories38 Calories39 Calories40 Calories41 Calories42 Calories43 Calories44 Calories45 Calories46 Calories47 Calories48 Calories49 Calories50 Calories51 Calories52 Calories53 Calories54 Calories55 Calories56 Calories57 Calories58 Calories59 
+       Id             ActivityHour         Calories00        Calories01        Calories02        Calories03     
+ Min.   :1503960366   Length:21645       Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.:2320127002   Class :character   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9377   1st Qu.: 0.9357  
+ Median :4445114986   Mode  :character   Median : 1.2176   Median : 1.2176   Median : 1.2204   Median : 1.2185  
+ Mean   :4836965277                      Mean   : 1.6226   Mean   : 1.6264   Mean   : 1.6378   Mean   : 1.6355  
+ 3rd Qu.:6962181067                      3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :8877689391                      Max.   :19.7273   Max.   :19.7273   Max.   :19.7273   Max.   :19.7273  
+   Calories04        Calories05        Calories06        Calories07        Calories08        Calories09     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2185   Median : 1.2185   Median : 1.2185   Median : 1.2176   Median : 1.2176   Median : 1.2185  
+ Mean   : 1.6380   Mean   : 1.6383   Mean   : 1.6399   Mean   : 1.6295   Mean   : 1.6237   Mean   : 1.6226  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :19.7273   Max.   :19.7273   Max.   :19.7273   Max.   :19.7273   Max.   :19.7273   Max.   :16.7578  
+   Calories10        Calories11        Calories12        Calories13        Calories14        Calories15     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.0000   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6212   Mean   : 1.6213   Mean   : 1.6147   Mean   : 1.6117   Mean   : 1.6140   Mean   : 1.6124  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :17.4391   Max.   :16.7578   Max.   :17.4391   Max.   :16.6808   Max.   :16.9336   Max.   :17.1863  
+   Calories16        Calories17        Calories18        Calories19        Calories20        Calories21     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6059   Mean   : 1.6127   Mean   : 1.6143   Mean   : 1.6203   Mean   : 1.6151   Mean   : 1.6148  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :17.1863   Max.   :17.4391   Max.   :16.9336   Max.   :16.6808   Max.   :16.3037   Max.   :16.8255  
+   Calories22        Calories23        Calories24        Calories25        Calories26        Calories27     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.0000   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6266   Mean   : 1.6173   Mean   : 1.6147   Mean   : 1.6151   Mean   : 1.6136   Mean   : 1.6157  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :17.7799   Max.   :17.7799   Max.   :17.3472   Max.   :17.0863   Max.   :16.9858   Max.   :17.2302  
+   Calories28        Calories29        Calories30        Calories31        Calories32        Calories33     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2185   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6180   Mean   : 1.6234   Mean   : 1.6238   Mean   : 1.6252   Mean   : 1.6331   Mean   : 1.6378  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :16.8255   Max.   :17.3472   Max.   :17.3472   Max.   :17.6080   Max.   :17.6080   Max.   :17.6080  
+   Calories34        Calories35        Calories36        Calories37        Calories38        Calories39     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2185   Median : 1.2185   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6330   Mean   : 1.6338   Mean   : 1.6412   Mean   : 1.6366   Mean   : 1.6304   Mean   : 1.6284  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :17.8689   Max.   :17.8689   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499  
+   Calories40        Calories41        Calories42        Calories43        Calories44        Calories45     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6261   Mean   : 1.6234   Mean   : 1.6157   Mean   : 1.6212   Mean   : 1.6224   Mean   : 1.6178  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499  
+   Calories46        Calories47        Calories48        Calories49        Calories50        Calories51     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6169   Mean   : 1.6185   Mean   : 1.6167   Mean   : 1.6197   Mean   : 1.6237   Mean   : 1.6136  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499  
+   Calories52        Calories53        Calories54        Calories55        Calories56        Calories57     
+ Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027   Min.   : 0.7027  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6210   Mean   : 1.6182   Mean   : 1.6212   Mean   : 1.6160   Mean   : 1.6087   Mean   : 1.6127  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7499   Max.   :19.7273   Max.   :19.7273  
+   Calories58        Calories59     
+ Min.   : 0.7027   Min.   : 0.0000  
+ 1st Qu.: 0.9357   1st Qu.: 0.9357  
+ Median : 1.2176   Median : 1.2176  
+ Mean   : 1.6117   Mean   : 1.6121  
+ 3rd Qu.: 1.4327   3rd Qu.: 1.4327  
+ Max.   :19.7273   Max.   :19.7273  
+
+---------------------------------
+File:  minuteIntensitiesWide_merged.csv 
+# A tibble: 6 × 62
+          Id ActivityHour     Intensity00 Intensity01 Intensity02 Intensity03 Intensity04 Intensity05 Intensity06 Intensity07
+       <dbl> <chr>                  <dbl>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>       <dbl>
+1 1503960366 4/13/2016 12:00…           1           1           0           0           0           1           0           1
+2 1503960366 4/13/2016 1:00:…           0           0           0           0           0           0           0           0
+3 1503960366 4/13/2016 2:00:…           0           0           0           0           0           0           0           0
+4 1503960366 4/13/2016 3:00:…           0           0           0           0           0           0           0           0
+5 1503960366 4/13/2016 4:00:…           0           0           0           0           0           0           0           0
+6 1503960366 4/13/2016 5:00:…           0           0           0           0           0           0           0           0
+# ℹ 52 more variables: Intensity08 <dbl>, Intensity09 <dbl>, Intensity10 <dbl>, Intensity11 <dbl>, Intensity12 <dbl>,
+#   Intensity13 <dbl>, Intensity14 <dbl>, Intensity15 <dbl>, Intensity16 <dbl>, Intensity17 <dbl>, Intensity18 <dbl>,
+#   Intensity19 <dbl>, Intensity20 <dbl>, Intensity21 <dbl>, Intensity22 <dbl>, Intensity23 <dbl>, Intensity24 <dbl>,
+#   Intensity25 <dbl>, Intensity26 <dbl>, Intensity27 <dbl>, Intensity28 <dbl>, Intensity29 <dbl>, Intensity30 <dbl>,
+#   Intensity31 <dbl>, Intensity32 <dbl>, Intensity33 <dbl>, Intensity34 <dbl>, Intensity35 <dbl>, Intensity36 <dbl>,
+#   Intensity37 <dbl>, Intensity38 <dbl>, Intensity39 <dbl>, Intensity40 <dbl>, Intensity41 <dbl>, Intensity42 <dbl>,
+#   Intensity43 <dbl>, Intensity44 <dbl>, Intensity45 <dbl>, Intensity46 <dbl>, Intensity47 <dbl>, Intensity48 <dbl>, …
+spc_tbl_ [21,645 × 62] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id          : num [1:21645] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityHour: chr [1:21645] "4/13/2016 12:00:00 AM" "4/13/2016 1:00:00 AM" "4/13/2016 2:00:00 AM" "4/13/2016 3:00:00 AM" ...
+ $ Intensity00 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity01 : num [1:21645] 1 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity02 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity03 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity04 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity05 : num [1:21645] 1 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity06 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity07 : num [1:21645] 1 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity08 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity09 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity10 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity11 : num [1:21645] 0 0 0 1 0 0 0 0 1 1 ...
+ $ Intensity12 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity13 : num [1:21645] 0 0 0 0 0 0 0 0 1 1 ...
+ $ Intensity14 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity15 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity16 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity17 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity18 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity19 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity20 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity21 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity22 : num [1:21645] 0 0 0 0 0 0 0 0 1 0 ...
+ $ Intensity23 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity24 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity25 : num [1:21645] 1 0 0 0 0 0 0 1 0 0 ...
+ $ Intensity26 : num [1:21645] 1 0 0 0 0 0 0 1 0 0 ...
+ $ Intensity27 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity28 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity29 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity30 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity31 : num [1:21645] 0 0 0 0 0 0 0 1 0 0 ...
+ $ Intensity32 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity33 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity34 : num [1:21645] 0 0 0 1 0 0 0 0 0 0 ...
+ $ Intensity35 : num [1:21645] 0 0 0 1 0 0 0 0 0 0 ...
+ $ Intensity36 : num [1:21645] 0 0 0 1 0 0 0 0 1 1 ...
+ $ Intensity37 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity38 : num [1:21645] 0 0 0 0 0 0 0 0 1 1 ...
+ $ Intensity39 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity40 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity41 : num [1:21645] 0 0 0 0 0 0 0 1 0 0 ...
+ $ Intensity42 : num [1:21645] 0 0 0 0 0 0 0 1 1 0 ...
+ $ Intensity43 : num [1:21645] 0 0 0 0 0 0 0 0 1 0 ...
+ $ Intensity44 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity45 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity46 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity47 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity48 : num [1:21645] 0 0 0 0 0 0 0 0 0 1 ...
+ $ Intensity49 : num [1:21645] 0 0 0 0 0 0 0 0 1 0 ...
+ $ Intensity50 : num [1:21645] 0 0 0 0 0 0 0 1 0 0 ...
+ $ Intensity51 : num [1:21645] 1 0 0 0 0 0 0 1 1 1 ...
+ $ Intensity52 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity53 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity54 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity55 : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity56 : num [1:21645] 0 0 0 0 0 0 0 0 1 0 ...
+ $ Intensity57 : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Intensity58 : num [1:21645] 0 0 0 0 0 0 0 0 1 0 ...
+ $ Intensity59 : num [1:21645] 0 0 0 0 0 0 0 1 1 1 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityHour = col_character(),
+  ..   Intensity00 = col_double(),
+  ..   Intensity01 = col_double(),
+  ..   Intensity02 = col_double(),
+  ..   Intensity03 = col_double(),
+  ..   Intensity04 = col_double(),
+  ..   Intensity05 = col_double(),
+  ..   Intensity06 = col_double(),
+  ..   Intensity07 = col_double(),
+  ..   Intensity08 = col_double(),
+  ..   Intensity09 = col_double(),
+  ..   Intensity10 = col_double(),
+  ..   Intensity11 = col_double(),
+  ..   Intensity12 = col_double(),
+  ..   Intensity13 = col_double(),
+  ..   Intensity14 = col_double(),
+  ..   Intensity15 = col_double(),
+  ..   Intensity16 = col_double(),
+  ..   Intensity17 = col_double(),
+  ..   Intensity18 = col_double(),
+  ..   Intensity19 = col_double(),
+  ..   Intensity20 = col_double(),
+  ..   Intensity21 = col_double(),
+  ..   Intensity22 = col_double(),
+  ..   Intensity23 = col_double(),
+  ..   Intensity24 = col_double(),
+  ..   Intensity25 = col_double(),
+  ..   Intensity26 = col_double(),
+  ..   Intensity27 = col_double(),
+  ..   Intensity28 = col_double(),
+  ..   Intensity29 = col_double(),
+  ..   Intensity30 = col_double(),
+  ..   Intensity31 = col_double(),
+  ..   Intensity32 = col_double(),
+  ..   Intensity33 = col_double(),
+  ..   Intensity34 = col_double(),
+  ..   Intensity35 = col_double(),
+  ..   Intensity36 = col_double(),
+  ..   Intensity37 = col_double(),
+  ..   Intensity38 = col_double(),
+  ..   Intensity39 = col_double(),
+  ..   Intensity40 = col_double(),
+  ..   Intensity41 = col_double(),
+  ..   Intensity42 = col_double(),
+  ..   Intensity43 = col_double(),
+  ..   Intensity44 = col_double(),
+  ..   Intensity45 = col_double(),
+  ..   Intensity46 = col_double(),
+  ..   Intensity47 = col_double(),
+  ..   Intensity48 = col_double(),
+  ..   Intensity49 = col_double(),
+  ..   Intensity50 = col_double(),
+  ..   Intensity51 = col_double(),
+  ..   Intensity52 = col_double(),
+  ..   Intensity53 = col_double(),
+  ..   Intensity54 = col_double(),
+  ..   Intensity55 = col_double(),
+  ..   Intensity56 = col_double(),
+  ..   Intensity57 = col_double(),
+  ..   Intensity58 = col_double(),
+  ..   Intensity59 = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityHour Intensity00 Intensity01 Intensity02 Intensity03 Intensity04 Intensity05 Intensity06 Intensity07 Intensity08 Intensity09 Intensity10 Intensity11 Intensity12 Intensity13 Intensity14 Intensity15 Intensity16 Intensity17 Intensity18 Intensity19 Intensity20 Intensity21 Intensity22 Intensity23 Intensity24 Intensity25 Intensity26 Intensity27 Intensity28 Intensity29 Intensity30 Intensity31 Intensity32 Intensity33 Intensity34 Intensity35 Intensity36 Intensity37 Intensity38 Intensity39 Intensity40 Intensity41 Intensity42 Intensity43 Intensity44 Intensity45 Intensity46 Intensity47 Intensity48 Intensity49 Intensity50 Intensity51 Intensity52 Intensity53 Intensity54 Intensity55 Intensity56 Intensity57 Intensity58 Intensity59 
+       Id             ActivityHour        Intensity00      Intensity01      Intensity02      Intensity03    
+ Min.   :1503960366   Length:21645       Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:2320127002   Class :character   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :4445114986   Mode  :character   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :4836965277                      Mean   :0.1997   Mean   :0.2033   Mean   :0.2082   Mean   :0.2038  
+ 3rd Qu.:6962181067                      3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :8877689391                      Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity04      Intensity05      Intensity06      Intensity07      Intensity08      Intensity09      Intensity10    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.2051   Mean   :0.2049   Mean   :0.2066   Mean   :0.2019   Mean   :0.2023   Mean   :0.2021   Mean   :0.2014  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity11      Intensity12   Intensity13      Intensity14      Intensity15      Intensity16      Intensity17    
+ Min.   :0.0000   Min.   :0.0   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.2022   Mean   :0.2   Mean   :0.1978   Mean   :0.2002   Mean   :0.1983   Mean   :0.1938   Mean   :0.1976  
+ 3rd Qu.:0.0000   3rd Qu.:0.0   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity18      Intensity19      Intensity20      Intensity21      Intensity22      Intensity23      Intensity24    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.1996   Mean   :0.2017   Mean   :0.1998   Mean   :0.1998   Mean   :0.2047   Mean   :0.1998   Mean   :0.1974  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity25      Intensity26      Intensity27      Intensity28      Intensity29      Intensity30      Intensity31    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.1963   Mean   :0.1985   Mean   :0.1986   Mean   :0.1989   Mean   :0.2021   Mean   :0.2016   Mean   :0.2033  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity32      Intensity33      Intensity34      Intensity35      Intensity36      Intensity37      Intensity38    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.2056   Mean   :0.2059   Mean   :0.2044   Mean   :0.2066   Mean   :0.2072   Mean   :0.2057   Mean   :0.2018  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity39      Intensity40     Intensity41      Intensity42      Intensity43      Intensity44      Intensity45    
+ Min.   :0.0000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.2031   Mean   :0.203   Mean   :0.2026   Mean   :0.1983   Mean   :0.2008   Mean   :0.2006   Mean   :0.2001  
+ 3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+  Intensity46      Intensity47      Intensity48      Intensity49     Intensity50     Intensity51      Intensity52    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.000   Min.   :0.000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.000   Median :0.000   Median :0.0000   Median :0.0000  
+ Mean   :0.1975   Mean   :0.1976   Mean   :0.1993   Mean   :0.199   Mean   :0.201   Mean   :0.1958   Mean   :0.1983  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.000   3rd Qu.:0.000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.000   Max.   :3.000   Max.   :3.0000   Max.   :3.0000  
+  Intensity53      Intensity54      Intensity55      Intensity56      Intensity57      Intensity58      Intensity59    
+ Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  
+ 1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  
+ Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000   Median :0.0000  
+ Mean   :0.1994   Mean   :0.2001   Mean   :0.1988   Mean   :0.1956   Mean   :0.1991   Mean   :0.1982   Mean   :0.1954  
+ 3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  
+ Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000   Max.   :3.0000  
+
+---------------------------------
+File:  minuteStepsWide_merged.csv 
+# A tibble: 6 × 62
+      Id ActivityHour Steps00 Steps01 Steps02 Steps03 Steps04 Steps05 Steps06 Steps07 Steps08 Steps09 Steps10 Steps11 Steps12
+   <dbl> <chr>          <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
+1 1.50e9 4/13/2016 1…       4      16       0       0       0       9       0      17       0       0       0       0       0
+2 1.50e9 4/13/2016 1…       0       0       0       0       0       0       0       0       0       0       0       0       0
+3 1.50e9 4/13/2016 2…       0       0       0       0       0       0       0       0       0       0       0       0       0
+4 1.50e9 4/13/2016 3…       0       0       0       0       0       0       0       0       0       0       0      10       0
+5 1.50e9 4/13/2016 4…       0       0       0       0       0       0       0       0       0       0       0       0       0
+6 1.50e9 4/13/2016 5…       0       0       0       0       0       0       0       0       0       0       0       0       0
+# ℹ 47 more variables: Steps13 <dbl>, Steps14 <dbl>, Steps15 <dbl>, Steps16 <dbl>, Steps17 <dbl>, Steps18 <dbl>,
+#   Steps19 <dbl>, Steps20 <dbl>, Steps21 <dbl>, Steps22 <dbl>, Steps23 <dbl>, Steps24 <dbl>, Steps25 <dbl>, Steps26 <dbl>,
+#   Steps27 <dbl>, Steps28 <dbl>, Steps29 <dbl>, Steps30 <dbl>, Steps31 <dbl>, Steps32 <dbl>, Steps33 <dbl>, Steps34 <dbl>,
+#   Steps35 <dbl>, Steps36 <dbl>, Steps37 <dbl>, Steps38 <dbl>, Steps39 <dbl>, Steps40 <dbl>, Steps41 <dbl>, Steps42 <dbl>,
+#   Steps43 <dbl>, Steps44 <dbl>, Steps45 <dbl>, Steps46 <dbl>, Steps47 <dbl>, Steps48 <dbl>, Steps49 <dbl>, Steps50 <dbl>,
+#   Steps51 <dbl>, Steps52 <dbl>, Steps53 <dbl>, Steps54 <dbl>, Steps55 <dbl>, Steps56 <dbl>, Steps57 <dbl>, Steps58 <dbl>,
+#   Steps59 <dbl>
+spc_tbl_ [21,645 × 62] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id          : num [1:21645] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ ActivityHour: chr [1:21645] "4/13/2016 12:00:00 AM" "4/13/2016 1:00:00 AM" "4/13/2016 2:00:00 AM" "4/13/2016 3:00:00 AM" ...
+ $ Steps00     : num [1:21645] 4 0 0 0 0 0 0 0 0 0 ...
+ $ Steps01     : num [1:21645] 16 0 0 0 0 0 0 0 0 14 ...
+ $ Steps02     : num [1:21645] 0 0 0 0 0 0 0 0 0 10 ...
+ $ Steps03     : num [1:21645] 0 0 0 0 0 0 0 0 0 31 ...
+ $ Steps04     : num [1:21645] 0 0 0 0 0 0 0 0 0 37 ...
+ $ Steps05     : num [1:21645] 9 0 0 0 0 0 0 0 0 17 ...
+ $ Steps06     : num [1:21645] 0 0 0 0 0 0 0 0 0 25 ...
+ $ Steps07     : num [1:21645] 17 0 0 0 0 0 0 0 0 12 ...
+ $ Steps08     : num [1:21645] 0 0 0 0 0 0 0 0 0 6 ...
+ $ Steps09     : num [1:21645] 0 0 0 0 0 0 0 0 0 30 ...
+ $ Steps10     : num [1:21645] 0 0 0 0 0 0 0 0 0 7 ...
+ $ Steps11     : num [1:21645] 0 0 0 10 0 0 0 0 6 109 ...
+ $ Steps12     : num [1:21645] 0 0 0 0 0 0 0 0 0 140 ...
+ $ Steps13     : num [1:21645] 0 0 0 0 0 0 0 0 19 145 ...
+ $ Steps14     : num [1:21645] 0 0 0 0 0 0 0 0 0 152 ...
+ $ Steps15     : num [1:21645] 0 0 0 0 0 0 0 0 0 117 ...
+ $ Steps16     : num [1:21645] 0 0 0 0 0 0 0 0 0 20 ...
+ $ Steps17     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps18     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps19     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps20     : num [1:21645] 6 0 0 0 0 0 0 0 0 0 ...
+ $ Steps21     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps22     : num [1:21645] 0 0 0 0 0 0 0 0 32 0 ...
+ $ Steps23     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps24     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps25     : num [1:21645] 11 0 0 0 0 0 0 26 0 0 ...
+ $ Steps26     : num [1:21645] 21 0 0 0 0 0 0 11 0 0 ...
+ $ Steps27     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps28     : num [1:21645] 8 0 0 0 0 0 0 0 0 0 ...
+ $ Steps29     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps30     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps31     : num [1:21645] 0 0 0 0 0 0 0 9 0 0 ...
+ $ Steps32     : num [1:21645] 8 0 0 0 0 0 0 0 0 0 ...
+ $ Steps33     : num [1:21645] 6 0 0 0 0 0 0 0 0 0 ...
+ $ Steps34     : num [1:21645] 0 0 0 11 0 0 0 0 0 0 ...
+ $ Steps35     : num [1:21645] 0 0 0 9 0 0 0 0 0 0 ...
+ $ Steps36     : num [1:21645] 0 0 0 6 0 0 0 0 45 21 ...
+ $ Steps37     : num [1:21645] 0 0 0 0 0 0 0 0 0 39 ...
+ $ Steps38     : num [1:21645] 0 0 0 0 0 0 0 0 7 84 ...
+ $ Steps39     : num [1:21645] 0 0 0 0 0 0 0 0 0 117 ...
+ $ Steps40     : num [1:21645] 0 0 0 0 0 0 0 0 0 22 ...
+ $ Steps41     : num [1:21645] 0 0 0 0 0 0 0 28 0 0 ...
+ $ Steps42     : num [1:21645] 0 0 0 0 0 0 0 7 31 0 ...
+ $ Steps43     : num [1:21645] 0 0 0 0 0 0 0 0 20 0 ...
+ $ Steps44     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps45     : num [1:21645] 0 0 0 0 0 0 0 0 0 122 ...
+ $ Steps46     : num [1:21645] 0 0 0 0 0 0 0 0 0 125 ...
+ $ Steps47     : num [1:21645] 0 0 0 0 0 0 0 0 0 91 ...
+ $ Steps48     : num [1:21645] 0 0 0 0 0 0 0 0 0 73 ...
+ $ Steps49     : num [1:21645] 0 0 0 0 0 0 0 0 19 0 ...
+ $ Steps50     : num [1:21645] 0 0 0 0 0 0 0 16 0 0 ...
+ $ Steps51     : num [1:21645] 9 0 0 0 0 0 0 13 21 8 ...
+ $ Steps52     : num [1:21645] 8 0 0 0 0 0 0 0 0 0 ...
+ $ Steps53     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps54     : num [1:21645] 20 0 0 0 0 0 0 0 0 0 ...
+ $ Steps55     : num [1:21645] 1 0 0 0 0 0 0 0 0 0 ...
+ $ Steps56     : num [1:21645] 0 0 0 0 0 0 0 0 31 0 ...
+ $ Steps57     : num [1:21645] 0 0 0 0 0 0 0 0 0 0 ...
+ $ Steps58     : num [1:21645] 0 0 0 0 0 0 0 0 42 0 ...
+ $ Steps59     : num [1:21645] 0 0 0 0 0 0 0 16 2 105 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   ActivityHour = col_character(),
+  ..   Steps00 = col_double(),
+  ..   Steps01 = col_double(),
+  ..   Steps02 = col_double(),
+  ..   Steps03 = col_double(),
+  ..   Steps04 = col_double(),
+  ..   Steps05 = col_double(),
+  ..   Steps06 = col_double(),
+  ..   Steps07 = col_double(),
+  ..   Steps08 = col_double(),
+  ..   Steps09 = col_double(),
+  ..   Steps10 = col_double(),
+  ..   Steps11 = col_double(),
+  ..   Steps12 = col_double(),
+  ..   Steps13 = col_double(),
+  ..   Steps14 = col_double(),
+  ..   Steps15 = col_double(),
+  ..   Steps16 = col_double(),
+  ..   Steps17 = col_double(),
+  ..   Steps18 = col_double(),
+  ..   Steps19 = col_double(),
+  ..   Steps20 = col_double(),
+  ..   Steps21 = col_double(),
+  ..   Steps22 = col_double(),
+  ..   Steps23 = col_double(),
+  ..   Steps24 = col_double(),
+  ..   Steps25 = col_double(),
+  ..   Steps26 = col_double(),
+  ..   Steps27 = col_double(),
+  ..   Steps28 = col_double(),
+  ..   Steps29 = col_double(),
+  ..   Steps30 = col_double(),
+  ..   Steps31 = col_double(),
+  ..   Steps32 = col_double(),
+  ..   Steps33 = col_double(),
+  ..   Steps34 = col_double(),
+  ..   Steps35 = col_double(),
+  ..   Steps36 = col_double(),
+  ..   Steps37 = col_double(),
+  ..   Steps38 = col_double(),
+  ..   Steps39 = col_double(),
+  ..   Steps40 = col_double(),
+  ..   Steps41 = col_double(),
+  ..   Steps42 = col_double(),
+  ..   Steps43 = col_double(),
+  ..   Steps44 = col_double(),
+  ..   Steps45 = col_double(),
+  ..   Steps46 = col_double(),
+  ..   Steps47 = col_double(),
+  ..   Steps48 = col_double(),
+  ..   Steps49 = col_double(),
+  ..   Steps50 = col_double(),
+  ..   Steps51 = col_double(),
+  ..   Steps52 = col_double(),
+  ..   Steps53 = col_double(),
+  ..   Steps54 = col_double(),
+  ..   Steps55 = col_double(),
+  ..   Steps56 = col_double(),
+  ..   Steps57 = col_double(),
+  ..   Steps58 = col_double(),
+  ..   Steps59 = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id ActivityHour Steps00 Steps01 Steps02 Steps03 Steps04 Steps05 Steps06 Steps07 Steps08 Steps09 Steps10 Steps11 Steps12 Steps13 Steps14 Steps15 Steps16 Steps17 Steps18 Steps19 Steps20 Steps21 Steps22 Steps23 Steps24 Steps25 Steps26 Steps27 Steps28 Steps29 Steps30 Steps31 Steps32 Steps33 Steps34 Steps35 Steps36 Steps37 Steps38 Steps39 Steps40 Steps41 Steps42 Steps43 Steps44 Steps45 Steps46 Steps47 Steps48 Steps49 Steps50 Steps51 Steps52 Steps53 Steps54 Steps55 Steps56 Steps57 Steps58 Steps59 
+       Id             ActivityHour          Steps00           Steps01           Steps02           Steps03       
+ Min.   :1503960366   Length:21645       Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:2320127002   Class :character   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :4445114986   Mode  :character   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :4836965277                      Mean   :  5.304   Mean   :  5.335   Mean   :  5.531   Mean   :  5.469  
+ 3rd Qu.:6962181067                      3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :8877689391                      Max.   :186.000   Max.   :180.000   Max.   :182.000   Max.   :182.000  
+    Steps04           Steps05          Steps06           Steps07           Steps08           Steps09       
+ Min.   :  0.000   Min.   :  0.00   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.00   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.00   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.462   Mean   :  5.59   Mean   :  5.559   Mean   :  5.412   Mean   :  5.359   Mean   :  5.359  
+ 3rd Qu.:  0.000   3rd Qu.:  0.00   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :181.000   Max.   :180.00   Max.   :181.000   Max.   :183.000   Max.   :180.000   Max.   :183.000  
+    Steps10           Steps11          Steps12           Steps13           Steps14           Steps15       
+ Min.   :  0.000   Min.   :  0.00   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.00   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.00   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.343   Mean   :  5.29   Mean   :  5.304   Mean   :  5.263   Mean   :  5.344   Mean   :  5.276  
+ 3rd Qu.:  0.000   3rd Qu.:  0.00   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :180.000   Max.   :181.00   Max.   :181.000   Max.   :180.000   Max.   :182.000   Max.   :179.000  
+    Steps16           Steps17           Steps18           Steps19           Steps20           Steps21      
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.00  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.00  
+ Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.00  
+ Mean   :  5.207   Mean   :  5.286   Mean   :  5.346   Mean   :  5.418   Mean   :  5.296   Mean   :  5.29  
+ 3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.00  
+ Max.   :180.000   Max.   :183.000   Max.   :180.000   Max.   :182.000   Max.   :179.000   Max.   :185.00  
+    Steps22           Steps23           Steps24           Steps25         Steps26           Steps27           Steps28       
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.0   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.0   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.0   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.535   Mean   :  5.349   Mean   :  5.311   Mean   :  5.3   Mean   :  5.253   Mean   :  5.308   Mean   :  5.265  
+ 3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.0   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :182.000   Max.   :187.000   Max.   :180.000   Max.   :181.0   Max.   :186.000   Max.   :180.000   Max.   :181.000  
+    Steps29           Steps30           Steps31           Steps32           Steps33         Steps34           Steps35       
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.0   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.0   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.0   Median :  0.000   Median :  0.000  
+ Mean   :  5.255   Mean   :  5.395   Mean   :  5.363   Mean   :  5.436   Mean   :  5.5   Mean   :  5.469   Mean   :  5.419  
+ 3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.0   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :183.000   Max.   :181.000   Max.   :181.000   Max.   :181.000   Max.   :182.0   Max.   :180.000   Max.   :187.000  
+    Steps36           Steps37           Steps38           Steps39           Steps40           Steps41       
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.581   Mean   :  5.496   Mean   :  5.484   Mean   :  5.337   Mean   :  5.381   Mean   :  5.343  
+ 3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :183.000   Max.   :181.000   Max.   :185.000   Max.   :184.000   Max.   :184.000   Max.   :184.000  
+    Steps42          Steps43           Steps44           Steps45           Steps46           Steps47       
+ Min.   :  0.00   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.00   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.00   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.26   Mean   :  5.292   Mean   :  5.353   Mean   :  5.243   Mean   :  5.339   Mean   :  5.301  
+ 3rd Qu.:  0.00   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :180.00   Max.   :188.000   Max.   :220.000   Max.   :184.000   Max.   :207.000   Max.   :190.000  
+    Steps48           Steps49           Steps50           Steps51           Steps52           Steps53       
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.316   Mean   :  5.348   Mean   :  5.329   Mean   :  5.194   Mean   :  5.226   Mean   :  5.145  
+ 3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :182.000   Max.   :182.000   Max.   :182.000   Max.   :181.000   Max.   :181.000   Max.   :181.000  
+    Steps54           Steps55           Steps56          Steps57           Steps58           Steps59       
+ Min.   :  0.000   Min.   :  0.000   Min.   :  0.00   Min.   :  0.000   Min.   :  0.000   Min.   :  0.000  
+ 1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.00   1st Qu.:  0.000   1st Qu.:  0.000   1st Qu.:  0.000  
+ Median :  0.000   Median :  0.000   Median :  0.00   Median :  0.000   Median :  0.000   Median :  0.000  
+ Mean   :  5.224   Mean   :  5.281   Mean   :  5.18   Mean   :  5.252   Mean   :  5.144   Mean   :  5.289  
+ 3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.00   3rd Qu.:  0.000   3rd Qu.:  0.000   3rd Qu.:  0.000  
+ Max.   :184.000   Max.   :181.000   Max.   :182.00   Max.   :182.000   Max.   :180.000   Max.   :189.000  
+
+---------------------------------
+File:  sleepDay_merged.csv 
+# A tibble: 6 × 5
+          Id SleepDay              TotalSleepRecords TotalMinutesAsleep TotalTimeInBed
+       <dbl> <chr>                             <dbl>              <dbl>          <dbl>
+1 1503960366 4/12/2016 12:00:00 AM                 1                327            346
+2 1503960366 4/13/2016 12:00:00 AM                 2                384            407
+3 1503960366 4/15/2016 12:00:00 AM                 1                412            442
+4 1503960366 4/16/2016 12:00:00 AM                 2                340            367
+5 1503960366 4/17/2016 12:00:00 AM                 1                700            712
+6 1503960366 4/19/2016 12:00:00 AM                 1                304            320
+spc_tbl_ [413 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+ $ Id                : num [1:413] 1503960366 1503960366 1503960366 1503960366 1503960366 ...
+ $ SleepDay          : chr [1:413] "4/12/2016 12:00:00 AM" "4/13/2016 12:00:00 AM" "4/15/2016 12:00:00 AM" "4/16/2016 12:00:00 AM" ...
+ $ TotalSleepRecords : num [1:413] 1 2 1 2 1 1 1 1 1 1 ...
+ $ TotalMinutesAsleep: num [1:413] 327 384 412 340 700 304 360 325 361 430 ...
+ $ TotalTimeInBed    : num [1:413] 346 407 442 367 712 320 377 364 384 449 ...
+ - attr(*, "spec")=
+  .. cols(
+  ..   Id = col_double(),
+  ..   SleepDay = col_character(),
+  ..   TotalSleepRecords = col_double(),
+  ..   TotalMinutesAsleep = col_double(),
+  ..   TotalTimeInBed = col_double()
+  .. )
+ - attr(*, "problems")=<externalptr> 
+NULL
+Column names:  Id SleepDay TotalSleepRecords TotalMinutesAsleep TotalTimeInBed 
+       Id               SleepDay         TotalSleepRecords TotalMinutesAsleep TotalTimeInBed 
+ Min.   :1503960366   Length:413         Min.   :1.000     Min.   : 58.0      Min.   : 61.0  
+ 1st Qu.:3977333714   Class :character   1st Qu.:1.000     1st Qu.:361.0      1st Qu.:403.0  
+ Median :4702921684   Mode  :character   Median :1.000     Median :433.0      Median :463.0  
+ Mean   :5000979403                      Mean   :1.119     Mean   :419.5      Mean   :458.6  
+ 3rd Qu.:6962181067                      3rd Qu.:1.000     3rd Qu.:490.0      3rd Qu.:526.0  
+ Max.   :8792009665                      Max.   :3.000     Max.   :796.0      Max.   :961.0  
+
+---------------------------------
