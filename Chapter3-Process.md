@@ -39,7 +39,7 @@ sleepDay_merged.csv
 
 Before cleaning, I performed a basic overview of all the .csv files to understand their structure, column names, data types, etc. 
 
-Sample code:
+Sample code of my [R script](BELLABEAT_Overview_Data):
 
 ```r
 # Loop through all .csv files and save summaries to the overview file
