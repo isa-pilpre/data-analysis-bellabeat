@@ -65,27 +65,26 @@ for (file in all_files) {
 
 ### What I gathered from the [`Overview.txt` file](Overview.txt)
 
-Based on the initial overview of the Fitbit dataset, here are my first impressions:
+Based on the initial overview of the Fitbit dataset, here are my key observations:
 
 #### Potential trends
 
-Based on the file structures and column names, I can hypothesize that key trends that will likely emerge might be:
+From the file structures and column names, several trends could emerge:
 
-- Activity trends: when users are most active (morning, afternoon, evening) based on the `ActivityDate` and `ActivityHour` columns.
-- Intensity trends: through `VeryActiveMinutes`, `FairlyActiveMinutes`, and `LightlyActiveMinutes` columns.
-- Sleep patterns: through `TotalMinutesAsleep` and `TotalTimeInBed` columns.
-- Recovery patterns: through the `Value` column in the file dedicated to heart rates.
+- Activity trends: nderstanding when users are most active (morning, afternoon, evening) based on the `ActivityDate` and `ActivityHour` columns.
+- Intensity trends: insights into users' activity levels via the `VeryActiveMinutes`, `FairlyActiveMinutes`, and `LightlyActiveMinutes` columns.
+- Sleep patterns: insights into sleep duration and habits via the `TotalMinutesAsleep` and `TotalTimeInBed` columns.
+- Recovery patterns: insights into recovery patterns via the `Value` column in the heart rate file.
 
 #### Most relevant files
 
-After reviewing the `Overview.txt` file, I conclude that the most relevant files for my analysis are:
+After reviewing the `Overview.txt` file, I identified the following as the most relevant files for my analysis:
 
-- `combined_dailyActivity_merged.csv`: this file provides a comprehensive overview of users' daily activities, with columns such as `TotalSteps`, `TotalDistance`, `VeryActiveDistance`, `SedentaryMinutes`, and `Calories`. This file will be great for addressing the activity and intensity trends. One limitation though: units are missing in some columns, such as distance (presumably kilometers or miles) and calories (presumably kilocalories). I will need to investigate this further.
+- `combined_dailyActivity_merged.csv`: this file provides data on users' daily activities, with columns such as `TotalSteps`, `TotalDistance`, `VeryActiveDistance`, `SedentaryMinutes`, and `Calories`. This file seems to be suited for analyzing activity and intensity trends. One limitation, however, is the missing units in some columns, such as distance (presumably km or miles) and calories (likely kcal), which will require further investigation.
 
-- `sleepDay_merged.csv`: this file provides insight into users' sleep patterns, with columns such as `TotalMinutesAsleep` and `TotalTimeInBed`. This file will be great for addressing sleep patterns. We could also derive a metric such as sleep efficiency (i.e. percentage of time spent asleep while in bed) from this data.
+- `sleepDay_merged.csv`: this file provides insight into users' sleep patterns, with columns such as `TotalMinutesAsleep` and `TotalTimeInBed`. This file seems to be suited for analyzing sleep patterns and habits. We could also add a metric such as sleep efficiency (percentage of time spent asleep relative to time in bed).
 
-- `combined_heartrate_seconds_merged.csv`: this file provides heart rate data at a second-by-second granularity throughout the day. The `Value` column represents the heart rate. This file will be great for addressing recovery patterns. Again, no units are provided but we can assume it is in beats per minute (BPM). It might be useful to aggregate this data to a higher level (i.e. hourly or daily) for recovery trend analysis.
-
+- `combined_heartrate_seconds_merged.csv`: this file provides heart rate data at a second-by-second granularity throughout the day, with the `Value` column providing heartrate values. This file seems to be valuable for analyzing recovery patterns, although no explicit units are provided (we can assume it is measured in beats per minute, BPM). It might be useful to aggregate this data at a higher level (hourly or daily) for some insights on recovery trends.
     
 
 ## 4) Data cleaning and quality checks (nulls, duplicates, range validation)
