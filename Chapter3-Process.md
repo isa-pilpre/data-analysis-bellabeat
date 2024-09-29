@@ -42,7 +42,7 @@ Before cleaning, I performed a basic overview of all the .csv files to understan
 Sample code of my [R script](BELLABEAT_Overview_Data):
 
 ```r
-# Loop through all .csv files and check for nulls, duplicates & outliers
+# Loop through all .csv files and save summaries to the overview file
 for (file in all_files) {
   data <- read_csv(file)
   
@@ -50,35 +50,17 @@ for (file in all_files) {
   summary_output <- capture.output({
     
     cat("File: ", basename(file), "\n")
-    
-    # Check for NA values and print only if they exist
-    na_count <- colSums(is.na(data))
-    if (any(na_count > 0)) {
-      cat("Null values detected in file", basename(file), ":\n")
-      print(na_count[na_count > 0])  # Print columns where NA > 0
-    }
-    
-    # Check for duplicates and print only if they exist
-    duplicate_count <- nrow(data) - nrow(data %>% distinct())
-    if (duplicate_count > 0) {
-      cat("Duplicates detected in file", basename(file), ":", duplicate_count, "duplicates found\n")
-    }
-    
-    # Check for outliers in numeric data using IQR and print only if outliers exist
-    numeric_columns <- sapply(data, is.numeric)
-    outliers_detected <- sapply(data[, numeric_columns], detect_outliers)
-    outlier_count <- colSums(outliers_detected)
-    if (any(outlier_count > 0)) {
-      cat("Outliers detected in file", basename(file), ":\n")
-      print(outlier_count[outlier_count > 0])  # Print columns where outliers were detected
-    }
-    
+    print((head(data)))                          # displays a tibble (first few lines & columns)
+    print(str(data))                             # structure with data types
+    cat("Column names: ", colnames(data), "\n")  # column names
+    print(summary(data))                         # summary w/ min, max, mean, median & quartiles
     cat("\n---------------------------------\n")
   })
   
-  # Write summary to the cleaning results file
-  write(summary_output, cleaning_results_file, append = TRUE)
+  # Write summary to the overview file
+  write(summary_output, overview_file, append = TRUE)
 }
+
 
 ```
 
@@ -117,24 +99,44 @@ For the data cleaning process, I will focus on three key checks:
 
 Sample code:
 ```r
-# Goal: Check for NAs, duplicates, outliers
-
-# Loop through all CSV files and clean data
+# Loop through all .csv files and check for nulls, duplicates & outliers
 for (file in all_files) {
   data <- read_csv(file)
-
-  # Count missing (NA) values for each column
-  na_count <- colSums(is.na(data))
-  print(paste("Missing values in file", basename(file), ":"))
-  print(na_count)
-
-  # Check for duplicates based on relevant columns
-  data <- data %>% distinct()  # Remove any duplicate rows
   
-  # Add outlier detection here if necessary
-
-  # Save the cleaned data or output cleaning info as needed
+  # Capture summary output
+  summary_output <- capture.output({
+    
+    cat("File: ", basename(file), "\n")
+    
+    # Check for NA values and print only if they exist
+    na_count <- colSums(is.na(data))
+    if (any(na_count > 0)) {
+      cat("Null values detected in file", basename(file), ":\n")
+      print(na_count[na_count > 0])  # Print columns where NA > 0
+    }
+    
+    # Check for duplicates and print only if they exist
+    duplicate_count <- nrow(data) - nrow(data %>% distinct())
+    if (duplicate_count > 0) {
+      cat("Duplicates detected in file", basename(file), ":", duplicate_count, "duplicates found\n")
+    }
+    
+    # Check for outliers in numeric data using IQR and print only if outliers exist
+    numeric_columns <- sapply(data, is.numeric)
+    outliers_detected <- sapply(data[, numeric_columns], detect_outliers)
+    outlier_count <- colSums(outliers_detected)
+    if (any(outlier_count > 0)) {
+      cat("Outliers detected in file", basename(file), ":\n")
+      print(outlier_count[outlier_count > 0])  # Print columns where outliers were detected
+    }
+    
+    cat("\n---------------------------------\n")
+  })
+  
+  # Write summary to the cleaning results file
+  write(summary_output, cleaning_results_file, append = TRUE)
 }
+
 
 ```
 
