@@ -190,7 +190,7 @@ for (file in all_files) {
 
 After the removal of the duplicate, I needed to mo make sure that the data integrity was preserved, meaning no extra rows were removed or left behind. To verify this, I compared the row counts before and after duplicate removal for each file.
 
-Sample code:
+Sample [code](BELLABEAT_Verif_Duplicates.R):
 ```r
 # Compare row counts before and after duplicate removal
 for (i in seq_along(files_with_duplicates)) {
