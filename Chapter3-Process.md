@@ -35,7 +35,7 @@ The Fitbit dataset contains the following 18 files:
 * `sleepDay_merged.csv`
 
 
-## 3) Initial overview of the data
+## 3) Overview of the data
 
 Before cleaning, I performed a basic overview of all the .csv files to understand their structure, column names, data types, etc. 
 
@@ -186,9 +186,45 @@ for (file in all_files) {
 }
 ```
 
-### Verifying that data integrity was preserved
+### Verifying that duplicates were correctly removed
 
-nlalaalala
+After the removal of the duplicate, I needed to mo make sure that the data integrity was preserved, meaning no extra rows were removed or left behind. To verify this, I compared the row counts before and after duplicate removal for each file.
+
+Sample code:
+```r
+# Compare row counts before and after duplicate removal
+for (i in seq_along(files_with_duplicates)) {
+  file <- files_with_duplicates[i]
+  expected_removal <- duplicate_counts[i]
+  
+  # Read original and cleaned data
+  combined_data <- read_csv(file.path(combined_folder, file))
+  cleaned_data <- read_csv(file.path(cleaned_folder, file))
+  
+  # Get row counts
+  combined_row_count <- nrow(combined_data)
+  cleaned_row_count <- nrow(cleaned_data)
+  
+  # Calculate expected row count after duplicates removal
+  expected_cleaned_count <- combined_row_count - expected_removal
+  
+  # Compare actual cleaned row count with expected
+  diff <- cleaned_row_count - expected_cleaned_count
+  
+  # Output the results
+  cat("File:", file, "\n")
+  cat("Original Row Count:", combined_row_count, "\n")
+  cat("Expected Row Count after duplicates removed:", expected_cleaned_count, "\n")
+  cat("Actual Cleaned Row Count:", cleaned_row_count, "\n")
+  if (diff == 0) {
+    cat("✅ Cleaned row count matches the expected count.\n")
+  } else {
+    cat("❌ Mismatch: Difference of", diff, "rows.\n")
+  }
+  cat("----------------------------\n")
+}
+
+```
 
 
 ### Additional cleaning
