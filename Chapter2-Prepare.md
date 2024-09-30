@@ -16,6 +16,8 @@ Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes s
 
 ## 2. Data organization
 
+### Exploring the Fitbit datasets
+
 During my exploration of the Fitbit datasets, I found out that the data unzipped into 2 separate folders, called:
 "`Fitabase Data 3.12.16 - 4.11.16`" 
 and 
@@ -44,6 +46,8 @@ Then I compared the filenames using Google Sheets. I imported both text files in
 * `ISNUMBER()` checks if the return value is a number, and `IF()` evaluates whether `ISNUMBER()` returns `TRUE` or `FALSE`.
 
 I also applied conditional formatting in Google Sheets to highlight cells with matching filenames, which confirmed that all the 11 files from the first folder had "twin" files in the second folder. The second folder contained an additional 7 files not found in the first.
+
+### Combining the "twin" files with same name in the two initial folders
 
 Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`Fitbit_Complete_Data`", (along with the remaining files that had no matching filenames). 
 
@@ -80,7 +84,9 @@ for (file in unique(c(basename(files1), basename(files2)))) {
 
 ```
     
-To confirm the final file organization, I checked if all required files were present in the new, unified folder with the following command line:
+### Verifying that the file concatenation/combination went well
+
+First I checked if all required files were present in the new, unified folder with the following command line:
 
 ```bash
 cd Fitbit_Complete_Data/
@@ -90,6 +96,53 @@ wc -l total_files.txt
 ```
 
 This process resulted in a total of 18 Fitbit .csv files (11 combined "twin" files and 7 additional files from the second folder).
+
+Then, regarding the 11 combined files, I made sure that the combined nrows =  nrows1 + nrows2 with an R script.
+
+Sample code:
+
+```R
+# Get the list of combined files (only those starting with "combined_")
+combined_files <- list.files(combined_dir, pattern = "^combined.*csv$", full.names = TRUE)
+
+
+# Loop through combined files and check row counts
+for (file in combined_files) {
+  basefile <- basename(file)
+  
+  # Remove "combined_" prefix to match files in dir1 and dir2
+  basefile_no_combined <- sub("combined_", "", basefile)
+  
+  # Read files from both directories and the combined directory
+  data_combined <- read.csv(file)
+  data_dir1 <- read.csv(file.path(dir1, basefile_no_combined))
+  data_dir2 <- read.csv(file.path(dir2, basefile_no_combined))
+  
+  # Get row counts
+  count_combined <- nrow(data_combined)
+  count_dir1 <- nrow(data_dir1)
+  count_dir2 <- nrow(data_dir2)
+  
+  # Calculate the expected total 
+  expected_total <- count_dir1 + count_dir2
+  
+  # Calculate the difference
+  diff <- expected_total - count_combined
+  
+  if (diff != 0) {
+    cat("ERROR in count!")
+  }
+  
+  # Output results
+  cat("File:", basefile, "\n")
+  cat("Dir 1 Count:", count_dir1, "\n")
+  cat("Dir 2 Count:", count_dir2, "\n")
+  cat("Expected total: ", expected_total, "\n")
+  cat("Combined Count:", count_combined, "\n")
+  cat("Difference in count is", diff, "\n")
+  cat("----------------------------\n")
+}
+```
 
 Now, the Fitbit dataset is fully organized, with all the files stored in one unified folder called `Fitbit_Complete_Data`.
 As for the survey data, it is stored separately in a folder called `Questionnaire_Data` in the same directory. 
