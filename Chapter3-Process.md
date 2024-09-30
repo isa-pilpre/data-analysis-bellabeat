@@ -15,24 +15,24 @@ To stay aligned with the business task, I need to remember the following key que
 
 The Fitbit dataset contains the following 18 files:
 
-combined_dailyActivity_merged.csv
-combined_heartrate_seconds_merged.csv
-combined_hourlyCalories_merged.csv
-combined_hourlyIntensities_merged.csv
-combined_hourlySteps_merged.csv
-combined_minuteCaloriesNarrow_merged.csv
-combined_minuteIntensitiesNarrow_merged.csv
-combined_minuteMETsNarrow_merged.csv
-combined_minuteSleep_merged.csv
-combined_minuteStepsNarrow_merged.csv
-combined_weightLogInfo_merged.csv
-dailyCalories_merged.csv
-dailyIntensities_merged.csv
-dailySteps_merged.csv
-minuteCaloriesWide_merged.csv
-minuteIntensitiesWide_merged.csv
-minuteStepsWide_merged.csv
-sleepDay_merged.csv
+* `combined_dailyActivity_merged.csv`
+* `combined_heartrate_seconds_merged.csv`
+* `combined_hourlyCalories_merged.csv`
+* `combined_hourlyIntensities_merged.csv`
+* `combined_hourlySteps_merged.csv`
+* `combined_minuteCaloriesNarrow_merged.csv`
+* `combined_minuteIntensitiesNarrow_merged.csv`
+* `combined_minuteMETsNarrow_merged.csv`
+* `combined_minuteSleep_merged.csv`
+* `combined_minuteStepsNarrow_merged.csv`
+* `combined_weightLogInfo_merged.csv`
+* `dailyCalories_merged.csv`
+* `dailyIntensities_merged.csv`
+* `dailySteps_merged.csv`
+* `minuteCaloriesWide_merged.csv`
+* `minuteIntensitiesWide_merged.csv`
+* `minuteStepsWide_merged.csv`
+* `sleepDay_merged.csv`
 
 
 ## 3) Initial overview of the data
@@ -64,13 +64,11 @@ for (file in all_files) {
 
 ```
 
-### What I gathered from the [`Overview.txt` file](Overview.txt)
-
-Based on the initial overview of the Fitbit dataset, here are my key observations:
+### What I gathered after reviewing the [`Overview.txt` file](Overview.txt)
 
 #### Potential trends
 
-From the file structures and column names, several trends could emerge:
+From the file tibbles, structures, summaries and column names, several trends seem to emerge:
 
 - Activity trends: insights into when users are most active (morning, afternoon, evening) based on the `ActivityDate` and `ActivityHour` columns.
 - Intensity trends: insights into users' activity levels via the `VeryActiveMinutes`, `FairlyActiveMinutes`, and `LightlyActiveMinutes` columns.
@@ -79,13 +77,11 @@ From the file structures and column names, several trends could emerge:
 
 #### Most relevant files
 
-After reviewing the `Overview.txt` file, I identified the following as the most relevant files for my analysis:
+- `combined_dailyActivity_merged.csv`: this file provides data on users' daily activities, with columns such as `TotalSteps`, `TotalDistance`, `VeryActiveDistance`, `SedentaryMinutes`, and `Calories`. Suited for analyzing activity and intensity trends. One limitation, however, is the missing units in some columns, such as distance (presumably km or miles) and calories (likely kcal), which will require further investigation.
 
-- `combined_dailyActivity_merged.csv`: this file provides data on users' daily activities, with columns such as `TotalSteps`, `TotalDistance`, `VeryActiveDistance`, `SedentaryMinutes`, and `Calories`. This file seems to be suited for analyzing activity and intensity trends. One limitation, however, is the missing units in some columns, such as distance (presumably km or miles) and calories (likely kcal), which will require further investigation.
+- `sleepDay_merged.csv`: this file provides insight into users' sleep patterns, with columns such as `TotalMinutesAsleep` and `TotalTimeInBed`. Suited for analyzing sleep patterns and habits. I might also add a metric such as sleep efficiency (percentage of time spent asleep / time in bed).
 
-- `sleepDay_merged.csv`: this file provides insight into users' sleep patterns, with columns such as `TotalMinutesAsleep` and `TotalTimeInBed`. This file seems to be suited for analyzing sleep patterns and habits. We could also add a metric such as sleep efficiency (percentage of time spent asleep relative to time in bed).
-
-- `combined_heartrate_seconds_merged.csv`: this file provides heart rate data at a second-by-second granularity throughout the day, with the `Value` column providing heartrate values. This file seems to be valuable for analyzing recovery patterns, although no explicit units are provided (we can assume it is measured in beats per minute, BPM). It might be useful to aggregate this data at a higher level (hourly or daily) for some insights on recovery trends.
+- `combined_heartrate_seconds_merged.csv`: this file provides heart rate data at a second-by-second granularity throughout the day, with the `Value` column providing heartrate values. Suited for analyzing recovery patterns. Again, no unit is provided for `Value`, but we can assume it is measures in beats per minute, BPM. I might aggregate this data at a higher level (hourly or daily) for insights on recovery trends.
     
 
 ## 4) Data cleaning and quality checks
@@ -97,18 +93,7 @@ For the data cleaning process, I started with:
 - Checking for null values (NAs)
 - Removing duplicates
 
-The cleaned data is saved in a new folder called `Cleaned_Fitbit`, while I kept the original dataset in the `Fitbit_Complete_Data` folder.
-
-### Handling outliers
-
-Outliers are more complex to deal with programmatically, because it's not always clear if they are acutual errors or legitimate values (for example, an extremely high heart rate could be a real data point for an athlete). Therefore, I decided not to remove outliers programmatically at this stage. I preferred to take a conservative approach and not risk deleting any valid data. I will further review or filter the data during the analysis phase if needed.
-
-### Additional Cleaning
-
-I might need to change or fix data types or do further filtering during the analysis or visualization phases, so the cleaning process may continue at that point if needed.
-
-
-Sample code for nulls & duplicates check:
+Sample code:
 ```r
 # Loop through all .csv files and check for nulls and duplicates
 for (file in all_files) {
@@ -142,7 +127,7 @@ for (file in all_files) {
 
 ```
 
-### What I gathered from the [`Cleaning_Results.txt` file](Overview.txt)
+### What I gathered after reviewing the [`Cleaning_Results.txt` file](Overview.txt)
 
 #### Missing values (NA)
 
@@ -178,5 +163,17 @@ Duplicates detected in file combined_weightLogInfo_merged.csv : 2 duplicates fou
 Duplicates detected in file sleepDay_merged.csv : 3 duplicates found
 
 
+The cleaned data was saved in a new folder called `Cleaned_Fitbit`, while I kept the original dataset in the `Fitbit_Complete_Data` folder.
 
+### Additional cleaning
+
+#### Outliers 
+
+Outliers are more complex to deal with programmatically, because it's not always clear if they are actual errors or legitimate values. For example, a very low heart rate could be a real data point for an athlete. Therefore, I decided not to remove outliers programmatically at this stage. I prefer to take a conservative approach and not risk deleting any valid data. I will further review or filter the data during the analysis phase if needed.
+
+#### Data types
+
+I might need to change or fix data types or do further filtering during the analysis or visualization phases, so the cleaning process may continue at that point if needed.
+
+For now on, I will work on the data stored in the `Cleaned_Fitbit` folder.
 
