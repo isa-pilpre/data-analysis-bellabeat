@@ -10,7 +10,7 @@ Available [here](https://www.kaggle.com/datasets/arashnic/fitbit), this dataset,
 
 However, because of this dataset's limitations (small sample size, data collected in 2016, and lack of gender differentiation), I looked for a complementary data source (see below).
 
-- **B) 'A dataset for studying the relationship between humans and their smart devices' (MDPI)**
+- **B) Survey dataset about the relationship between humans and their smart devices (MDPI)**
 
 Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020. The larger, more recent sample makes it more representative and relevant. Additionally, the survey asked respondents whether they were male (1) or female (2), which makes it better suited to Bellabeat’s focus on women. Lastly, this dataset adds a psychological dimension to the analysis by exploring user attitudes and interactions with their smart devices, which is nice addition to the Fitbit data.
 
