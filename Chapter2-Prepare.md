@@ -19,9 +19,9 @@ Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes s
 ### Exploring the Fitbit datasets
 
 During my exploration of the Fitbit datasets, I found out that the data unzipped into 2 separate folders, called:
-"`Fitabase Data 3.12.16 - 4.11.16`" 
+`Fitabase Data 3.12.16 - 4.11.16` 
 and 
-"`Fitabase Data 4.12.16 - 5.12.16`".
+`Fitabase Data 4.12.16 - 5.12.16`
 I noticed that many files from the first Fitbit folder (containing 11 csv files) seemed to have a matching filename in the second Fitbit folder (containing 18 csv files), only with different time periods. I decided to investigate further:
 
 First, I used the command line to list the filenames from both Fitbit folders and saved them into text files using the following commands:
@@ -99,7 +99,7 @@ This process resulted in a total of 18 Fitbit .csv files (11 combined "twin" fil
 
 Then, regarding the 11 combined files, I made sure that the combined nrows =  nrows1 + nrows2 with an R script.
 
-Sample code:
+Here's part of my [code](BELLABEAT_Verif_Combining_Files.R) that verifies if the file concatenation went well:
 
 ```R
 # Get the list of combined files (only those starting with "combined_")
