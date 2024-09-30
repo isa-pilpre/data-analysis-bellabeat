@@ -68,7 +68,7 @@ for (file in all_files) {
 
 #### Potential trends
 
-From the file tibbles, structures, summaries and column names, several trends seem to emerge:
+From the tibbles, structures, summaries and column names of the 18 files, several trends seem to emerge:
 
 - Activity trends: insights into when users are most active (morning, afternoon, evening) based on the `ActivityDate` and `ActivityHour` columns.
 - Intensity trends: insights into users' activity levels via the `VeryActiveMinutes`, `FairlyActiveMinutes`, and `LightlyActiveMinutes` columns.
@@ -163,7 +163,33 @@ Duplicates detected in file combined_weightLogInfo_merged.csv : 2 duplicates fou
 Duplicates detected in file sleepDay_merged.csv : 3 duplicates found
 
 
-The cleaned data was saved in a new folder called `Cleaned_Fitbit`, while I kept the original dataset in the `Fitbit_Complete_Data` folder.
+The cleaned data (without duplicates) was saved in a new folder called `Cleaned_Fitbit`, while I kept the original dataset in the `Fitbit_Complete_Data` folder.
+
+Sample code:
+```r
+# Save data without duplicates to 'Cleaned_Fitbit' folder
+# Folder path for cleaned data
+cleaned_folder <- here("Cleaned_Fitbit")
+
+# Create the new folder for cleaned data (if it doesn't already exist)
+if (!dir.exists(cleaned_folder)) {
+  dir.create(cleaned_folder)
+}
+
+# Loop through all files to clean and save
+for (file in all_files) {
+  data <- read_csv(file)
+  clean_data <- data %>% distinct()  # Remove duplicates
+  
+  # Save cleaned data to new folder
+  write_csv(clean_data, file.path(cleaned_folder, basename(file)))
+}
+```
+
+### Verifying that data integrity was preserved
+
+nlalaalala
+
 
 ### Additional cleaning
 
