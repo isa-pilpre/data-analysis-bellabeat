@@ -35,5 +35,46 @@ Once my dataset bellabeat was created, right on the dataset name, I clicked the 
 
 ## 4) Querying specific trends
 
+### Daily steps according to the time of the day
+```sql
+SELECT
+  Id,
+  DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,  -- Extract the day
+  CASE
+    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 6 AND 11 THEN 'Morning'
+    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 12 AND 17 THEN 'Afternoon'
+    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 18 AND 23 THEN 'Evening'
+    ELSE 'Night'
+  END AS PeriodOfDay,
+  SUM(StepTotal) AS TotalSteps
+FROM
+  `alien-oarlock-428016-f3.bellabeat.hourly_steps`
+GROUP BY
+  Id, ActivityDate, PeriodOfDay
+ORDER BY
+  Id, ActivityDate, PeriodOfDay;
+```
+
+### Sleep efficiency versus steps and intensity during the day
+``` sql
+SELECT 
+    steps.Id, 
+    steps.ActivityDay, 
+    steps.StepTotal, 
+    sleep.TotalMinutesAsleep, 
+    sleep.TotalTimeInBed, 
+    (sleep.TotalMinutesAsleep / sleep.TotalTimeInBed) AS Sleep_Efficiency
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_steps` AS steps
+JOIN 
+    `alien-oarlock-428016-f3.bellabeat.sleep_day` AS sleep
+ON 
+    steps.Id = sleep.Id 
+AND 
+    DATE(steps.ActivityDay) = DATE(sleep.SleepDay)  -- Join sur la même journée
+ORDER BY 
+    steps.Id, steps.ActivityDay;
+```
+
    
 
