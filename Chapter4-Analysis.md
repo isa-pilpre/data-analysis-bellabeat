@@ -12,9 +12,18 @@ To stay aligned with the business task, I need to keep in mind the following key
 
 ## 2) Approach to the analysis
 
-Since I identified three key files earlier (`combined_dailyActivity_merged.csv`, `sleepDay_merged.csv`, and `combined_heartrate_seconds_merged.csv`), I’ll start going deeper into these files.
+From the last step (Process phase), after I reviewed the tibbles, structures, summaries and column names of the 18 files, I found several possible trends that could emerge from the dataset:
 
-Let's look at the structure of the data again to remind myself what each column contains.
+- Activity trends: when users are most active (morning, afternoon, evening) based on the `ActivityHour` column.
+- Intensity trends: users' activity levels based on `VeryActiveMinutes`, `FairlyActiveMinutes`, `LightlyActiveMinutes` and `SedentaryMinutes`.
+- Sleep patterns: sleep duration and habits based on the `TotalMinutesAsleep` and `TotalTimeInBed` columns.
+- Recovery patterns: heart rates / recovery patterns based on `Value` column in the heart rate file.
+
+Let's upload the 18 files to BigQuery and run SQL queries to explore the files there.
+
+## 3) First steps in BigQuery
+
+## 4) Querying specific trends
 
    
 
