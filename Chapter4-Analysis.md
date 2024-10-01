@@ -63,7 +63,7 @@ SELECT
     steps.StepTotal, 
     sleep.TotalMinutesAsleep, 
     sleep.TotalTimeInBed, 
-    (sleep.TotalMinutesAsleep / sleep.TotalTimeInBed) AS Sleep_Efficiency
+    (sleep.TotalMinutesAsleep / sleep.TotalTimeInBed) * 100 AS Sleep_Efficiency_Percent
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_steps` AS steps
 JOIN 
@@ -74,6 +74,7 @@ AND
     DATE(steps.ActivityDay) = DATE(sleep.SleepDay)  -- Join sur la même journée
 ORDER BY 
     steps.Id, steps.ActivityDay;
+
 ```
 
    
