@@ -64,25 +64,27 @@ for (file in all_files) {
 
 ```
 
-### Observation (after reviewing [`Overview.txt` file](Overview.txt))
+### Observation
 
-#### Potential trends: based on the structure and content of the files, several trends could emerge:
+#### Potential trends
 
-- Activity trends: when users are most active based on the `ActivityDate` and `ActivityHour` columns.
-- Intensity trends: insights into activity levels using `VeryActiveMinutes`, `FairlyActiveMinutes`, etc.
-- Sleep patterns: using `TotalMinutesAsleep` and `TotalTimeInBed` columns.
-- Recovery patterns: based on the heart rate date (`Value` column in the heart rate file).
+Based on the structure and content of the files, several trends seemed to emerge:
 
-#### Time format issues: several files contain date-time columns (i.e. `SleepDay`, `ActivityHour`) that need to be converted into a format recognized by BigQuery (from MM/DD/YYYY HH:MM:SS AM/PM to YYYY-MM-DD HH:MM:SS).
+-  Activity trends: when users are most active based on the `ActivityDate` and `ActivityHour` columns.
+-  Intensity trends: insights into activity levels using `VeryActiveMinutes`, `FairlyActiveMinutes`, etc.
+-  Seep patterns: using `TotalMinutesAsleep` and `TotalTimeInBed` columns.
+-  Recovery patterns: based on the heart rate date (`Value` column in the heart rate file).
+
+#### Time format issues
+
+Many files contained date-time columns (i.e. `SleepDay`, `ActivityHour`) that needed to be converted into a format recognized by BigQuery (from MM/DD/YYYY HH:MM:SS AM/PM to YYYY-MM-DD HH:MM:SS).
 
 
 ## 4) Data cleaning
 
-Based on the initial overview, the data cleaning process will focus on the following steps:
-
 ### Step 1: Fix date-time formats
 
-Many files contain date-time columns that are not in the correct format for SQL analysis. I will use the lubridate package in R to convert these columns to a standard format (YYYY-MM-DD HH:MM:SS).
+Many files contained date-time columns in a format inadequate for SQL analysis. I used the lubridate package in R to convert these columns to a standard format (YYYY-MM-DD HH:MM:SS).
 
 R code to fix time formatting:
 
@@ -119,7 +121,7 @@ for (file in all_files) {
 
 ### Step 2: Remove duplicates
 
-Next, I will remove any duplicate records that may exist in the data, because duplicates can skew analysis results.
+Next, I removed any duplicate records from the data, because duplicates skew analysis results.
 
 Sample code:
 ```r
@@ -142,7 +144,7 @@ Null values were detected only in one file:
 - File `combined_weightLogInfo_merged.csv`
 Column `Fat`: 96 missing values detected.
 
-For now I am not sure if I need to delete these records or not, so I will keep them as is. I can always filter them later on.
+I am alway wary to delete Null values, as they can be potentially valid, so I left them for the time being. I can always filter them later on.
 
 
 
