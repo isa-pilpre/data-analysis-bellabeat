@@ -23,6 +23,12 @@ Let's upload the 18 files to BigQuery and run SQL queries to explore the files t
 
 ## 3) First steps in BigQuery
 
+After accessing BigQuery, I select my working project (`alien-oarlock-428016-f3`) in the left-hand navigation panel.
+On the right of the project name, I click on the 3 dots and select `Create Dataset`.
+In the dialog box that appears, I type `bellabeat` in the `Dataset ID`, choose `Multi-region EU` for the `Location`, leave the other settings at their default values, then click `Create Dataset`.
+
+Once my dataset bellabeat is created, I upload my 18 CSV files and create tables in BigQuery.
+
 ## 4) Querying specific trends
 
    
