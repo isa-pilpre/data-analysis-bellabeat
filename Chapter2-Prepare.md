@@ -20,10 +20,11 @@ Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes s
 
 The project is organized as follows:
 
-- BELLABEAT: Project main directory with three main branches
+BELLABEAT: Project main directory.
+Contains four main branches (DATA, SCRIPTS, IMAGES, REPORTS):
 
-  - DATA: Contains all the datasets used in the analysis
-    - VAULT: Original, unmodified datasets (Fitbit and Survey data)
+  - DATA: All the datasets used in this project
+    - VAULT: Original, unmodified datasets (Fitbit and Survey)
     - Fitbit: Working directory for Fitbit data
        - Fitbit_Complete_Data: Fitbit data after combining Fitbit "twin" files, before cleaning
        - Cleaned_Fitbit: Cleaned Fitbit data, ready for analysis
@@ -31,12 +32,13 @@ The project is organized as follows:
        - Survey_Data: Survey data, before cleaning
        - Cleaned_Survey: Cleaned Survey data, ready for analysis
 
-  - SCRIPTS: Contains all the scripts (R, SQL, shell) used for data processing and analysis
-    - R: R scripts used in this project
-    - SQL: SQL queries used in this project
-    - Shell: Shell scripts used in this project
+  - SCRIPTS: All the scripts used in this project
+    - R: R scripts 
+    - SQL: SQL queries (BigQuery) 
+    - Shell: Shell scripts (bash) 
      
-  - IMAGES: Contains all the visualizations and graphs
+  - IMAGES: All the images and plots in this project
+  - REPORTS: All the reports made in this project
 
 ## 3. Preparing the datasets
 
@@ -48,7 +50,7 @@ While the Survey dataset seems fairly straightforward and contains one single Ex
 and 
 `Fitabase Data 4.12.16 - 5.12.16`
 
-Many files from the first Fitbit folder (containing 11 csv files) seemed to have a matching filename in the second Fitbit folder (containing 18 csv files), only with different time periods. 
+Many files from the first Fitbit folder (containing 11 csv files) seem to have a matching filename in the second Fitbit folder (containing 18 csv files), only with different time periods. 
 
 Let's write all the file names into two text files with the command line:
 
@@ -75,11 +77,15 @@ I applied conditional formatting in Google Sheets to highlight cells with matchi
 
 #### Combining the "twin" files
 
-Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in a new folder named "`Fitbit_Complete_Data`", (along with the remaining files that had no matching filenames). 
+Once the filenames were verified, I concatenated the matching twin files using R and stored the combined files in the `Fitbit_Complete_Data` folder, (along with the remaining files that had no matching filenames). 
 
-Here's part of my [code](BELLABEAT_Combining_Twin_Files.R) for file concatenation:
+Sample code:
 
 ```r
+# Define folder paths for the original Fitbit datasets
+folder1 <- here("BELLABEAT", "DATA", "Fitbit", "VAULT", "Fitabase Data 3.12.16 - 4.11.16")
+folder2 <- here("BELLABEAT", "DATA", "Fitbit", "VAULT", "Fitabase Data 4.12.16 - 5.12.16")
+
 # List files in each folder
 files1 <- list.files(folder1, pattern = "*.csv", full.names = TRUE)
 files2 <- list.files(folder2, pattern = "*.csv", full.names = TRUE)
@@ -95,15 +101,15 @@ for (file in unique(c(basename(files1), basename(files2)))) {
     # Combine the data
     combined_data <- rbind(data1, data2)
    
-    # Save the combined file in the folder "Fitbit_Complete_Data"
-    write_csv(combined_data, here("BELLABEAT", "Fitbit_Complete_Data", paste0("combined_", file)))
+    # Save the combined file in the "Fitbit_Complete_Data" folder
+    write_csv(combined_data, here("BELLABEAT", "DATA", "Fitbit", "Fitbit_Complete_Data", paste0("combined_", file)))
    
   } else {
-    # Copy non-matching files to the folder "Fitbit_Complete_Data" as well
+    # Copy non-matching files to the "Fitbit_Complete_Data" folder
     if (file %in% basename(files1)) {
-      file.copy(file.path(folder1, file), here("BELLABEAT", "Fitbit_Complete_Data", file))
+      file.copy(file.path(folder1, file), here("BELLABEAT", "DATA", "Fitbit", "Fitbit_Complete_Data", file))
     } else {
-      file.copy(file.path(folder2, file), here("BELLABEAT", "Fitbit_Complete_Data", file))
+      file.copy(file.path(folder2, file), here("BELLABEAT", "DATA", "Fitbit", "Fitbit_Complete_Data", file))
     }
   }
 }
@@ -125,7 +131,7 @@ This process resulted in a total of 18 Fitbit .csv files (11 combined "twin" fil
 
 Then, regarding the 11 combined files, I made sure that the combined nrows =  nrows1 + nrows2 with an R script.
 
-Here's part of my [code](BELLABEAT_Verif_Combining_Files.R) that verifies if the file concatenation went well:
+Sample code:
 
 ```R
 # Get the list of combined files (only those starting with "combined_")
@@ -175,7 +181,7 @@ for (file in combined_files) {
 Now, the Fitbit dataset is fully organized, with all the files stored in one unified folder called `Fitbit_Complete_Data`.
 As for the survey data, it is stored separately in a folder called `Survey_Data`. 
 
-### A) `SFitbit_Complete_Data` folder
+### A) `Fitbit_Complete_Data` folder
 
 Contains 18 .csv files with data from March 12 to May 12, 2016, organized as follows:
 
