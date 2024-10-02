@@ -245,6 +245,59 @@ ggplot(fitbit_steps_sleep, aes(x = StepTotal, y = TotalSleepHours)) +
   )
 ```
 
+### Very active minutes versus calories spent
+
+SQL query in BigQuery:
+
+``` sql
+SELECT 
+  Id, 
+  ActivityDate, 
+  SUM(VeryActiveMinutes) AS TotalVeryActiveMinutes, 
+  SUM(Calories) AS TotalCalories
+FROM 
+  `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+  Id, ActivityDate
+ORDER BY 
+  TotalVeryActiveMinutes DESC;
+
+```
+
+After that, I exported the `BigQuery_very_active_vs_calories.csv` file to my local `BigQuery_Exports` folder.
+Next, I analyzed the .csv file further in R and created a visualization.
+
+Sample R code:
+```R
+# Goal: Plot the relationship between Very Active Minutes and Calories burned
+
+# Define path to the csv file
+csv_file <- here("DATA", "Fitbit", "BigQuery_Exports", "BigQuery_very_active_vs_calories.csv")
+
+# Load the CSV file
+fitbit_active_vs_calories <- read_csv(csv_file)
+
+# Inspect the data
+glimpse(fitbit_active_vs_calories)
+
+# Ensure ActivityDate is in Date format
+fitbit_active_vs_calories <- fitbit_active_vs_calories %>%
+  mutate(ActivityDate = as.Date(ActivityDate, format = "%Y-%m-%d"))
+
+# Inspect the data
+glimpse(fitbit_active_vs_calories)
+
+# Create the plot to show the relationship between Very Active Minutes and Calories
+ggplot(fitbit_active_vs_calories, aes(x = TotalVeryActiveMinutes, y = TotalCalories)) +
+  geom_point(aes(color = TotalCalories)) +
+  geom_smooth(method = "lm", se = FALSE, color = "red") +
+  labs(title = "Very Active Minutes vs Calories Burned", x = "Very Active Minutes", y = "Calories") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
 ### Heart rate versus steps
 
 First I ran an SQL query in BigQuery:
