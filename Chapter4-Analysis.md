@@ -14,12 +14,13 @@ To stay aligned with the business task, I need to keep in mind the following key
 
 From the last step (Process phase), after I reviewed the tibbles, structures, summaries and column names of the 18 files, I found several possible trends that could emerge from the dataset:
 
-- Activity trends: when users are most active (morning, afternoon, evening) based on the `ActivityHour` column.
-- Intensity trends: users' activity levels based on `VeryActiveMinutes`, `FairlyActiveMinutes`, `LightlyActiveMinutes` and `SedentaryMinutes`.
+- Activity trends: when users are most active (morning, afternoon, evening) based on the `ActivityHour` column. 
+- Intensity trends: when users' activity is more or less intense based on `VeryActiveMinutes`, `FairlyActiveMinutes`, etc. columns.
 - Sleep patterns: sleep duration and habits based on the `TotalMinutesAsleep` and `TotalTimeInBed` columns.
-- Recovery patterns: heart rates / recovery patterns based on `Value` column in the heart rate file.
+- Recovery patterns: heart rate patterns based on `Value` column in the heart rate file.
 
-Let's upload the 18 files to BigQuery and run SQL queries to explore the files there.
+Let's upload the 18 files to BigQuery and run SQL queries to explore them. While I could stay in R for the entire analysis, I feel more comfortable running SQL queries first, then exporting the results as .csv files to my local drive for further analysis and then plotting in R.
+
 
 ## 3) First steps in BigQuery
 
@@ -33,9 +34,14 @@ In the dialog box that appeared, I typed `bellabeat` in the `Dataset ID`, chose 
 
 Once my dataset bellabeat was created, right on the dataset name, I clicked the three dots again and selected `Create table`. I began uploading the CSV files from my local `Cleaned_Fitbit` folder to BigQuery, one file at a time. The uploads for the daily activity, daily steps, and daily intensity files went smoothly. However, I encountered an error for the heart rate file (exceeded 100MB, so I need to upload it via Google Cloud Storage first). 
 
-## 4) Analyzing specific trends with SQL
+## 4) Analyzing specific trends with SQL and then R
 
-### Daily steps versus time of the day
+With most of the CSV files now uploaded as tables in BigQuery, I can begin analyzing the data using SQL queries.
+
+### Daily steps versus time of the day (distinguishing weekdays and weekend)
+
+I started by running an SQL query in BigQuery:
+
 ```sql
 SELECT
   Id,
@@ -55,7 +61,120 @@ ORDER BY
   Id, ActivityDate, PeriodOfDay;
 ```
 
-### Sleep versus steps
+After that, I exported the `BigQuery_daily_steps.csv` file to my local `BigQuery_Exports` folder.
+Next, I analyzed the .csv file further in R and created a visualization.
+
+Sample R code:
+```R
+# Goal: plot BigQuery dataframe (daily steps by time of the day, distinguishing weekdays and weekend)
+
+# Define path to csv file
+csv_file <- here("DATA", "Fitbit", "BigQuery_Exports", "BigQuery_daily_steps.csv")
+
+fitbit_steps <- read_csv(csv_file)
+
+# Inspect the data
+glimpse(fitbit_steps)
+
+# Make sure the columns are in the right format
+fitbit_steps <- fitbit_steps %>%
+  mutate(
+    ActivityDate = as.Date(ActivityDate, format = "%Y-%m-%d"),  # Ensure the date is in Date format
+    PeriodOfDay = factor(PeriodOfDay, levels = c("Morning", "Afternoon", "Evening", "Night"))  # Period order
+  )
+
+# Add a column is_weekend
+fitbit_steps <- fitbit_steps %>%
+  mutate(is_weekend = if_else(wday(ActivityDate, week_start = 1) %in% c(6, 7), "Weekend", "Weekday"))
+
+# Inspect new column
+glimpse(fitbit_steps)
+
+ggplot(fitbit_steps, aes(x = PeriodOfDay, y = TotalSteps, fill = is_weekend)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Total Steps by Time of Day (Weekday vs Weekend)",
+       x = "Period of Day",
+       y = "Total Steps") +
+  facet_wrap(~ is_weekend) +  # Facet by Weekend vs Weekday
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)  # Tilt x-axis labels for readability
+  )
+
+```
+
+
+### Average intensity versus time of the day (distinguishing weekdays and weekend)
+
+Again, I started by running an SQL query in BigQuery:
+
+```sql
+SELECT
+  Id,
+  DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,  -- Extract the day
+  CASE
+    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 6 AND 11 THEN 'Morning'
+    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 12 AND 17 THEN 'Afternoon'
+    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 18 AND 23 THEN 'Evening'
+    ELSE 'Night'
+  END AS PeriodOfDay,
+  ROUND(AVG(AverageIntensity), 2) AS Avg_Intensity_Period -- calculate the average per period
+FROM
+  `alien-oarlock-428016-f3.bellabeat.hourly_intensity`
+GROUP BY
+  Id, ActivityDate, PeriodOfDay
+ORDER BY
+  Id, ActivityDate, PeriodOfDay; 
+```
+After that, I exported the `BigQuery_daily_average_intensity.csv` file to my local `BigQuery_Exports` folder.
+Next, I analyzed the .csv file further in R and created a visualization.
+
+Sample R code:
+```R
+# Goal: plot BigQuery dataframe (average intensity by time of the day, distinguishing weekdays and weekend)
+
+# Define path to csv file
+csv_file <- here("DATA", "Fitbit", "BigQuery_Exports", "BigQuery_daily_average_intensity.csv")
+
+fitbit_avg_intensity <- read_csv(csv_file)
+
+# Inspect the data
+glimpse(fitbit_avg_intensity)
+
+# Make sure columns are in the right format
+fitbit_avg_intensity <- fitbit_avg_intensity %>%
+  mutate(
+    ActivityDate = as.Date(ActivityDate, format = "%Y-%m-%d"),  # Make sure the date is in Date format
+    PeriodOfDay = factor(PeriodOfDay, levels = c("Morning", "Afternoon", "Evening", "Night"))  # Period order
+  )
+
+# Add a column is_weekend
+fitbit_avg_intensity <- fitbit_avg_intensity %>%
+  mutate(is_weekend = if_else(wday(ActivityDate, week_start = 1) %in% c(6, 7), "Weekend", "Weekday"))
+
+# Inspect new column
+glimpse(fitbit_avg_intensity)
+
+# Plot with facets weekdays/weekend
+ggplot(fitbit_intensity, aes(x = PeriodOfDay, y = Sum_Average_Intensity, fill = is_weekend)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Intensity by Time of Day (Weekday vs Weekend)",
+       x = "Period of Day",
+       y = "Average Intensity") +
+  facet_wrap(~ is_weekend) +  # Facet by Weekend vs Weekday
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)  # Tilt x-axis labels for readability
+  )
+
+```
+
+
+
+### Sleep (sleep duration and time in bed) versus steps
+
+I started by running an SQL query in BigQuery:
+
 ``` sql
 SELECT 
     steps.Id, 
@@ -77,5 +196,40 @@ ORDER BY
 
 ```
 
+After that, I exported the `BigQuery_sleep_versus_steps.csv` file to my local `BigQuery_Exports` folder.
+Next, I analyzed the .csv file further in R and created a visualization.
+
+Sample R code:
+```R
+# Goal: plot BigQuery dataframe (Sleep Duration versus Daily Steps)
+
+# Define path to csv file
+csv_file <- here("DATA", "Fitbit", "BigQuery_Exports", "BigQuery_sleep_versus_steps.csv")
+
+fitbit_steps_sleep <- read_csv(csv_file)
+
+# Inspect the data
+glimpse(fitbit_steps_sleep)
+
+# Convert 'TotalSleepDuration' from "Xh Ymin" format to total hours
+fitbit_steps_sleep <- fitbit_steps_sleep %>%
+  mutate(TotalSleepHours = as.numeric(gsub("h.*", "", TotalSleepDuration)) +  # Extract hours
+           as.numeric(gsub(".*h |min", "", TotalSleepDuration)) / 60)          # Extract minutes and convert to hours
+
+# Inspect the new column
+glimpse(fitbit_steps_sleep)
+
+# Create the plot to show relationship between steps and sleep (with 'TotalSleepHours' column to make it work)
+ggplot(fitbit_steps_sleep, aes(x = StepTotal, y = TotalSleepHours)) +
+  geom_point(aes(color = TotalSleepHours)) +  # Scatter plot with color based on 'TotalSleepHours'
+  geom_smooth(method = "lm", se = FALSE, color = "red") +  # Add a trend line
+  labs(title = "Relationship between Sleep Duration and Daily Steps",
+       x = "Total Steps",
+       y = "Sleep Duration (hours)") +
+  theme_minimal() +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1)  # Tilt x-axis labels for readability
+  )
+```
    
 
