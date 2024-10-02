@@ -244,5 +244,51 @@ ggplot(fitbit_steps_sleep, aes(x = StepTotal, y = TotalSleepHours)) +
     axis.text.x = element_text(angle = 45, hjust = 1)  # Tilt x-axis labels for readability
   )
 ```
+
+### Heart rate versus steps
+
+First I ran an SQL query in BigQuery:
+
+``` sql
+-- Calculates the average heart rate (AVG(Value)) for each user (Id) per day (ActivityDay).
+WITH avg_heart_rate AS (   
+
+   SELECT 
+   Id,
+   DATE(TIMESTAMP(Time)) as ActivityDay,  -- get only the day from TIMESTAMP
+   avg(Value) as AvgHeartRate  -- Calculate average heart rate per day
+   
+   FROM 
+      `alien-oarlock-428016-f3.bellabeat.heartrate`
+   GROUP BY 
+      Id, ActivityDay
+)
+
+
+SELECT
+
+steps.Id,
+steps.StepTotal,
+ROUND(avg_heart_rate.AvgHeartRate, 1) as AverageHeartRate
+
+FROM `alien-oarlock-428016-f3.bellabeat.daily_steps` as steps
+JOIN avg_heart_rate
+
+ON 
+  steps.Id = avg_heart_rate.Id
+AND 
+  steps.ActivityDay = avg_heart_rate.ActivityDay
+
+ORDER BY 
+  steps.Id, steps.ActivityDay ;
+```
+
+After that, I exported the `BigQuery_heartrate_versus_steps.csv` file to my local `BigQuery_Exports` folder.
+Next, I analyzed the .csv file further in R and created a visualization.
+
+Sample R code:
+```R
+
+
    
 
