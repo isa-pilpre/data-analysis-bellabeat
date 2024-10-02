@@ -26,14 +26,16 @@ Contains four main branches (DATA, SCRIPTS, IMAGES, REPORTS):
   - DATA: All the datasets used in this project
     - VAULT: Original, unmodified datasets (Fitbit and Survey)
     - Fitbit: Working directory for Fitbit data
-       - Fitbit_Complete_Data: Fitbit data after combining Fitbit "twin" files, before cleaning
+       - Fitbit_Complete_Data: Complete Fitbit data, before cleaning
        - Cleaned_Fitbit: Cleaned Fitbit data, ready for analysis
+       - BigQuery_Exports: CSV files exported from BigQuery
     - Survey: Working directory for Survey data
        - Survey_Data: Survey data, before cleaning
        - Cleaned_Survey: Cleaned Survey data, ready for analysis
+       - BigQuery_Exports: CSV files exported from BigQuery
 
   - SCRIPTS: All the scripts used in this project
-    - R: R scripts 
+    - R: R scripts
     - SQL: SQL queries (BigQuery) 
     - Shell: Shell scripts (bash) 
      
@@ -83,8 +85,8 @@ Sample code:
 
 ```r
 # Define folder paths for the original Fitbit datasets
-folder1 <- here("BELLABEAT", "DATA", "Fitbit", "VAULT", "Fitabase Data 3.12.16 - 4.11.16")
-folder2 <- here("BELLABEAT", "DATA", "Fitbit", "VAULT", "Fitabase Data 4.12.16 - 5.12.16")
+folder1 <- here("BELLABEAT", "DATA", "VAULT", "Fitabase Data 3.12.16 - 4.11.16")
+folder2 <- here("BELLABEAT", "DATA", "VAULT", "Fitabase Data 4.12.16 - 5.12.16")
 
 # List files in each folder
 files1 <- list.files(folder1, pattern = "*.csv", full.names = TRUE)
