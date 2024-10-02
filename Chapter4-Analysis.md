@@ -33,9 +33,9 @@ In the dialog box that appeared, I typed `bellabeat` in the `Dataset ID`, chose 
 
 Once my dataset bellabeat was created, right on the dataset name, I clicked the three dots again and selected `Create table`. I began uploading the CSV files from my local `Cleaned_Fitbit` folder to BigQuery, one file at a time. The uploads for the daily activity, daily steps, and daily intensity files went smoothly. However, I encountered an error for the heart rate file (exceeded 100MB, so I need to upload it via Google Cloud Storage first). 
 
-## 4) Querying specific trends
+## 4) Analyzing specific trends with SQL
 
-### Daily steps according to the time of the day
+### Daily steps versus time of the day
 ```sql
 SELECT
   Id,
@@ -55,23 +55,23 @@ ORDER BY
   Id, ActivityDate, PeriodOfDay;
 ```
 
-### Sleep efficiency versus steps and intensity during the day
+### Sleep versus steps
 ``` sql
 SELECT 
     steps.Id, 
     steps.ActivityDay, 
-    steps.StepTotal, 
-    sleep.TotalMinutesAsleep, 
-    sleep.TotalTimeInBed, 
-    (sleep.TotalMinutesAsleep / sleep.TotalTimeInBed) * 100 AS Sleep_Efficiency_Percent
+    steps.StepTotal,  -- below: FLOOR() to extract hour, MOD() to extract minutes
+    CONCAT(FLOOR(sleep.TotalMinutesAsleep / 60), "h ", MOD(sleep.TotalMinutesAsleep, 60), "min") AS TotalSleepDuration, 
+    CONCAT(FLOOR(sleep.TotalTimeInBed / 60), "h ", MOD(sleep.TotalTimeInBed, 60), "min") AS TotalTimeInBedDuration, 
+    ROUND((sleep.TotalMinutesAsleep / sleep.TotalTimeInBed) * 100, 2) AS SleepEfficiencyPercent
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_steps` AS steps
 JOIN 
     `alien-oarlock-428016-f3.bellabeat.sleep_day` AS sleep
 ON 
-    steps.Id = sleep.Id 
+    steps.Id = sleep.Id  -- Join on the same user
 AND 
-    DATE(steps.ActivityDay) = DATE(sleep.SleepDay)  -- Join sur la même journée
+    DATE(steps.ActivityDay) = DATE(sleep.SleepDay)  -- Join on the same day
 ORDER BY 
     steps.Id, steps.ActivityDay;
 
