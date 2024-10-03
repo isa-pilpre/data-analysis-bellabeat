@@ -70,4 +70,14 @@ questions_df <- as.character(questions_df[1, ])
 
 # Display the questions to verify
 questions_df
-```                                                                                                                                                               
+```  
+
+Output:
+``` r
+> questions_df
+[1] "Thanks for your interest in taking this research survey (...) contact us at \r\n\r\nf.lelli@tilburguniversity.edu"
+[2] "Let's start with you telling us something about yourself. Age:"
+[3] "Sex"                                                                                                                                                          [4] "Level of education"                                                                                                                                           [5] "Type of education"                                                                                                                                            [6] "Working Experience" 
+(...)
+[51] "(Optional) If you answered yes, or you would like to receive the outcome of this study: how can we reach you?"                                               [52] "Score"
+```
