@@ -19,7 +19,7 @@ To stay aligned with the business task, I need to remember the following key que
 - General description of variables: demographics info (age, sex, education), users' habits and attitudes towards their smart devices.
 
 When opening the Excel file in Google Sheets, I found out that:
-- The first row contained codes in no specific order (Q21, Q17, Q19, Q20, Q21, Q22, Q32, Q29, etc.).
+- The first row contained codes, sometimes duplicated, in no specific order (Q21, Q17, Q19, Q20, Q21, Q22, Q32, Q29, etc.).
 - The second row contained survey statements and questions.
 - The third row and below contained the actual answers to the survey (809 observations). 
 
