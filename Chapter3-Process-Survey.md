@@ -16,6 +16,7 @@ To stay aligned with the business task, I need to remember the following key que
 When opening the Excel file in Google Sheets, I found out that the first row consists of codes in no specific order (Q21, Q17, Q19, Q20, Q21, Q22, Q32, Q29, etc.) The second row contains the survey statements and questions.
 The third row and above contain the actual answers to the survey. 
 
+### First row
 I investigated the dataset further with an R script:
 
 ```r
@@ -55,5 +56,18 @@ Output:
 [52] "SC0"
 ```
 
-### Observation
+### Second row
 
+Sample code:
+
+```r
+# 2 - Dealing with the second row that contains the survey questions
+# Read the second row by skipping the first row
+questions_df <- read_excel(excel_file, skip = 1, n_max = 1, col_names = FALSE)
+
+# Convert this row to a character vector
+questions_df <- as.character(questions_df[1, ])
+
+# Display the questions to verify
+questions_df
+```                                                                                                                                                               
