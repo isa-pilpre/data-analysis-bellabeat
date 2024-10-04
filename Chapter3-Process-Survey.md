@@ -96,9 +96,9 @@ Output:
 [51] "(Optional) If you answered yes, or you would like to receive the outcome of this study: how can we reach you?"                                        [52] "Score"
 ```
 
-## 3) Handling duplicate questions codes
+## 3) Handling duplicate survey codes
 
-The survey data contained duplicate question codes ("Q21" and "Q19"). To solve this, I updated the Q21 and Q19 codes by adding descriptive suffixes based on their survey questions:
+The data contained duplicate survey codes ("Q21" and "Q19"). To solve this, I updated the Q21 and Q19 codes by adding descriptive suffixes based on their survey questions:
 
 - Q21 became Q21_Intro and Q21_EduType.
 - Q19 became Q19_Sex and Q19_Contact.
@@ -150,23 +150,29 @@ str(survey_df)
 
 To make the dataset more readable and manageable:
 
-- I removed unnecessary columns that were not relevant to the analysis, such as introductory text and contact information.
-- I combined the question codes with brief descriptive names to create meaningful variable names (ex. Q17_Age, Q19_Sex).
-- I removed the second row that contained the actual survey questions. Instead, I created a separate file (`survey_question_mapping.csv`) that maps the question codes to the full survey question text for reference.
+- I removed unnecessary columns that were not relevant to the analysis (ex. introductory text and contact information).
+- I combined the survey codes with brief descriptive names to create meaningful variable names (ex. Q17_Age, Q19_Sex).
+- I removed the second row that contained the actual survey questions. Instead, I created a separate file (`survey_question_mapping.csv`) that maps the survey codes to the full survey question text for reference.
 
  ``` r
-# Identify columns to remove for analysis
+# Identify columns to remove
 # Q21_Intro = Intro
 # Q19_Contact = "how can we reach you?""
 # Q12 = "would you be available for half an hour interview?"
 # Q11 = open question, very interesting, but for a first-round data analysis I will remove it for now 
-cols_to_remove <- c("Q21_Intro", "Q19_Contact", "Q12", "Q11")  
+# SC0 = "Score" (only containing Nulls avec 1s)
+cols_to_remove <- c("Q21_Intro", "Q19_Contact", "Q12", "Q11", "SC0")
 
 # Remove these not-relevant columns from data frame
 survey_df <- survey_df[ , !(colnames(survey_df) %in% cols_to_remove)]
 
+# Check column results
+str(survey_df)
+
 # Create meaningful variable names such as Q17_Age, Q19_Sex
-variable_names <- codes_df
+# Use the updated column names (stripped off the non-relevant columns)
+variable_names <- colnames(survey_df)
+
 
 # Manually update variable_names with brief descriptions
 variable_names[variable_names == "Q17"] <- "Q17_Age"
@@ -193,8 +199,34 @@ variable_names[variable_names == "10"] <- "Q10_Feelings_Towards_Device"
 # Assign the updated variable names as column names to survey_df
 colnames(survey_df) <- variable_names
 
+# Check column results
 str(survey_df)
 
 ```
 
+Output
+```
+> str(survey_df)
+str(survey_df)
+tibble [809 × 46] (S3: tbl_df/tbl/data.frame)
+ $ Q17_Age                : num [1:809] NA 1 2 1 1 1 1 1 2 1 ...
+ $ Q19_Sex                : num [1:809] NA 7 2 3 3 4 4 7 2 5 ...
+ $ Q20_EduLevel           : num [1:809] NA 8 1 7 8 8 8 7 8 7 ...
+ $ Q21_EduType            : num [1:809] NA 9 1 9 9 6 2 2 7 7 ...
+ $ Q22_WorkExperience     : num [1:809] NA 1 2 1 1 2 1 1 1 1 ...
+ $ Q32_CurrentSituation   : num [1:809] NA 2 1 1 1 1 2 1 2 1 ...
+ $ Q29_Prof_Knowledge     : num [1:809] NA 2 1 2 2 2 2 2 2 2 ...
+ $ Q30_Involvement        : num [1:809] NA 122 122 122 122 122 122 122 187 61 ...
+ $ Q2023_Country_Residence: num [1:809] NA 122 122 122 122 122 138 122 187 187 ...
+ $ Q2023_Country_Origin   : num [1:809] 7 8 1 7 8 1 3 4 8 8 ...
+ $ Q16_Device_Owned       : chr [1:809] NA "Apple TV" "Apple Watch series 5" "Google home" ...
+ $ Q2_Device_In_Mind      : num [1:809] 2 4 5 5 5 5 5 5 5 4 ...
+ $ Q3_1                   : num [1:809] 3 1 4 4 2 1 1 1 1 5 ...
+ $ Q3_2                   : num [1:809] 4 2 4 1 2 4 1 1 1 3 ...
+ $ Q3_3                   : num [1:809] 3 4 1 2 5 5 1 5 4 1 ...
+ $ Q3_4                   : num [1:809] 2 4 4 1 5 5 2 5 5 2 ...
+ $ Q3_5                   : num [1:809] 3 2 4 2 4 1 1 5 2 4 ...
+ $ Q3_6                   : num [1:809] 4 4 3 4 5 5 2 5 5 2 ...
+
+```
 
