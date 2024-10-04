@@ -256,3 +256,39 @@ tibble [809 × 46] (S3: tbl_df/tbl/data.frame)
 
 ```
 
+## 5) Handling null values
+
+I noticed some users did not answer questions in the first part of the questionnaire, which were personal questions (sex, age, education etc.)
+Keeping in mind my business task and remembering that Bellabeat is a company focused on women's wellness, I feel it is important that the survey data contains demographic informations such as sex and age. If some users did not fill out this information, I choose to remove their data (for now) in order to stay focused on my busuness task.
+
+Sample code
+``` r
+# Identify participants with complete age and sex data
+complete_demographics <- !is.na(survey_df$Q17_Age) & !is.na(survey_df$Q19_Sex)
+
+# Create a subset of the data
+survey_df_complete <- survey_df[complete_demographics, ]
+
+# Check the number of observations before and after
+total_observations <- nrow(survey_df)
+complete_observations <- nrow(survey_df_complete)
+
+cat("Total observations:", total_observations, "\n")
+cat("Observations with complete demographics:", complete_observations, "\n")
+
+```
+
+Output
+``` r
+> cat("Total observations:", total_observations, "\n")
+Total observations: 809 
+> cat("Observations with complete demographics:", complete_observations, "\n")
+Observations with complete demographics: 786
+```
+
+So there were only (809 - 786) = 23 people that did not answer demographical information such as age and sex.
+For now on I will work with the survey_df_complete dataset because I want to be able to get insights based on gender in the analysis phase.
+
+
+## 6) Handling Likert-scale items
+
