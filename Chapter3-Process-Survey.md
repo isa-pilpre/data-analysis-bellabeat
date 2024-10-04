@@ -19,9 +19,10 @@ To stay aligned with the business task, I need to remember the following key que
 - General description of variables: demographics info (age, sex, education), users' habits and attitudes towards their smart devices.
 
 When opening the Excel file in Google Sheets, I found out that:
-- The first row contained codes, sometimes duplicated, in no specific order (Q21, Q17, Q19, Q20, Q21, Q22, Q32, Q29, etc.).
-- The second row contained survey statements and questions.
-- The third row and below contained the actual answers to the survey (809 observations). 
+- The first row contains codes, in no specific order (Q21, Q17, Q19, Q20, Q21, Q22, Q32, Q29, etc.).
+- There are duplicated codes. Ex. column Q19 as num for Sex (male= 1, female=2, other=3, prefer no to say=4) and column Q19 as chr for "How do we reach you" (answer most likely email address).
+- The second row contains survey questions.
+- The third row and below contain the actual answers to the survey (809 observations). 
 
 I investigated the dataset with an R script. 
 
@@ -47,17 +48,29 @@ codes_df <- read_excel(excel_file, n_max = 1, col_names = FALSE)  # n_max = 1 re
 codes_df <- as.character(codes_df[1, ])  # [1, ] means we select 1st (and only) line and all the columns  
 
 # Display codes_df to make sure I got all the codes Q21, Q17, etc.
-# codes_df
+codes_df
+
+# Identify duplicate codes
+duplicate_codes <- codes_df[duplicated(codes_df)]
+duplicate_codes
 ```
 
 Output:
 ``` r
+> # Display codes_df to make sure I got all the codes Q21, Q17, etc.
+> codes_df
  [1] "Q21"   "Q17"   "Q19"   "Q20"   "Q21"   "Q22"   "Q32"   "Q29"   "Q30"   "Q2023" "Q2025" "Q16"   "Q2"    "Q3_1"  "Q3_2"  "Q3_3"  "Q3_4" 
 [18] "Q3_5"  "Q3_6"  "Q3_7"  "Q3_8"  "Q4_1"  "Q4_2"  "Q4_3"  "Q4_4"  "Q4_5"  "Q4_6"  "Q4_7"  "Q4_8"  "Q5_1"  "Q5_2"  "Q5_3"  "Q5_4"  "Q6_1" 
 [35] "Q6_2"  "Q6_3"  "Q7_1"  "Q7_2"  "Q7_3"  "Q8_1"  "Q8_2"  "Q8_3"  "Q9_1"  "Q9_2"  "Q9_3"  "Q10_1" "Q10_2" "Q10_3" "Q11"   "Q12"   "Q19"  
 [52] "SC0"
+
+> # Identify duplicate codes
+> duplicate_codes <- codes_df[duplicated(codes_df)]
+> duplicate_codes
+[1] "Q21" "Q19"
 ```
 
+    
 ### Second row (survey questions)
 
 Sample code:
@@ -78,21 +91,52 @@ Output:
 > questions_df
 [1] "Thanks for your interest in taking this research survey (...) contact us at \r\n\r\nf.lelli@tilburguniversity.edu"
 [2] "Let's start with you telling us something about yourself. Age:"
-[3] "Sex"                                                                                                                                                          [4] "Level of education"                                                                                                                                           [5] "Type of education"                                                                                                                                            [6] "Working Experience" 
+[3] "Sex"                                                                                                                                                   [4] "Level of education"                                                                                                                                    [5] "Type of education"                                                                                                                                     [6] "Working Experience" 
 (...)
-[51] "(Optional) If you answered yes, or you would like to receive the outcome of this study: how can we reach you?"                                               [52] "Score"
+[51] "(Optional) If you answered yes, or you would like to receive the outcome of this study: how can we reach you?"                                        [52] "Score"
 ```
 
-## 3) Data types and conversion
+## 3) Handling duplicate questions codes
 
-The responses to the survey actually start at Row 3.
+The survey data contained duplicate question codes ("Q21" and "Q19"). To solve this, I updated the Q21 and Q19 codes by adding descriptive suffixes based on their survey questions:
+
+- Q21 became Q21_Intro and Q21_EduType.
+- Q19 became Q19_Sex and Q19_Contact.
+
 Sample code:
+``` r
+# Identify duplicate codes
+duplicate_codes <- codes_df[duplicated(codes_df)]
+duplicate_codes  # Output: 2 duplicates, Q21 and Q19
 
-```r
-# 3 - Read the survey data starting from the third row (skip the first two rows)
-survey_df <- read_excel(excel_file, skip = 2, col_names = FALSE)
+# Find indices of duplicate codes
+indices_Q21 <- which(codes_df == "Q21")
+indices_Q19 <- which(codes_df == "Q19")
 
-# Assign codes_df as column names to survey_df
+# Display the positions
+indices_Q21  # Positions where "Q21" appears   # Output: positions 1 and 5
+indices_Q19  # Positions where "Q19" appears   # Output: positions 3 and 51
+
+# Examine questions
+# For "Q21"
+questions_df[indices_Q21]  # Output: 'Intro' (not a question) and 'Type of education'
+
+# For "Q19"
+questions_df[indices_Q19]  # Output: 'Sex' and '(Optional) How can we reach you?'
+
+# Create new variable names to remove duplicates
+# Update Q21 codes
+codes_df[indices_Q21[1]] <- "Q21_Intro"
+codes_df[indices_Q21[2]] <- "Q21_EduType"
+
+# Update Q19 codes
+codes_df[indices_Q19[1]] <- "Q19_Sex"
+codes_df[indices_Q19[2]] <- "Q19_Contact"
+
+# Check for duplicates
+any(duplicated(codes_df))  # Should return FALSE : OK no more duplicates
+
+# Assign new codes_df as column names to survey_df
 colnames(survey_df) <- codes_df
 
 # Verify that the column names have been assigned correctly
@@ -102,25 +146,55 @@ colnames(survey_df)
 str(survey_df)
 ```
 
-Output:
-```
-> str(survey_df)
-tibble [809 × 52] (S3: tbl_df/tbl/data.frame)
- $ Q21  : num [1:809] 1 1 1 1 1 1 1 1 1 1 ...
- $ Q17  : num [1:809] NA 3 2 3 3 9 5 3 9 9 ...
- $ Q19  : num [1:809] NA 1 2 1 1 1 1 1 2 1 ...
- $ Q20  : num [1:809] NA 7 2 3 3 4 4 7 2 5 ...
- $ Q21  : num [1:809] NA 8 1 7 8 8 8 7 8 7 ...
- $ Q22  : num [1:809] NA 9 1 9 9 6 2 2 7 7 ...
- $ Q32  : num [1:809] NA 1 2 1 1 2 1 1 1 1 ...
- $ Q29  : num [1:809] NA 2 1 1 1 1 2 1 2 1 ...
- $ Q30  : num [1:809] NA 2 1 2 2 2 2 2 2 2 ...
- $ Q2023: num [1:809] NA 122 122 122 122 122 122 122 187 61 ...
-(...)
+## 4) Simplifying the dataset
+
+To make the dataset more readable and manageable:
+
+- I removed unnecessary columns that were not relevant to the analysis, such as introductory text and contact information.
+- I combined the question codes with brief descriptive names to create meaningful variable names (ex. Q17_Age, Q19_Sex).
+- I removed the second row that contained the actual survey questions. Instead, I created a separate file (`survey_question_mapping.csv`) that maps the question codes to the full survey question text for reference.
+
+ ``` r
+# Identify columns to remove for analysis
+# Q21_Intro = Intro
+# Q19_Contact = "how can we reach you?""
+# Q12 = "would you be available for half an hour interview?"
+# Q11 = open question, very interesting, but for a first-round data analysis I will remove it for now 
+cols_to_remove <- c("Q21_Intro", "Q19_Contact", "Q12", "Q11")  
+
+# Remove these not-relevant columns from data frame
+survey_df <- survey_df[ , !(colnames(survey_df) %in% cols_to_remove)]
+
+# Create meaningful variable names such as Q17_Age, Q19_Sex
+variable_names <- codes_df
+
+# Manually update variable_names with brief descriptions
+variable_names[variable_names == "Q17"] <- "Q17_Age"
+variable_names[variable_names == "Q19_Sex"] <- "Q19_Sex"
+variable_names[variable_names == "Q20"] <- "Q20_EduLevel"
+variable_names[variable_names == "Q21_EduType"] <- "Q21_EduType"
+variable_names[variable_names == "Q22"] <- "Q22_WorkExperience"
+variable_names[variable_names == "Q32"] <- "Q32_CurrentSituation"
+variable_names[variable_names == "Q29"] <- "Q29_Prof_Knowledge"
+variable_names[variable_names == "Q30"] <- "Q30_Involvement"
+variable_names[variable_names == "Q2023"] <- "Q2023_Country_Residence"
+variable_names[variable_names == "Q2025"] <- "Q2023_Country_Origin"
+variable_names[variable_names == "Q16"] <- "Q16_Device_Owned"
+variable_names[variable_names == "Q2"] <- "Q2_Device_In_Mind"
+variable_names[variable_names == "Q3"] <- "Q3_Feelings_Towards_Device"
+variable_names[variable_names == "Q4"] <- "Q4_Feelings_Towards_Device"
+variable_names[variable_names == "Q5"] <- "Q5_Feelings_Towards_Device"
+variable_names[variable_names == "Q6"] <- "Q6_Feelings_Towards_Device"
+variable_names[variable_names == "Q7"] <- "Q7_Feelings_Towards_Device"
+variable_names[variable_names == "Q8"] <- "Q8_Feelings_Towards_Device"
+variable_names[variable_names == "Q9"] <- "Q9_Feelings_Towards_Device"
+variable_names[variable_names == "10"] <- "Q10_Feelings_Towards_Device"
+
+# Assign the updated variable names as column names to survey_df
+colnames(survey_df) <- variable_names
+
+str(survey_df)
+
 ```
 
-What I gathered:
 
-- Most of the variables are numeric ('num' in R), which makes sense given that the survey responses were coded numerically.
-- Some variables are strings ('chr' in R), such as Q2 and Q11, because they contain text responses.
-- Problem: some columns have the same name. For example, column Q19 as num for Sex (male= 1, female=2, other=3, prefer no to say=4) and column Q19 as chr for "How do we reach you" (answser most likely email address) that contains "<removed for privacy reason>."
