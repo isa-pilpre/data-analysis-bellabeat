@@ -301,12 +301,38 @@ Participants rated their agreement from 1 (Strongly Disagree) to 5 (Strongly Agr
 
 I need to assign descriptive names to the sub-questions in order to make the dataset more understandable.
 
-Sammple code
+Sample code
 ```
-# For Q3 (Feelings towards the device)
+# Assignining meaningful names to Q3 thru Q10 columns
 variable_names[variable_names == "Q3_1"] <- "Positive_About_Device"
 variable_names[variable_names == "Q3_2"] <- "Feel_Victimized"
 variable_names[variable_names == "Q3_3"] <- "Device_Runs_Independently"
+variable_names[variable_names == "Q3_4"] <- "Device_Cannot_Initiate_Actions"
+variable_names[variable_names == "Q3_5"] <- "Me_The_User_In_Control"
+variable_names[variable_names == "Q3_6"] <- "Device_Forces_Process_On_Me "
+variable_names[variable_names == "Q3_7"] <- "Device_Cannot_Change_Task"
+variable_names[variable_names == "Q3_8"] <- "Device_Has_Own_Intelligence"
+variable_names[variable_names == "Q4_1"] <- "Understand_How_Device_Works"
+variable_names[variable_names == "Q4_2"] <- "Not_Ideal_Use"
+variable_names[variable_names == "Q4_3"] <- "Device_Active_Participant"
+variable_names[variable_names == "Q4_4"] <- "Device_Dependent_On_Me"
+variable_names[variable_names == "Q4_5"] <- "Freely_Choose_Tasks"
+variable_names[variable_names == "Q4_6"] <- "Cannot_Achieve_Things_I_Want"
+variable_names[variable_names == "Q4_7"] <- "Device_Handles_Better_Certain_Things"
+variable_names[variable_names == "Q4_8"] <- "Device_Not_Helpful"
+variable_names[variable_names == "Q5_1"] <- "Enjoy_Device"
+variable_names[variable_names == "Q5_2"] <- "Negative_Feelings_Towards_Device"
+variable_names[variable_names == "Q5_3"] <- "Miss_Device"
+variable_names[variable_names == "Q5_4"] <- "Device_Pleasurable"
+variable_names[variable_names == "Q6_1"] <- "Device_Has_Own_Personality"
+variable_names[variable_names == "Q6_2"] <- "Device_Supports_Like_Friend"
+variable_names[variable_names == "Q6_3"] <- "Consider_Naming_Device"
+variable_names[variable_names == "Q7_1"] <- "Device_Part_Of_Myself"
+variable_names[variable_names == "Q7_2"] <- "Dont_Like_Others_Use_My_Device"
+variable_names[variable_names == "Q7_3"] <- "Feel_Incomplete_Without_Device"
+variable_names[variable_names == "Q8_1"] <- "Device_Useful_For_My_Goals"
+variable_names[variable_names == "Q8_2"] <- "Device_Better_Than_NonSmart_Equivalent"
+variable_names[variable_names == "Q8_3"] <- "Function_Aspect_Most_Important"
 (...)
 
 # Update the column names in the data frame
