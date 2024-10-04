@@ -152,7 +152,7 @@ To make the dataset more readable and manageable:
 
 - I removed unnecessary columns that were not relevant to the analysis (ex. introductory text and contact information).
 - I combined the survey codes with brief descriptive names to create meaningful variable names (ex. Q17_Age, Q19_Sex).
-- I removed the second row that contained the actual survey questions. Instead, I created a separate file (`survey_question_mapping.csv`) that maps the survey codes to the full survey question text for reference.
+- I removed the second row that contained the actual survey questions. Instead, I created a separate file (`full_text_question.csv`) that maps the survey codes to the full survey question text for easy reference.
 
  ``` r
 # Identify columns to remove
@@ -169,10 +169,22 @@ survey_df <- survey_df[ , !(colnames(survey_df) %in% cols_to_remove)]
 # Check column results
 str(survey_df)
 
+# Create var called "cols_to_keep" to make my life easier
+cols_to_keep <- !(codes_df %in% cols_to_remove)
+
+# Keep the code line and the question line updated
+# Subset codes_df and questions_df
+codes_df <- codes_df[cols_to_keep]
+questions_df <- questions_df[cols_to_keep]
+
+# Check column results
+str(codes_df)                # 1 x 47 OK
+str(questions_df)            # 1 x 47  OK
+
 # Create meaningful variable names such as Q17_Age, Q19_Sex
 # Use the updated column names (stripped off the non-relevant columns)
 variable_names <- colnames(survey_df)
-
+str (variable_names)        # 1 x 47 OK
 
 # Manually update variable_names with brief descriptions
 variable_names[variable_names == "Q17"] <- "Q17_Age"
@@ -201,6 +213,20 @@ colnames(survey_df) <- variable_names
 
 # Check column results
 str(survey_df)
+
+# Keep the question full text in a separate data frame, with survey code mapping
+full_text_question_df <- data.frame(
+  VariableName = variable_names,
+  QuestionFullText = questions_df,
+  stringsAsFactors = FALSE #  Keeps text as character strings (do not automatically convert into factors)
+)
+
+# Define the file path using here()
+file_path <- here("DATA", "Survey", "Cleaned_Survey", "full_text_questions.csv")
+
+# Save the CSV file
+write.csv(full_text_question_df, file = file_path, row.names = FALSE)
+
 
 ```
 
