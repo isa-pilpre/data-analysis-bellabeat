@@ -351,3 +351,93 @@ str(survey_df_complete)
 ### Converting Likert-scale responses to ordered factors
 
 I made sure the responses were treated as ordinal data.
+
+Sample code
+``` r
+# Handling Likert scale dor Questions 3 thru 10 included
+# Create a vector of Likert scale variable names
+likert_variables <- c(
+  # Q3 variables
+  "Q3_Positive_About_Device",
+  "Q3_Feel_Victimized",
+  "Q3_Device_Runs_Independently",
+  "Q3_Device_Cannot_Initiate_Actions",
+  "Q3_Me_The_User_In_Control",
+  "Q3_Device_Forces_Process_On_Me",
+  "Q3_Device_Cannot_Change_Task",
+  "Q3_Device_Has_Own_Intelligence",
+  
+  # Q4 variables
+  "Q4_Understand_How_Device_Works",
+  "Q4_Not_Ideal_Use",
+  "Q4_Device_Active_Participant",
+  "Q4_Device_Dependent_On_Me",
+  "Q4_Freely_Choose_Tasks",
+  "Q4_Cannot_Achieve_Things_I_Want",
+  "Q4_Device_Handles_Better_Certain_Things",
+  "Q4_Device_Not_Helpful",
+  
+  # Q5 variables
+  "Q5_Enjoy_Device",
+  "Q5_Negative_Feelings_Towards_Device",
+  "Q5_Miss_Device",
+  "Q5_Device_Pleasurable",
+  
+  # Q6 variables
+  "Q6_Device_Has_Own_Personality",
+  "Q6_Device_Supports_Like_Friend",
+  "Q6_Consider_Naming_Device",
+  
+  # Q7 variables
+  "Q7_Device_Part_Of_Myself",
+  "Q7_Dont_Like_Others_Use_My_Device",
+  "Q7_Feel_Incomplete_Without_Device",
+  
+  # Q8 variables
+  "Q8_Device_Useful_For_My_Goals",
+  "Q8_Device_Better_Than_NonSmart_Equivalent",
+  "Q8_Function_Aspect_Most_Important",
+  
+  # Q9 variables
+  "Q9_Device_Important_Part_Lifestyle",
+  "Q9_Device_Helps_Me_Larger_Community",
+  "Q9_Device_Helps_Me_Social_Relations",
+  
+  # Q10 variables
+  "Q10_Saves_Me_Time",
+  "Q10_Saves_Me_Money",
+  "Q10_Price_Most_Important_Factor"
+)
+
+# Define Likert scale levels and labels
+likert_levels <- 1:5
+likert_labels <- c("Strongly Disagree", "Somewhat Disagree", "Neutral", "Somewhat Agree", "Strongly Agree")
+
+# Loop through each Likert variable and convert to ordered factor
+for (var in likert_variables) {
+  survey_df_complete[[var]] <- factor(
+    survey_df_complete[[var]],
+    levels = likert_levels,
+    labels = likert_labels,
+    ordered = TRUE
+  )
+}
+
+# Check the structure of one of the variables
+str(survey_df_complete$Q3_Positive_About_Device)
+
+# View the levels of the factor
+levels(survey_df_complete$Q3_Positive_About_Device)
+```
+
+Output
+``` r
+# Check the structure of one of the variables
+> str(survey_df_complete$Q3_Positive_About_Device)
+ Ord.factor w/ 5 levels "Strongly Disagree"<..: 4 5 5 5 5 5 5 5 4 4 ...
+> # View the levels of the factor
+> levels(survey_df_complete$Q3_Positive_About_Device)
+[1] "Strongly Disagree" "Somewhat Disagree" "Neutral"  "Somewhat Agree" "Strongly Agree"
+```
+
+```
