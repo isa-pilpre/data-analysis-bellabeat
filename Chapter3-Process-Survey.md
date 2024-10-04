@@ -292,3 +292,24 @@ For now on I will work with the survey_df_complete dataset because I want to be 
 
 ## 6) Handling Likert-scale items
 
+### Observations
+
+I have noticed that questions like Q3 have multiple sub-questions (i.e. Q3_1, Q3_2), each representing a statement rated on a Likert scale.
+Participants rated their agreement from 1 (Strongly Disagree) to 5 (Strongly Agree).
+
+### Action to take
+
+I need to assign descriptive names to the sub-questions in order to make the dataset more understandable.
+
+Sammple code
+```
+# For Q3 (Feelings towards the device)
+variable_names[variable_names == "Q3_1"] <- "Positive_About_Device"
+variable_names[variable_names == "Q3_2"] <- "Feel_Victimized"
+variable_names[variable_names == "Q3_3"] <- "Device_Runs_Independently"
+(...)
+
+# Update the column names in the data frame
+colnames(survey_df_complete) <- variable_names
+```
+
