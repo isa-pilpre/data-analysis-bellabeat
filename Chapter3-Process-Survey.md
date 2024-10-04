@@ -292,50 +292,62 @@ For now on I will work with the survey_df_complete dataset because I want to be 
 
 ## 6) Handling Likert-scale items
 
-### Observations
-
 I have noticed that questions like Q3 have multiple sub-questions (i.e. Q3_1, Q3_2), each representing a statement rated on a Likert scale.
 Participants rated their agreement from 1 (Strongly Disagree) to 5 (Strongly Agree).
 
-### Action to take
+### Assigning descriptive names
 
-I need to assign descriptive names to the sub-questions in order to make the dataset more understandable.
+I assigned descriptive names to the sub-questions in order to make the dataset more understandable.
 
 Sample code
 ```
-# Assignining meaningful names to Q3 thru Q10 columns
-variable_names[variable_names == "Q3_1"] <- "Positive_About_Device"
-variable_names[variable_names == "Q3_2"] <- "Feel_Victimized"
-variable_names[variable_names == "Q3_3"] <- "Device_Runs_Independently"
-variable_names[variable_names == "Q3_4"] <- "Device_Cannot_Initiate_Actions"
-variable_names[variable_names == "Q3_5"] <- "Me_The_User_In_Control"
-variable_names[variable_names == "Q3_6"] <- "Device_Forces_Process_On_Me "
-variable_names[variable_names == "Q3_7"] <- "Device_Cannot_Change_Task"
-variable_names[variable_names == "Q3_8"] <- "Device_Has_Own_Intelligence"
-variable_names[variable_names == "Q4_1"] <- "Understand_How_Device_Works"
-variable_names[variable_names == "Q4_2"] <- "Not_Ideal_Use"
-variable_names[variable_names == "Q4_3"] <- "Device_Active_Participant"
-variable_names[variable_names == "Q4_4"] <- "Device_Dependent_On_Me"
-variable_names[variable_names == "Q4_5"] <- "Freely_Choose_Tasks"
-variable_names[variable_names == "Q4_6"] <- "Cannot_Achieve_Things_I_Want"
-variable_names[variable_names == "Q4_7"] <- "Device_Handles_Better_Certain_Things"
-variable_names[variable_names == "Q4_8"] <- "Device_Not_Helpful"
-variable_names[variable_names == "Q5_1"] <- "Enjoy_Device"
-variable_names[variable_names == "Q5_2"] <- "Negative_Feelings_Towards_Device"
-variable_names[variable_names == "Q5_3"] <- "Miss_Device"
-variable_names[variable_names == "Q5_4"] <- "Device_Pleasurable"
-variable_names[variable_names == "Q6_1"] <- "Device_Has_Own_Personality"
-variable_names[variable_names == "Q6_2"] <- "Device_Supports_Like_Friend"
-variable_names[variable_names == "Q6_3"] <- "Consider_Naming_Device"
-variable_names[variable_names == "Q7_1"] <- "Device_Part_Of_Myself"
-variable_names[variable_names == "Q7_2"] <- "Dont_Like_Others_Use_My_Device"
-variable_names[variable_names == "Q7_3"] <- "Feel_Incomplete_Without_Device"
-variable_names[variable_names == "Q8_1"] <- "Device_Useful_For_My_Goals"
-variable_names[variable_names == "Q8_2"] <- "Device_Better_Than_NonSmart_Equivalent"
-variable_names[variable_names == "Q8_3"] <- "Function_Aspect_Most_Important"
-(...)
+
+# Assigning meaningful names to Q3 thru Q10 columns
+variable_names[variable_names == "Q3_1"] <- "Q3_Positive_About_Device"
+variable_names[variable_names == "Q3_2"] <- "Q3_Feel_Victimized"
+variable_names[variable_names == "Q3_3"] <- "Q3_Device_Runs_Independently"
+variable_names[variable_names == "Q3_4"] <- "Q3_Device_Cannot_Initiate_Actions"
+variable_names[variable_names == "Q3_5"] <- "Q3_Me_The_User_In_Control"
+variable_names[variable_names == "Q3_6"] <- "Q3_Device_Forces_Process_On_Me "
+variable_names[variable_names == "Q3_7"] <- "Q3_Device_Cannot_Change_Task"
+variable_names[variable_names == "Q3_8"] <- "Q3_Device_Has_Own_Intelligence"
+variable_names[variable_names == "Q4_1"] <- "Q4_Understand_How_Device_Works"
+variable_names[variable_names == "Q4_2"] <- "Q4_Not_Ideal_Use"
+variable_names[variable_names == "Q4_3"] <- "Q4_Device_Active_Participant"
+variable_names[variable_names == "Q4_4"] <- "Q4_Device_Dependent_On_Me"
+variable_names[variable_names == "Q4_5"] <- "Q4_Freely_Choose_Tasks"
+variable_names[variable_names == "Q4_6"] <- "Q4_Cannot_Achieve_Things_I_Want"
+variable_names[variable_names == "Q4_7"] <- "Q4_Device_Handles_Better_Certain_Things"
+variable_names[variable_names == "Q4_8"] <- "Q4_Device_Not_Helpful"
+variable_names[variable_names == "Q5_1"] <- "Q5_Enjoy_Device"
+variable_names[variable_names == "Q5_2"] <- "Q5_Negative_Feelings_Towards_Device"
+variable_names[variable_names == "Q5_3"] <- "Q5_Miss_Device"
+variable_names[variable_names == "Q5_4"] <- "Q5_Device_Pleasurable"
+variable_names[variable_names == "Q6_1"] <- "Q6_Device_Has_Own_Personality"
+variable_names[variable_names == "Q6_2"] <- "Q6_Device_Supports_Like_Friend"
+variable_names[variable_names == "Q6_3"] <- "Q6_Consider_Naming_Device"
+variable_names[variable_names == "Q7_1"] <- "Q7_Device_Part_Of_Myself"
+variable_names[variable_names == "Q7_2"] <- "Q7_Dont_Like_Others_Use_My_Device"
+variable_names[variable_names == "Q7_3"] <- "Q7_Feel_Incomplete_Without_Device"
+variable_names[variable_names == "Q8_1"] <- "Q8_Device_Useful_For_My_Goals"
+variable_names[variable_names == "Q8_2"] <- "Q8_Device_Better_Than_NonSmart_Equivalent"
+variable_names[variable_names == "Q8_3"] <- "Q8_Function_Aspect_Most_Important"
+variable_names[variable_names == "Q9_1"] <- "Q9_Device_Important_Part_Lifestyle"
+variable_names[variable_names == "Q9_2"] <- "Q9_Device_Helps_Me_Larger_Community"
+variable_names[variable_names == "Q9_3"] <- "Q9_Device_Helps_Me_Social_Relations"
+variable_names[variable_names == "Q10_1"] <- "Q10_Saves_Me_Time"
+variable_names[variable_names == "Q10_2"] <- "Q10_Saves_Me_Money"
+variable_names[variable_names == "Q10_3"] <- "Q10_Price_Most_Important_Factor"
+
 
 # Update the column names in the data frame
 colnames(survey_df_complete) <- variable_names
+
+# Check df to make sure column names were updated
+str(survey_df_complete)
+
 ```
 
+### Converting Likert-scale responses to ordered factors
+
+I made sure the responses were treated as ordinal data.
