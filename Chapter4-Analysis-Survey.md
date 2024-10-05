@@ -10,27 +10,11 @@ To stay aligned with the business task, I need to keep in mind the following key
 - How could these trends apply to Bellabeat customers?
 - How could these trends help influence Bellabeat marketing strategy?
 
-## 2) Further adjustment made to make data ready for analysis
+## 2) Further data preparation for analysis
 
-### 2.1. Filtering respondents' gender
+### 2.1. Filtering respondents by gender and device ownership
 
-To focus the analysis on the Bellabeat customer target group, which is 100% women, the dataset was filtered to include only female respondents. 
-
-Also, survey respondents had to pick only one answer regarding the smart device they own, in the following list: 
-
-- Smart watches/bracelets (e.g. Polar, FitBit) (1)
-- Household cleaning devices (e.g. robot vacuum cleaner) (2)
-- Other household devices (e.g. security system, thermostat, smart bulbs) (3)
-- Personal hygiene devices (e.g. toothbrush) (4)
- - Personal health devices (e.g. blood pressure monitor, scale) (5)
-- Entertainment devices (e.g. smart toys such Lego Mindstorm) (6)
-- Personal assistant devices (e.g. Siri, Alexa) (7)
-- Smart TVs and videostreaming devices (e.g. Apple TV, Nvidia shield) (8)
-- Computers and smartphones (9)
-
-Since Bellabeat sells fitness wearable devices, I filtered the dataset further to include only women who use wearables (smart watches/bracelets), i.e. answer 1 in the above question. 
-
-With these two filterings, I made sure the insights were directly relevant to Bellabeat's customer base.
+To focus the analysis on Bellabeat's target customer group (i.e. 100% women who use wearables), the dataset was filtered accordingly. Specifically, only female respondents (`Q19_Sex == 2`) who own smart watches or bracelets (`Q16_Device_Owned == "Smart watches/bracelets (e.g. Polar, FitBit)"`) were included in the analysis.
 
 Sample code
 ```r
@@ -38,15 +22,13 @@ filtered_df <- survey_df %>%
   filter(Q19_Sex == 2, Q16_Device_Owned == "Smart watches/bracelets (e.g. Polar, FitBit)")
 ```
 
-### 2.2 Filtering respondents' levels of reaction
+### 2.2. Refining responses to capture strong opinions
 
-From the previous step, I found out that there were many questions (Q3 thru Q10) with 5 levels of Likert-scale answers (Strongly disagree, Somewhat
-disagree, Neither agree nor disagree, Somewhat agree, and Strongly agree).
-To make my findings more focused and meaningful, I chose to retain only strong opinions, that is Strongly disagree and Strongly agree.
+The survey included Likert-scale responses with five levels: Strongly Disagree, Somewhat Disagree, Neutral, Somewhat Agree, and Strongly Agree. To focus on more definitive opinions, only "Strongly Disagree" and "Strongly Agree" responses were retained.
 
-### 2.3 Data format transformation
+### 2.3 Transforming data format for analysis and plotting
 
-The data was transformed from a wide format to a long format to facilitate easier analysis and plotting (required for ggplot2 functions). 
+The data was transformed from a wide format to a long format for easier analysis and visualization using ggplot2. Additionally, question labels were cleaned by removing prefixes and replacing underscores with spaces for better readability in plots.
 
 Sample code
 ``` r
@@ -60,8 +42,8 @@ female_long <- filtered_df %>%
       levels = c("Strongly Disagree", "Strongly Agree"),
       ordered = TRUE
     ),
-    Question = str_remove(Question, "^Q\\d+_"),
-    Question = str_replace_all(Question, "_", " ")
+    Question = str_remove(Question, "^Q\\d+_"),     # remove Q[number] code
+    Question = str_replace_all(Question, "_", " ")  # replace underscore with a space
   )
 
 ```
@@ -84,9 +66,9 @@ summary_table <- female_long %>%
 
 ```
 
-### 3.2. Top responses
+### 3.2. Identifying top responses
 
-The identication of the top 5 questions with the highest percentages of "Strongly Agree" and "Strongly Disagree" responses gave me targeted insights.
+Identifying the top 5 questions with the highest percentages of "Strongly Agree" and "Strongly Disagree" responses provideed targeted insights.
 
 Sample code
 
@@ -112,17 +94,18 @@ Findings:
   - Positive about device: Reflects overall positive sentiment.
 
 - Strongest disagreements:
-  - Device has its own personality: Women do not see their device as "human".
-  - Device helps me create relationships: Women do no see their device as a social tool.
+  - Device has its own personality: Women do not perceive their device as "human".
+  - Device helps me create relationships: Wearables are not seen as social tools by women.
  
 
 ## 4) Visualizations
 
-Two bars were created to visualize the distribution of strong opinions ("Strongly Agree" and "Strongly Disagree") across various survey questions.
+Bar charts were created to visualize the distribution of strong opinions.
 
-### 4.1 Bar charts to show women's strong opinions
+### 4.1 Bar charts for women's strong opinions
 
 Sample code
+
 ``` r
 # Function to create and save plots for each group
 create_and_save_plot <- function(group_name, questions){
@@ -208,7 +191,7 @@ Plot Characteristics:
 
 (put actual plot)
 
-The sample plot illustrates the percentage of "Strongly Agree" and "Strongly Disagree" responses for the question "Enjoy Device." The blue bar indicates a high level of agreement, while the red bar shows a strong level of disagreement.
+The sample plot illustrates the percentage of "Strongly Agree" and "Strongly Disagree" responses among women who use wearable devices such as smart watches or bracelets (Polar, Fitbit), regarding the statement "Enjoy Device." 
  
 
 
