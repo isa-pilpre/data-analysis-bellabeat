@@ -1,8 +1,9 @@
 # Chapter 2: Prepare Phase
 
 ## 1. Data sources
+## 1. Data sources
 
-For this analysis, I am using two publicly available datasets, wich provide different perspectives on user behaviors and relationships with their smart devices:
+For this analysis, I am using several datasets, which provide different perspectives on user trends and relationships with their smart devices:
 
 - **A) Fitbit fitness tracker dataset (Kaggle)**
 
@@ -13,6 +14,17 @@ However, because of this dataset's limitations (small sample size, data collecte
 - **B) Survey dataset about people's relationships wwith their smart devices (MDPI)**
 
 Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020. The larger, more recent sample makes it more representative and relevant. Additionally, the survey asked respondents whether they were male (1) or female (2), which makes it better suited to Bellabeat’s focus on women. Lastly, this dataset adds a psychological dimension to the analysis by exploring user attitudes and interactions with their smart devices, which is nice addition to the Fitbit data.
+
+- **C) Reddit sentiment analyis on "smartwatches" sub-reddits
+
+To complement the Fitbit and MDPI survey datasets, I collected public sentiment data from Reddit. To align with my business task, I focused on discussions related to smartwatches. Like the survey dataset, the Reddit dataset helps understand users' opinions and attitudes towards smart devices. However, it captures these sentiments through open discussions in Reddit forums, which might provide more authentic and spontaneous user opinions compared to a structured survey.
+
+**Data source**: Reddit API (accessed via the `praw` library in Python).
+
+**Scope**: Posts containing the keyword "smartwatch" from a variety of subreddits. I filtered the data to retrieve:
+   - The **most recent posts**, capturing the latest trends and user discussions.
+   - The **top-scoring posts**, prioritizing the most influential or engaging opinions.
+
 
 ## 2. Data organization
 
@@ -36,6 +48,7 @@ Contains four main branches (DATA, SCRIPTS, IMAGES, REPORTS):
 
   - SCRIPTS: All the scripts used in this project
     - R: R scripts
+    - Python: Python scripts
     - SQL: SQL queries (BigQuery) 
     - Shell: Shell scripts (bash) 
      
@@ -180,8 +193,9 @@ for (file in combined_files) {
 
 ## 4. Datasets ready for cleaning
 
-Now, the Fitbit dataset is fully organized, with all the files stored in one unified folder called `Fitbit_Complete_Data`.
-As for the survey data, it is stored separately in a folder called `Survey_Data`. 
+Now, the Fitbit dataset is fully organized, with all the files stored in one unified folder called `DATA/Fitbit/Fitbit_Complete_Data`.
+The survey data is stored separately in a folder called `DATA/Survey`.
+As for the Reddit data, it is stored in a folder called `DATA/Reddit`. 
 
 ### A) `Fitbit_Complete_Data` folder
 
@@ -208,7 +222,7 @@ File                     | Description
 `minuteStepsWide_merged.csv` | Wide minute-level step data.
 `sleepDay_merged.csv` | Daily summary of sleep data.
 
-### B) `Survey_Data` folder
+### B) `Survey` folder
 
 Contains:
 - A `Data Report` PDF file providing the research context, names of the survey authors, etc.
@@ -222,6 +236,19 @@ File                     | Description
 `Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx` | User opinions and interactions with their smart devices.
 
 The Excel file is in long (narrow) format.
+
+### C) `Reddit` folder
+
+This folder contains:
+- Two CSV files called `Reddit_top_posts_smartwatch.csv` and `Reddit_new_posts_smartwatch.csv`.
+
+These files contain data collected from a Python scraping script that retrieves the Top 10 most popular and Top 10 most recent posts about "smartwatches" on Reddit:
+
+Files                    | Description
+-------------------------|-----------------------------
+`Reddit_top_posts_smartwatch.csv` | Most popular posts about smartwatches.
+`Reddit_new_posts_smartwatch.csv` | Most recent posts about smartwatches.
+
 
 ## 5. Credibility and limitations
 
@@ -246,6 +273,7 @@ The Fitbit dataset has four key limitations:
 #### Context and authors
 
 The survey dataset was conducted by [Francesco Lelli](https://francescolelli.info/) (Professor at Tilburg University) and [Heidi Toivonen](https://www.heiditoivonen.com/) (PostDoc at Ghent University) using the Qualtrics platform. Data was collected from over 500 participants between May and July 2020, with no specific pre-selection of respondents. 
+
 #### Strengths
 
 - a) Larger sample size (500+ participants): provides a more robust and representative perspective;
@@ -258,6 +286,12 @@ The survey dataset was conducted by [Francesco Lelli](https://francescolelli.inf
 #### Limitations
 
 However, the survey respondents might still represent a specific demographic and could limit the generalization of the results.
+
+### C) Reddit dataset
+
+#### Context 
+#### Strengths
+#### Limitations...
 
 
 ## 6. Data integrity and privacy
