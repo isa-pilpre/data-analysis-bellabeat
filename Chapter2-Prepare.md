@@ -203,6 +203,13 @@ import praw
 from textblob import TextBlob
 import csv
 
+# Set up required info for Reddit API (info: app PythonScrapper / Redirect URI http://localhost:8000)
+reddit = praw.Reddit(
+    client_id=config.CLIENT_ID,
+    client_secret=config.CLIENT_SECRET,
+    user_agent=config.USER_AGENT
+)
+
 
 def save_posts_to_csv(posts, filename):
     # Open CSV file in write mode
@@ -370,3 +377,26 @@ The Reddit dataset was collected using the Reddit API, accessed via the `praw` l
 The Fitbit and Survey datasets are GDPR-compliant and do not contain any personally identifiable information. They are publicly available and licensed for open use (Fitbit data via Kaggle and the survey data via MDPI's open access). Both datasets have been downloaded and stored locally to preserve privacy and data integrity before moving to the cleaning phase.
 
 As for the Reddit dataset, the data collected via the Reddit API contains only publicly available information (i.e. post titles, scores and URLs). The dataset does not include user identities or any sensitive information, which complies with privacy guidelines. And just like the Fitbit and the Survey datasets, the Reddit data is stored locally to prevent unnecessary exposure and preserve the integrity of the dataset.
+
+
+## 7. Security and configuration management
+
+To securely access the Reddit API, I created a separate configuration file called `config.py` to store sensitive credentials, including:
+- `client_id`
+- `client_secret`
+- `user_agent`
+
+To prevent these credentials from being exposed publicly, `config.py` is added to the `.gitignore` file at the root of the project (`BELLABEAT`). This prevents the file from being tracked or uploaded to the GitHub repository, in order to protect the API keys and comply with security best practices.
+
+### Command line
+``` bash
+$ touch .gitignore
+$ echo "config.py" >> .gitignore
+$ cat .gitignore 
+config.py
+```
+
+These commands create a `.gitignore` file (if it doesn't already exist), add `config.py` to it, and verify its content. This setup makes sure that `config.py` is ignored by Git, to keep the credentials secure and outside of version control.
+
+All three datasets are now ready for the next phase, which is the Process (and Cleaning) step.
+
