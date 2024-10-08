@@ -1,0 +1,65 @@
+"VariableName","QuestionFullText"
+"Q17_Age","Let's start with you telling us something about yourself. Age:"
+"Q19_Sex","Sex"
+"Q20_EduLevel","Level of education"
+"Q21_EduType","Type of education"
+"Q22_WorkExperience","Working Experience"
+"Q32_CurrentSituation","Which of the following best describes your current situation:"
+"Q29_Prof_Knowledge","I have professional knowledge of one or more of the following disciplines: (i) Internet of Things, (ii) Human Computer Interaction, (iii) Artificial Intelligence, (iv) Big Data, or (v) Requirement Engineering"
+"Q30_Involvement","I am/have been involved in researching, producing, marketing, or selling smart devices."
+"Q2023_Country_Residence","List of Countries"
+"Q2023_Country_Origin","List of Countries"
+"Q16_Device_Owned","Thanks for filling in your personal information. 
+
+ 
+
+This questionnaire is about humans' relationship with smart devices. The main focus of this study is not on smart phones and computers. However, if you do not own any other device, you may select this category. When filling in the questionnaire, please choose one smart device that you own and keep it in mind while answering the questions.
+
+ 
+
+To begin with, please tick the category of the smart device of your choosing.
+
+
+
+Remember: Only choose Computers and smartphones if you do not own any other smart device. .
+
+ 
+
+
+To what of the following categories does the device of your choosing belong:"
+"Q2_Device_In_Mind","(Optional) Please specify the product that you have in mind, including the brand name:"
+"Q3_1","Please answer these questions about your thoughts in terms of your smart device - I’m positive about having this smart device as a part of my daily life."
+"Q3_2","Please answer these questions about your thoughts in terms of your smart device - I often feel victimized by my smart device, like it does things to me rather than the other way around."
+"Q3_3","Please answer these questions about your thoughts in terms of your smart device - The smart device runs its actions independently of me/does what it does on its own."
+"Q3_4","Please answer these questions about your thoughts in terms of your smart device - I feel that my smart device cannot initiate actions on its own."
+"Q3_5","Please answer these questions about your thoughts in terms of your smart device - It is me, the user, who is in control of stopping tasks/processes with my smart device."
+"Q3_6","Please answer these questions about your thoughts in terms of your smart device - I am not able to change the way I do things if my smart device is involved; it forces a certain process on me."
+"Q3_7","Please answer these questions about your thoughts in terms of your smart device - This smart device cannot independently change the course in how a task is completed."
+"Q3_8","Please answer these questions about your thoughts in terms of your smart device - My smart device has intelligence and understanding of its own, independent of me."
+"Q4_1","Sorry, we have a little bit more of these :-) - I understand how this smart device works."
+"Q4_2","Sorry, we have a little bit more of these :-) - I have often had a less than ideal way of using my smart device in the past."
+"Q4_3","Sorry, we have a little bit more of these :-) - My smart device is a true active participant in the interaction I have with it."
+"Q4_4","Sorry, we have a little bit more of these :-) - My smart device is fundamentally dependent on me, the human user."
+"Q4_5","Sorry, we have a little bit more of these :-) - I am using this smart device to execute task(s) that I have freely chosen."
+"Q4_6","Sorry, we have a little bit more of these :-) - I often think that I cannot really use my smart device to achieve the things I want."
+"Q4_7","Sorry, we have a little bit more of these :-) - Certain things are performed better by my smart device than by me."
+"Q4_8","Sorry, we have a little bit more of these :-) - My smart device is not really helpful in getting things done."
+"Q5_1","Believe it or not, we are presenting another perspective on your relationship with your device - I enjoy my smart device."
+"Q5_2","Believe it or not, we are presenting another perspective on your relationship with your device - I sometimes have negative feelings towards this smart device."
+"Q5_3","Believe it or not, we are presenting another perspective on your relationship with your device - I miss my smart device when I’m away from it/not using it."
+"Q5_4","Believe it or not, we are presenting another perspective on your relationship with your device - My smart device is pleasurable to look at/feel."
+"Q6_1","Keep up your fighting spirit! - I feel like my smart device has a “personality” of its own."
+"Q6_2","Keep up your fighting spirit! - My smart device helps and supports me like a “friend”."
+"Q6_3","Keep up your fighting spirit! - I would consider naming my smart device."
+"Q7_1","Almost there! - I see my smart device as a part of myself."
+"Q7_2","Almost there! - I don’t like others to interact with my smart device without my permission."
+"Q7_3","Almost there! - I don’t feel complete without my smart device."
+"Q8_1","Sorry, we were lying, you were not almost there! - My smart device is useful for achieving my goals."
+"Q8_2","Sorry, we were lying, you were not almost there! - My smart device fulfills its purpose better in comparison with a non-smart equivalent."
+"Q8_3","Sorry, we were lying, you were not almost there! - Function (getting things done) is the most important aspect of my smart device."
+"Q9_1","Let's be honest, one more (after this one) and you are free to go! - My smart device is an important part of my lifestyle."
+"Q9_2","Let's be honest, one more (after this one) and you are free to go! - My smart device enables me to be a part of a larger community."
+"Q9_3","Let's be honest, one more (after this one) and you are free to go! - My smart device helps me to have better social relationships."
+"Q10_1","That is it! This is really the last one! - Using my smart device saves me time"
+"Q10_2","That is it! This is really the last one! - Using my smart device saves me money."
+"Q10_3","That is it! This is really the last one! - Price was the most important factor in making the decision of purchasing this smart device."
