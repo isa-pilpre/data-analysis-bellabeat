@@ -338,10 +338,3 @@ ORDER BY
 
 After that, I exported the `BigQuery_heartrate_versus_steps.csv` file to my local `BigQuery_Exports` folder.
 Next, I analyzed the .csv file further in R and created a visualization.
-
-Sample R code:
-```R
-
-
-   
-

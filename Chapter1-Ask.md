@@ -4,7 +4,7 @@
 
 Welcome to my data analysis case study for Bellabeat company. 
 
-In this case study, let's assume I am working as a Data Analyst for [Bellabeat](<http://www.bellabeat.com>), a high-tech manufacturer of health-focused products for women.
+In this case study, let's pretend that I am working as a Data Analyst for [Bellabeat](<http://www.bellabeat.com>), a high-tech manufacturer of health-focused products for women.
 
 ## 2. Business task
 
