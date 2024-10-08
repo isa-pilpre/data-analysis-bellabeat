@@ -52,7 +52,7 @@ Contains four main branches (DATA, SCRIPTS, IMAGES, REPORTS):
 
 ## 3. Preparing the datasets
 
-### Fitbit
+### A) Fitbit
 
 While the Survey dataset seems fairly straightforward and contains one single Excel file, the original Fitbit dataset unzips into 2 separate folders:
 
@@ -187,19 +187,62 @@ for (file in combined_files) {
 ```
 
 
-### Survey
+### B) Survey
 
-The Survey dataset consisted on a single Excel file, so there was no need to prepare it further.
+The Survey dataset consisted of a single Excel file, so there was no need to prepare it further.
 
 
-### Reddit
+### C) Reddit
 
-I retrieved the Reddit dataset by running a Python scrapping script.
+I retrieved the Reddit dataset by running a Python scraping script. The script uses the `praw` library to connect to the Reddit API and collect posts related to smartwatches. The retrieved data is then analyzed for sentiment and stored in two CSV files: one for the top posts and another for the most recent posts.
 
 Sample code
 
 ``` python
-blabla
+import praw
+from textblob import TextBlob
+import csv
+
+
+def save_posts_to_csv(posts, filename):
+    # Open CSV file in write mode
+    with open(filename, mode='w', newline='', encoding='utf-8') as file:
+        writer = csv.writer(file)
+        writer.writerow(["Title", "Score", "Sentiment", "Polarity", "URL"])
+
+        for post in posts:
+            title = post.title
+            score = post.score
+            url = post.url
+
+            # Perform sentiment analysis
+            sentiment = TextBlob(title).sentiment.polarity
+            sentiment_label = "Positive" if sentiment > 0 else "Negative" if sentiment < 0 else "Neutral"
+
+            # Write data to CSV file
+            writer.writerow([title, score, sentiment_label, sentiment, url])
+            
+            print(f"Title: {title}")
+            print(f"Score: {score}")
+            print(f"Sentiment: {sentiment_label} (Polarity: {sentiment:.2f})")
+            print(f"URL: {url}\n")
+
+def get_top_posts(keyword):
+    subreddit = reddit.subreddit("all")
+    # Search for top posts with the keyword "smartwatch"
+    top_posts = subreddit.search(keyword, sort="top", limit=10)
+    save_posts_to_csv(top_posts, './Reddit_top_posts_smartwatch.csv')  # Save to CSV
+
+def get_new_posts(keyword):
+    subreddit = reddit.subreddit("all")
+    # Search for the most recent posts with the keyword "smartwatch"
+    new_posts = subreddit.search(keyword, sort="new", limit=10)
+    save_posts_to_csv(new_posts, './Reddit_new_posts_smartwatch.csv')  # Save to CSV
+
+if __name__ == "__main__":
+    get_top_posts("smartwatch")  # Search for top posts about "smartwatch"
+    get_new_posts("smartwatch")  # Search for new posts about "smartwatch"
+
 ```
 
 
