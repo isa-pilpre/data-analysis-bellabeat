@@ -308,9 +308,4 @@ The Reddit dataset was collected using the Reddit API, accessed via the `praw` l
 
 The Fitbit and Survey datasets are GDPR-compliant and do not contain any personally identifiable information. They are publicly available and licensed for open use (Fitbit data via Kaggle and the survey data via MDPI's open access). Both datasets have been downloaded and stored locally to preserve privacy and data integrity before moving to the cleaning phase.
 
-As for the Reddit dataset:
-- The data collected via the Reddit API contains only publicly available information (i.e. post titles, scores and URLs). 
-- The dataset does not include user identities or any sensitive information, which complies with privacy guidelines.
-- Data is stored locally as well to prevent unnecessary exposure and preserve the integrity of the dataset.
-
-
+As for the Reddit dataset, the data collected via the Reddit API contains only publicly available information (i.e. post titles, scores and URLs). The dataset does not include user identities or any sensitive information, which complies with privacy guidelines. And just like the Fitbit and the Survey datasets, the Reddit data is stored locally to prevent unnecessary exposure and preserve the integrity of the dataset.
