@@ -49,6 +49,7 @@ Contains four main branches (DATA, SCRIPTS, IMAGES, REPORTS):
   - IMAGES: All the images and plots in this project
   - REPORTS: All the reports made in this project
 
+
 ## 3. Preparing the datasets
 
 ### Fitbit
@@ -184,6 +185,23 @@ for (file in combined_files) {
   cat("----------------------------\n")
 }
 ```
+
+
+### Survey
+
+The Survey dataset consisted on a single Excel file, so there was no need to prepare it further.
+
+
+### Reddit
+
+I retrieved the Reddit dataset by running a Python scrapping script.
+
+Sample code
+
+``` python
+blabla
+```
+
 
 ## 4. Datasets ready for cleaning
 
