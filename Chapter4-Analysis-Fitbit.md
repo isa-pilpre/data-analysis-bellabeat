@@ -335,6 +335,108 @@ AND
 ORDER BY 
   steps.Id, steps.ActivityDay ;
 ```
-
 After that, I exported the `BigQuery_heartrate_versus_steps.csv` file to my local `BigQuery_Exports` folder.
 Next, I analyzed the .csv file further in R and created a visualization.
+
+## 5) Analyzing Activity Patterns Around Easter (March 24 - March 30, 2016)
+
+To explore how users' activity levels changed during the Easter period in 2016 (Easter Sunday was March 27, 2016), I used BigQuery to run SQL queries on the `combined_dailyActivity_merged` dataset, which I renamed as the `daily_activity` table in BigQuery. 
+
+### SQL query in BigQuery
+
+The query below calculates the average steps, calories burned, and activity minutes for each day between March 24 and March 30, 2016:
+
+```sql
+SELECT 
+    ActivityDate,
+    AVG(TotalSteps) AS AvgSteps,
+    AVG(Calories) AS AvgCalories,
+    AVG(VeryActiveMinutes) AS AvgVeryActiveMinutes,
+    AVG(FairlyActiveMinutes) AS AvgFairlyActiveMinutes,
+    AVG(LightlyActiveMinutes) AS AvgLightlyActiveMinutes,
+    AVG(SedentaryMinutes) AS AvgSedentaryMinutes
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+WHERE 
+    ActivityDate BETWEEN DATE("2016-03-24") AND DATE("2016-03-30")
+GROUP BY 
+    ActivityDate
+ORDER BY 
+    ActivityDate;
+```
+
+### Data visualization in Python
+
+To visualize the data directly in BigQuery Studio, I used Python to create separate line plots for each metric, marking Easter Sunday (March 27):
+
+``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Convert the date string to a datetime object
+easter_sunday = pd.to_datetime('2016-03-27')
+
+# Set up a grid for multiple subplots
+fig, axes = plt.subplots(2, 2, figsize=(14, 10), sharex=True)
+
+# Plot 1: Average Steps
+sns.lineplot(ax=axes[0, 0], x='ActivityDate', y='AvgSteps', data=df, marker='o', color='blue')
+axes[0, 0].axvline(x=easter_sunday, color='black', linestyle='--', label='Easter Sunday')
+axes[0, 0].set_title('Average Steps')
+axes[0, 0].set_ylabel('Steps')
+
+# Plot 2: Average Calories
+sns.lineplot(ax=axes[0, 1], x='ActivityDate', y='AvgCalories', data=df, marker='o', color='green')
+axes[0, 1].axvline(x=easter_sunday, color='black', linestyle='--', label='Easter Sunday')
+axes[0, 1].set_title('Average Calories')
+axes[0, 1].set_ylabel('Calories')
+
+# Plot 3: Average Very Active Minutes
+sns.lineplot(ax=axes[1, 0], x='ActivityDate', y='AvgVeryActiveMinutes', data=df, marker='o', color='red')
+axes[1, 0].axvline(x=easter_sunday, color='black', linestyle='--', label='Easter Sunday')
+axes[1, 0].set_title('Average Very Active Minutes')
+axes[1, 0].set_ylabel('Minutes')
+
+# Plot 4: Average Sedentary Minutes
+sns.lineplot(ax=axes[1, 1], x='ActivityDate', y='AvgSedentaryMinutes', data=df, marker='o', color='purple')
+axes[1, 1].axvline(x=easter_sunday, color='black', linestyle='--', label='Easter Sunday')
+axes[1, 1].set_title('Average Sedentary Minutes')
+axes[1, 1].set_ylabel('Minutes')
+
+# Rotate x-axis labels for clarity and add legend
+for ax in axes.flat:
+    ax.set_xlabel('Date')
+    ax.tick_params(axis='x', rotation=45)
+    ax.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+### Findings
+
+From the analysis, I noticed a gradual increase in steps from Good Friday (March 25) leading up to Easter Sunday (March 27). This pattern indicates that users might be more active around Easter holidays, possibly engaging in outdoor or family activities.
+
+
+### Exporting the CSV file for further analysis and visualization using R
+
+I exported the cleaned dataset as a CSV file (`around_easter.csv`) to further analyze and visualize the data using R. 
+Sample code in R:
+
+``` r
+# Read the CSV file into R
+easter_activity <- read_csv("path_to_your_file/easter_activity_data.csv")
+
+# Plot the steps around Easter
+ggplot(easter_activity, aes(x = ActivityDate, y = AvgSteps)) +
+  geom_line() +
+  geom_vline(xintercept = as.Date("2016-03-27"), linetype = "dashed", color = "red", size = 0.5) +
+  labs(title = "Average Steps Around Easter (March 24 - 30, 2016)",
+       x = "Date",
+       y = "Average Steps") +
+  theme_minimal()
+```
+
+
+
