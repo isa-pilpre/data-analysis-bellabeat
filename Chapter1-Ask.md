@@ -1,4 +1,4 @@
-# Chapter 1: Ask Phase
+# Chapter 1: Ask phase
 
 ## 1. Context
 
@@ -6,11 +6,26 @@ Welcome to my data analysis case study for Bellabeat company.
 
 In this case study, let's pretend that I am working as a Data Analyst for [Bellabeat](<http://www.bellabeat.com>), a high-tech manufacturer of health-focused products for women.
 
-## 2. Business task
+## 2. Business Task
 
-Bellabeat has asked me to analyze public data from a competitor's smart devices (**FitBit Fitness Tracker Data**) to better understand how people use their wearables. The CCO also suggested that I should look for **a complementary public dataset** to make the analyst more robust and relevant.
+Simply put, I need to **analyze smart device fitness data to help unlock new growth opportunities for Bellebeat**. 
 
-The goal is to apply the insights I gather from these datasets to Bellabeat’s products, in order to provide recommendations that will help shape the company’s marketing strategy. Ultimately, this will help increase customer engagement and improve retention.
+Bellabeat’s Chief Creative Officer, Urška Sršen, has asked me to focus on one of Bellabeat’s products and analyze smart device data to gain insight into how consumers are using their smart devices. The goal is to uncover specific usage behaviors that could inform Bellabeat’s marketing strategy and identify growth opportunities. 
+
+### Key areas to investigate
+
+- **Usage behaviors**: How often and for what purposes consumers use their fitness trackers or smartwatches? (ex. weekday vs weekends, activity trends over the day, sleep monitoring, etc.)
+- **Consumer engagement**: How engaged users are with their devices? Is their usage consistent over time or influenced by specific events or time periods (ex. start of the year, summer)?
+- **Demographics and user profiles**: How different demographic segments (age, education, gender) use their devices. Are there key differences in their behavior.
+- **Consumer sentiment**: Are the smart device users satisfied with their device features? Do they feel their health and wellness improve through usage?
+
+### Aligning data sources with the business task
+
+- **Fitbit dataset**: Provides data on activity levels, sleep patterns, and heart rate, giving insights into daily usage behaviors.
+- **Survey dataset**: Offers demographic information and psychological dimensions, such as attitudes and satisfaction levels, which are relevant to understanding how users feel about their devices.
+- **Reddit and social media data**: Can be used to supplement the above datasets by providing real-time consumer sentiment and feedback on smart devices from a diverse range of users.
+- **Creating my own survey**: Ultimately, I could design my own survey via a platform (SurveyMonkey, Google Forms), target women specifically, and distribute it via social media channels (ex. women’s fitness groups on Facebook, Instagram). This way, I would get a controlled, relevant, and up-to-date dataset.
+
 
 ## 3. Stakeholders
 
@@ -29,10 +44,10 @@ These stakeholders will use the analysis results to make informed, data-driven d
 My analysis will focus on answering the following questions:
 
 **What trends in smart device usage can be identified from the available data?**
-Although the FitBit dataset is from 2016, what patterns can still offer valuable insights?
+From the avalailable datasets, can we uncover valuable insights regarding activity trends, user demographics, and user feelings towards their smart devices, especially for women users?
 
 **How can these trends be relevant to Bellabeat's customers today?**
-What insights from the competitor’s data can help Bellabeat better understand their own users?
+What insights from this data can help Bellabeat better understand their own users? We will need to align these usage trends with Bellabeat target customers to identify their specific needs and preferences.
 
 **How can these insights help shape Bellabeat's marketing strategy?**
 How can the identified patterns guide the marketing team to improve customer engagement and boost sales?
