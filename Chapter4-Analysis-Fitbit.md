@@ -10,14 +10,38 @@ To stay aligned with the business task, I need to keep in mind the following key
 - How could these trends apply to Bellabeat customers?
 - How could these trends help influence Bellabeat marketing strategy?
 
+## 2) Reminder of the 18 files
+
+The Fitbit dataset contains the following 18 files:
+
+* `combined_dailyActivity_merged.csv`
+* `combined_heartrate_seconds_merged.csv`
+* `combined_hourlyCalories_merged.csv`
+* `combined_hourlyIntensities_merged.csv`
+* `combined_hourlySteps_merged.csv`
+* `combined_minuteCaloriesNarrow_merged.csv`
+* `combined_minuteIntensitiesNarrow_merged.csv`
+* `combined_minuteMETsNarrow_merged.csv`
+* `combined_minuteSleep_merged.csv`
+* `combined_minuteStepsNarrow_merged.csv`
+* `combined_weightLogInfo_merged.csv`
+* `dailyCalories_merged.csv`
+* `dailyIntensities_merged.csv`
+* `dailySteps_merged.csv`
+* `minuteCaloriesWide_merged.csv`
+* `minuteIntensitiesWide_merged.csv`
+* `minuteStepsWide_merged.csv`
+* `sleepDay_merged.csv`
+
+
 ## 2) Approach to the analysis
 
 From the last step (Process phase), after I reviewed the tibbles, structures, summaries and column names of the 18 files, I found several possible trends that could emerge from the dataset:
 
-- Activity trends: when users are most active (morning, afternoon, evening) based on the `ActivityHour` column. 
-- Intensity trends: when users' activity is more or less intense based on `VeryActiveMinutes`, `FairlyActiveMinutes`, etc. columns.
-- Sleep patterns: sleep duration and habits based on the `TotalMinutesAsleep` and `TotalTimeInBed` columns.
-- Recovery patterns: heart rate patterns based on `Value` column in the heart rate file.
+- Activity trends: when users are most active (morning, afternoon, evening), which day of the week, or is it more on weekends. 
+- Intensity trends: when users' activity is more or less intense.
+- Sleep patterns: is there any link between activity and sleep duration.
+- Heart rate patterns: is there any link between activity and heart rate.
 
 Let's upload the 18 files to BigQuery and run SQL queries to explore them. While I could stay in R for the entire analysis, I feel more comfortable running SQL queries first, then exporting the results as .csv files to my local drive for further analysis and then plotting in R.
 
@@ -47,13 +71,59 @@ With my bucket `bellabeat-proj` created, I uploaded the heart rate .csv file by 
 Finally, I went back to BigQuery Studio. From the left-hand Explorer pane, I navigated to my project and dataset, clicked on the three dots, and selected `Create table`. I was able to browse to my bucket in Google Cloud Studio and import the heart rate file as a new table named `heartrate`.
 
 
-## 4) Analyzing specific trends with SQL and then R
+## 4) Running data analysis with SQL (and also R and/or Python)
 
 With most of the CSV files now uploaded as tables in BigQuery, I can begin analyzing the data using SQL queries.
 
+### Checking basic facts (date range and number of Fibit users)
+
+To verify that the ID count matches the expected number of Fitbit users, I run a small SQL query:
+
+``` sql
+SELECT 
+    COUNT(DISTINCT Id) AS UniqueUserCount
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`;
+```
+
+Output
+```
+Row 	UniqueUserCount
+	
+1 	   35
+```
+
+There are more users than initially expected (35 instead of 30), but that seems fine.
+
+Then I verify if the date period in my dataset matches the expected time window (March 12, 2016 to May 12, 2016 period).
+
+``` sql
+
+SELECT 
+    Id,
+    MIN(ActivityDate) AS MinDate,
+    MAX(ActivityDate) AS MaxDate
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+```
+
+Output:
+
+```
+Row 	   MinDate          MaxDate
+	
+1 	      2016-03-12       2016-05-12
+
+```
+
+The date range does cover March 12, 2016 to May 12, 2016, as expected, so all is well.
+
+
+
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
 
-I started by running an SQL query in BigQuery:
+I would like to see the change in step activity over time:
+
 
 ```sql
 SELECT
