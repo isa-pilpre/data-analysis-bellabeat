@@ -36,14 +36,14 @@ The Fitbit dataset contains the following 18 files:
 
 ## 2) Approach to the analysis
 
-From the last step (Process phase), after I reviewed the tibbles, structures, summaries and column names of the 18 files, I found several possible trends that could emerge from the dataset:
+After reviewing the tibbles, structures, summaries, and column names of the 18 files in the Process phase, I identified several potential trends:
 
-- Activity trends: when users are most active (morning, afternoon, evening), which day of the week, or is it more on weekends. 
+- Activity trends: when users are most active (morning, afternoon, evening), which day of the week, or is it more on weekends.
 - Intensity trends: when users' activity is more or less intense.
-- Sleep patterns: is there any link between activity and sleep duration.
-- Heart rate patterns: is there any link between activity and heart rate.
+- Sleep patterns: is there any correlation between activity levels and sleep duration.
+- Heart rate patterns: is there any correlation between activity levels and heart rate changes.
 
-Let's upload the 18 files to BigQuery and run SQL queries to explore them. While I could stay in R for the entire analysis, I feel more comfortable running SQL queries first, then exporting the results as .csv files to my local drive for further analysis and then plotting in R.
+I uploaded the 18 files to BigQuery to run SQL queries for further exploration. Although I could conduct the entire analysis in R, I felt more comfortable using SQL first to filter and summarize data. Then I used a Python notebook for quick visualizations in BigQuery, and at last I exported the results as .csv files for detailed analysis and plotting in R.
 
 
 ## 3) First steps in BigQuery
@@ -71,13 +71,13 @@ With my bucket `bellabeat-proj` created, I uploaded the heart rate .csv file by 
 Finally, I went back to BigQuery Studio. From the left-hand Explorer pane, I navigated to my project and dataset, clicked on the three dots, and selected `Create table`. I was able to browse to my bucket in Google Cloud Studio and import the heart rate file as a new table named `heartrate`.
 
 
-## 4) Running data analysis with SQL (and also R and/or Python)
+## 4) Data analysis using SQL (with Python and R for visualization)
 
-With most of the CSV files now uploaded as tables in BigQuery, I can begin analyzing the data using SQL queries.
+With the CSV files uploaded as tables in BigQuery, I begin the analysis using SQL queries.
 
-### Checking basic facts (date range and number of Fibit users)
+### Verifying data integrity (date range and Fitbit user count)
 
-To verify that the ID count matches the expected number of Fitbit users, I run a small SQL query:
+To check if the number of unique users matches expectations, I ran the following query:
 
 ``` sql
 SELECT 
@@ -93,9 +93,9 @@ Row 	UniqueUserCount
 1 	   35
 ```
 
-There are more users than initially expected (35 instead of 30), but that seems fine.
+The count shows 35 users instead of the expected 30, which is acceptable.
 
-Then I verify if the date period in my dataset matches the expected time window (March 12, 2016 to May 12, 2016 period).
+Next, I verified that the date range matches the dataset's intended timeframe (March 12, 2016, to May 12, 2016):
 
 ``` sql
 
@@ -116,8 +116,71 @@ Row 	   MinDate          MaxDate
 
 ```
 
-The date range does cover March 12, 2016 to May 12, 2016, as expected, so all is well.
+The dataset covers the expected period, so data integrity is confirmed on that aspect.
 
+
+### Total steps per day (for > 80% of Fitbit users)
+
+Using SQL and a Python notebook, I analyzed the total steps per day for the days where at least 80% of the users (28 out of 35) reported their activity:
+
+``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query based on your specifications
+query = """
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(SUM(TotalSteps), 2) as TotalSteps,
+    ROUND(SUM(TotalDistance), 2) as TotalDistance,
+    ROUND(SUM(TrackerDistance), 2) as TrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 28
+ORDER BY 
+    ActivityDate;
+"""
+
+# Run the query and load the results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Convert ActivityDate to a datetime object for plotting
+df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
+
+# Set up the plot style
+sns.set(style="whitegrid")
+
+# Set up the plot
+plt.figure(figsize=(14, 7))
+sns.lineplot(data=df, x='ActivityDate', y='TotalSteps', marker='o', color='blue')
+
+# Customize the plot
+plt.title('Total Steps Per Day (Days with >= 80% User Reporting)')
+plt.xlabel('Date')
+plt.ylabel('Total Steps')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Show the plot
+plt.show()
+
+```
+
+Output:
+
+ The plot shows a peak on April 10, 2010 which is a Sunday after the national walking day (which was Wednesday, April 6), which makes sense. That also seems to confirm that people are more motivated to walk starting from the Spring.
+
+ 
 
 
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
