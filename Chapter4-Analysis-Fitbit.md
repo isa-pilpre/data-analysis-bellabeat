@@ -216,13 +216,94 @@ The plot shows that Fitbit sample users walk pretty regularly every day. Sundays
 
 ### Average steps per day (for at least 70% of Fitbit users)
 
-To explore user activity, I calculated the total steps per day for the days where at least 70% of users reported their activity using SQL and a Python notebook.
+To explore user activity, I calculated the average steps per day for the days where at least 70% of users reported their activity using SQL and a Python notebook.
 
 SQL query:
 
 ```
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(AVG(TotalSteps), 2) as AvgSteps,
+    ROUND(AVG(TotalDistance), 2) as AvgDistance,
+    ROUND(AVG(TrackerDistance), 2) as AvgTrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 0.70 * 35  -- Representing at least 70% users
+ORDER BY 
+    ActivityDate;
+
 ```
 
+Python code for plotting:
+``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query based on your specifications
+query = """
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(AVG(TotalSteps), 2) as AvgSteps,
+    ROUND(AVG(TotalDistance), 2) as AvgDistance,
+    ROUND(AVG(TrackerDistance), 2) as AvgTrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 0.70 * 35  -- Representing at least 70% users
+ORDER BY 
+    ActivityDate;
+"""
+
+# Run the query and load the results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Convert ActivityDate to a datetime object for plotting
+df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
+
+# Set up the plot style
+sns.set(style="whitegrid")
+
+# Set up the plot
+plt.figure(figsize=(14, 7))
+sns.lineplot(data=df, x='ActivityDate', y='AvgSteps', marker='o', color='blue')
+
+# Highlight Sundays for better clarity
+sundays = df[df['ActivityDate'].dt.dayofweek == 6]['ActivityDate']
+for sunday in sundays:
+    plt.axvline(x=sunday, color='orange', linestyle='--', linewidth=0.8)
+    plt.text(sunday, df['AvgSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
+
+# Customize the plot
+plt.title('Average Steps Per Day\nFor 70% of Fitbit Users')
+plt.xlabel('Date')
+plt.ylabel('Average Steps')
+plt.xticks(rotation=45)
+plt.ylim(0, df['AvgSteps'].max() * 1.1)
+
+plt.tight_layout()
+
+# Save the plot
+plt.savefig("Fitbit_average_steps_over_time_70_percent.png")
+plt.show()
+```
+
+Output:
+
+The plot shows that Fitbit sample users exhibit consistent walking patterns each day, with Sundays being slightly less active compared to Saturdays.
+The average daily steps are around 7000, which seems to be a bit slow for Fitbit users.
 
 
 
