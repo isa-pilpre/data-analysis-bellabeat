@@ -196,7 +196,7 @@ plt.show()
 
 Output:
 
-![Total Steps Over Time](../R/Fitbit_total_steps_over_time_80_Percent_Users.png)
+![Total Steps Over Time](images/Fitbit_total_steps_over_time_80_Percent_Users.png)
 
 The plot shows a peak on April 10, 2016, which is a Sunday following National Walking Day (Wednesday, April 6). This suggests increased motivation for outdoor activities after that national walking event and as Spring progresses.
 
