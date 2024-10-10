@@ -119,7 +119,7 @@ Row 	   MinDate          MaxDate
 The dataset covers the expected period, so data integrity is confirmed, at least on that aspect.
 
 
-### Total steps per day (for > 80% of Fitbit users)
+### Total steps per day (for at least 80% of Fitbit users)
 
 To explore user activity, I calculated the total steps per day for the days where at least 80% of users (28 out of 35) reported their activity using SQL and a Python notebook.
 
@@ -134,7 +134,7 @@ SELECT
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY ActivityDate
-HAVING UserCount >= 28   --  For at least 80% users (28 out of 35)
+HAVING UserCount >= (UserCount * (75 / 100))  --  Representing at least 75% users
 ORDER BY ActivityDate;
 ```
 
@@ -161,8 +161,8 @@ FROM
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY 
     ActivityDate
-HAVING 
-    UserCount >= 28  -- For at least 80% users (28 out of 35)
+HAVING
+    UserCount >= (UserCount * (75 / 100))  --  Representing at least 75% users
 ORDER BY 
     ActivityDate;
 """
@@ -182,15 +182,17 @@ plt.figure(figsize=(14, 7))
 sns.lineplot(data=df, x='ActivityDate', y='TotalSteps', marker='o', color='blue')
 
 # Customize the plot
-plt.title('Total Steps Per Day (Days with >= 80% User Reporting)')
+plt.title('Total Steps Per Day (Days with >= 75% User Reporting)')
 plt.xlabel('Date')
 plt.ylabel('Total Steps')
 plt.xticks(rotation=45)
+plt.ylim(0)  # Ensure the Y-axis starts at zero
 plt.tight_layout()
 
 # Save the plot
-plt.savefig("total_steps_analysis.png")
+plt.savefig("Fitbit_total_steps_over_time_75_percent_users.png")
 plt.show()
+
 
 ```
 
