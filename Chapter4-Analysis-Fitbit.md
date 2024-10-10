@@ -305,6 +305,70 @@ Output:
 The plot shows that Fitbit sample users exhibit consistent walking patterns each day, with Sundays being slightly less active compared to Saturdays.
 The average daily steps are around 7000, which seems to be a bit slow for Fitbit users.
 
+Let's check the distribution of average steps among all users. It might help identify if there are outliers (users with very low or high step counts) that might skew the overall average. Let's run a SQL query to calculate the average steps per user across the period and then visualize the distribution in Python or R. 
+
+SQL query
+``` sql
+SELECT 
+    Id,
+    ROUND(AVG(TotalSteps), 2) AS AvgStepsPerUser
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    Id
+ORDER BY 
+    AvgStepsPerUser;
+
+```
+
+Python code:
+``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query to calculate average steps per user
+query = """
+SELECT 
+    Id,
+    ROUND(AVG(TotalSteps), 2) AS AvgStepsPerUser
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    Id
+ORDER BY 
+    AvgStepsPerUser;
+"""
+
+# Run the query and load the results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Set up the plot style
+sns.set(style="whitegrid")
+
+# Plot the distribution of average steps per user
+plt.figure(figsize=(10, 6))
+sns.histplot(df['AvgStepsPerUser'], bins=15, kde=True, color='blue')
+
+# Customize the plot
+plt.title('Distribution of Average Steps per User')
+plt.xlabel('Average Steps Per Day')
+plt.ylabel('Frequency')
+plt.xlim(0, df['AvgStepsPerUser'].max() * 1.1)  # Start at 0 and extend slightly beyond the max value
+plt.tight_layout()
+
+# Save the plot
+plt.savefig("Fitbit_average_steps_distribution.png")
+plt.show()
+
+```
+
+The histogram shows that the majority of Fitbit users average around 7,500 steps per day, with a few outliers reaching up to 16,000 steps.
 
 
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
