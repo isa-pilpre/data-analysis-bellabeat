@@ -119,11 +119,12 @@ Row 	   MinDate          MaxDate
 The dataset covers the expected period, so data integrity is confirmed, at least on that aspect.
 
 
-### Total steps per day (for at least 80% of Fitbit users)
+### Total steps per day (for at least 70% of Fitbit users)
 
-To explore user activity, I calculated the total steps per day for the days where at least 80% of users (28 out of 35) reported their activity using SQL and a Python notebook.
+To explore user activity, I calculated the total steps per day for the days where at least 70% of users reported their activity using SQL and a Python notebook.
 
 SQL query:
+
 ```
 SELECT 
     ActivityDate, 
@@ -133,9 +134,12 @@ SELECT
     ROUND(SUM(TrackerDistance), 2) as TrackerDistance
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
-GROUP BY ActivityDate
-HAVING UserCount >= (UserCount * (75 / 100))  --  Representing at least 75% users
-ORDER BY ActivityDate;
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 0.70 * 35  -- Representing at least 70% users
+ORDER BY 
+    ActivityDate;
 ```
 
 Python code for plotting:
@@ -161,8 +165,8 @@ FROM
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY 
     ActivityDate
-HAVING
-    UserCount >= (UserCount * (75 / 100))  --  Representing at least 75% users
+HAVING 
+    UserCount >= 0.70 * 35  -- Representing at least 70% users
 ORDER BY 
     ActivityDate;
 """
@@ -181,28 +185,45 @@ sns.set(style="whitegrid")
 plt.figure(figsize=(14, 7))
 sns.lineplot(data=df, x='ActivityDate', y='TotalSteps', marker='o', color='blue')
 
+# Highlight Sundays for better clarity
+sundays = df[df['ActivityDate'].dt.dayofweek == 6]['ActivityDate']
+for sunday in sundays:
+    plt.axvline(x=sunday, color='orange', linestyle='--', linewidth=0.8)
+    plt.text(sunday, df['TotalSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
+
 # Customize the plot
-plt.title('Total Steps Per Day (Days with >= 75% User Reporting)')
+plt.title('Total Steps Per Day\nFor 70% of Fitbit Users')
 plt.xlabel('Date')
 plt.ylabel('Total Steps')
 plt.xticks(rotation=45)
-plt.ylim(0)  # Ensure the Y-axis starts at zero
+plt.ylim(0, df['TotalSteps'].max() * 1.1)
+
 plt.tight_layout()
 
 # Save the plot
-plt.savefig("Fitbit_total_steps_over_time_75_percent_users.png")
+plt.savefig("Fitbit_total_steps_over_time_70_percent.png")
 plt.show()
-
 
 ```
 
 Output:
 
-![Total Steps Over Time](images/Fitbit_total_steps_over_time_80_Percent_Users.png)
+![Total Steps Over Time](images/Fitbit_total_steps_over_time_70_Percent_Users.png)
 
-The plot shows a peak on April 10, 2016, which is a Sunday following National Walking Day (Wednesday, April 6). This suggests increased motivation for outdoor activities after that national walking event and as Spring progresses.
+The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are a bit slower, especially  compared to each previous Saturdays.
 
  
+
+### Average steps per day (for at least 70% of Fitbit users)
+
+To explore user activity, I calculated the total steps per day for the days where at least 70% of users reported their activity using SQL and a Python notebook.
+
+SQL query:
+
+```
+```
+
+
 
 
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
