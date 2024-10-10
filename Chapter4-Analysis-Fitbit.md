@@ -116,12 +116,29 @@ Row 	   MinDate          MaxDate
 
 ```
 
-The dataset covers the expected period, so data integrity is confirmed on that aspect.
+The dataset covers the expected period, so data integrity is confirmed, at least on that aspect.
 
 
 ### Total steps per day (for > 80% of Fitbit users)
 
-Using SQL and a Python notebook, I analyzed the total steps per day for the days where at least 80% of the users (28 out of 35) reported their activity:
+To explore user activity, I calculated the total steps per day for the days where at least 80% of users (28 out of 35) reported their activity using SQL and a Python notebook.
+
+SQL query:
+```
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(SUM(TotalSteps), 2) as TotalSteps,
+    ROUND(SUM(TotalDistance), 2) as TotalDistance,
+    ROUND(SUM(TrackerDistance), 2) as TrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY ActivityDate
+HAVING UserCount >= 28   --  For at least 80% users (28 out of 35)
+ORDER BY ActivityDate;
+```
+
+Python code for plotting:
 
 ``` python
 import pandas as pd
@@ -145,7 +162,7 @@ FROM
 GROUP BY 
     ActivityDate
 HAVING 
-    UserCount >= 28
+    UserCount >= 28  -- For at least 80% users (28 out of 35)
 ORDER BY 
     ActivityDate;
 """
@@ -171,14 +188,17 @@ plt.ylabel('Total Steps')
 plt.xticks(rotation=45)
 plt.tight_layout()
 
-# Show the plot
+# Save the plot
+plt.savefig("total_steps_analysis.png")
 plt.show()
 
 ```
 
 Output:
 
- The plot shows a peak on April 10, 2010 which is a Sunday after the national walking day (which was Wednesday, April 6), which makes sense. That also seems to confirm that people are more motivated to walk starting from the Spring.
+![Total Steps Over Time](../R/Fitbit_total_steps_over_time_80_Percent_Users.png)
+
+The plot shows a peak on April 10, 2016, which is a Sunday following National Walking Day (Wednesday, April 6). This suggests increased motivation for outdoor activities after that national walking event and as Spring progresses.
 
  
 
