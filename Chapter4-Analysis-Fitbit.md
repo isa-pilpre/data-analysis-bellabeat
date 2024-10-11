@@ -527,6 +527,84 @@ ORDER BY
 
 ```
 
+Then I plot the results in my Python notebook:
+``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# Define the SQL query
+query = """
+WITH DailyUserCounts AS (
+    SELECT
+        DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,
+        COUNT(DISTINCT Id) AS UserCount
+    FROM
+        `alien-oarlock-428016-f3.bellabeat.hourly_steps`
+    GROUP BY
+        ActivityDate
+)
+
+SELECT
+    h.Id,
+    DATE(TIMESTAMP(h.ActivityHour)) AS ActivityDate,
+    CASE
+        WHEN EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) BETWEEN 6 AND 11 THEN 'Morning'
+        WHEN EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) BETWEEN 12 AND 17 THEN 'Afternoon'
+        WHEN EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) BETWEEN 18 AND 23 THEN 'Evening'
+        ELSE 'Night'
+    END AS PeriodOfDay,
+    SUM(h.StepTotal) AS TotalSteps
+FROM
+    `alien-oarlock-428016-f3.bellabeat.hourly_steps` h
+JOIN
+    DailyUserCounts d
+ON
+    DATE(TIMESTAMP(h.ActivityHour)) = d.ActivityDate
+WHERE
+    d.UserCount >= 0.7 * 35
+GROUP BY
+    h.Id, ActivityDate, PeriodOfDay
+ORDER BY
+    ActivityDate, PeriodOfDay;
+"""
+
+# Run the query and load the results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Convert ActivityDate to a datetime object for plotting
+df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
+
+# Set up the plot style
+sns.set(style="whitegrid")
+
+# Plot the total steps per period of day for each user
+plt.figure(figsize=(14, 7))
+sns.lineplot(data=df, x='ActivityDate', y='TotalSteps', hue='PeriodOfDay', palette='muted')
+
+# Customize the plot
+plt.title('Total Steps Per Period of Day (For Days with >= 70% of Users)')
+plt.xlabel('Date')
+plt.ylabel('Total Steps')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save the plot
+plt.savefig("Fitbit_total_steps_per_period_70_percent.png")
+plt.show()
+
+
+
+
+
+```
+
+
 After that, I exported the `BigQuery_daily_steps.csv` file to my local `BigQuery_Exports` folder.
 Next, I analyzed the .csv file further in R and created a visualization.
 
@@ -592,6 +670,7 @@ GROUP BY
 ORDER BY
   Id, ActivityDate, PeriodOfDay; 
 ```
+
 After that, I exported the `BigQuery_daily_average_intensity.csv` file to my local `BigQuery_Exports` folder.
 Next, I analyzed the .csv file further in R and created a visualization.
 
