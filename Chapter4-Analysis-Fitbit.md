@@ -305,6 +305,9 @@ Output:
 The plot shows that Fitbit sample users exhibit consistent walking patterns each day, with Sundays being slightly less active compared to Saturdays.
 The average daily steps are around 7000, which seems to be a bit slow for Fitbit users.
 
+
+### Distribution of average steps among users
+
 Let's check the distribution of average steps among all users. It might help identify if there are outliers (users with very low or high step counts) that might skew the overall average. Let's run a SQL query to calculate the average steps per user across the period and then visualize the distribution in Python or R. 
 
 SQL query
@@ -369,6 +372,89 @@ plt.show()
 ```
 
 The histogram shows that the majority of Fitbit users average around 7,500 steps per day, with a few outliers reaching up to 16,000 steps.
+
+
+### Distribution of steps per day of the week
+
+Let's check the distribution of average steps among the days of the week. Let's run a SQL query to calculate the average steps per user per day of the week and then visualize the distribution in Python or R. 
+
+SQL query
+``` sql
+SELECT 
+    EXTRACT(DAYOFWEEK FROM ActivityDate) AS DayOfWeek,
+    ROUND(AVG(TotalSteps), 2) AS AvgSteps,
+    COUNT(DISTINCT Id) AS UserCount
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    DayOfWeek
+HAVING 
+    UserCount >= 0.7 * 35  -- For at least 70% Fitbit users logged in
+ORDER BY 
+    DayOfWeek;
+
+```
+
+Python code:
+``` python
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query based on your specifications
+query = """
+SELECT 
+    EXTRACT(DAYOFWEEK FROM ActivityDate) AS DayOfWeek,
+    ROUND(AVG(TotalSteps), 2) AS AvgSteps,
+    COUNT(DISTINCT Id) AS UserCount
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    DayOfWeek
+HAVING 
+    UserCount >= 0.7 * 35
+ORDER BY 
+    DayOfWeek;
+"""
+
+# Run the query and load the results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Map the day of the week to labels and reorder the days (starting from Monday)
+day_labels = {1: 'Sunday', 2: 'Monday', 3: 'Tuesday', 4: 'Wednesday', 5: 'Thursday', 6: 'Friday', 7: 'Saturday'}
+df['DayOfWeek'] = df['DayOfWeek'].map(day_labels)
+
+# Reorder the DataFrame to start from Monday
+day_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+df['DayOfWeek'] = pd.Categorical(df['DayOfWeek'], categories=day_order, ordered=True)
+df = df.sort_values('DayOfWeek')
+
+# Set up the plot style
+sns.set(style="whitegrid")
+
+# Plot the average steps per day of the week
+plt.figure(figsize=(10, 6))
+sns.barplot(x='DayOfWeek', y='AvgSteps', hue='DayOfWeek', data=df, palette='Blues_d', dodge=False, legend=False)
+
+# Customize the plot
+plt.title('Average Steps Per Day of the Week\n(For Days with >= 70% User Logging)')
+plt.xlabel('Day of the Week')
+plt.ylabel('Average Steps')
+plt.xticks(rotation=45)
+plt.tight_layout()
+
+# Save and show the plot
+plt.savefig("Average_Steps_Per_Day_of_Week.png")
+plt.show()
+```
+
+The plot shows that there's a fairly even distribution among the days of the week, which is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays show the lowest average step counts, while Saturdays show the highest average step counts.
 
 
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
