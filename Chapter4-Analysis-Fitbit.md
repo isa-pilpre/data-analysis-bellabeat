@@ -457,28 +457,74 @@ plt.show()
 The plot shows that step counts are fairly consistent throughout the week. This is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays have the lowest average step counts, while Saturdays have the highest average step counts.
 
 
+### Activity levels across the day for each user
+I run the following SQL query to get the average minutes per day for each activity level for days where at least 70% of the users have logged their data:
+
+``` sql
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(AVG(SedentaryMinutes), 2) as AvgSedentaryMinutes,
+    ROUND(AVG(LightlyActiveMinutes), 2) as AvgLightlyActiveMinutes,
+    ROUND(AVG(FairlyActiveMinutes), 2) as AvgFairlyActiveMinutes,
+    ROUND(AVG(VeryActiveMinutes), 2) as AvgVeryActiveMinutes
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 0.7 * 35  -- At least 70% of the users
+ORDER BY 
+    ActivityDate;
+```
+
+
+``` python
+
+
+```
+ Results: not very useful...
+
+
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
 
-I would like to see the change in step activity over time:
+I would like to see the change in step activity over time. However I want to make sure that I only include data from days where at least 70% of the users reported their activity. So let me filter by the count of users per day before summing up the steps:
 
 
 ```sql
+WITH DailyUserCounts AS (
+    SELECT
+        DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,
+        COUNT(DISTINCT Id) AS UserCount
+    FROM
+        `alien-oarlock-428016-f3.bellabeat.hourly_steps`
+    GROUP BY
+        ActivityDate
+)
+
 SELECT
-  Id,
-  DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,  -- Extract the day
-  CASE
-    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 6 AND 11 THEN 'Morning'
-    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 12 AND 17 THEN 'Afternoon'
-    WHEN EXTRACT(HOUR FROM TIMESTAMP(ActivityHour)) BETWEEN 18 AND 23 THEN 'Evening'
-    ELSE 'Night'
-  END AS PeriodOfDay,
-  SUM(StepTotal) AS TotalSteps
+    h.Id,
+    DATE(TIMESTAMP(h.ActivityHour)) AS ActivityDate,
+    CASE
+        WHEN EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) BETWEEN 6 AND 11 THEN 'Morning'
+        WHEN EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) BETWEEN 12 AND 17 THEN 'Afternoon'
+        WHEN EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) BETWEEN 18 AND 23 THEN 'Evening'
+        ELSE 'Night'
+    END AS PeriodOfDay,
+    SUM(h.StepTotal) AS TotalSteps
 FROM
-  `alien-oarlock-428016-f3.bellabeat.hourly_steps`
+    `alien-oarlock-428016-f3.bellabeat.hourly_steps` h
+JOIN
+    DailyUserCounts d
+ON
+    DATE(TIMESTAMP(h.ActivityHour)) = d.ActivityDate
+WHERE
+    d.UserCount >= 0.7 * 35  -- Only include days with at least 70% of users
 GROUP BY
-  Id, ActivityDate, PeriodOfDay
+    h.Id, ActivityDate, PeriodOfDay
 ORDER BY
-  Id, ActivityDate, PeriodOfDay;
+    ActivityDate, PeriodOfDay;
+
 ```
 
 After that, I exported the `BigQuery_daily_steps.csv` file to my local `BigQuery_Exports` folder.
