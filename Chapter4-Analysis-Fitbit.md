@@ -454,7 +454,7 @@ plt.savefig("Average_Steps_Per_Day_of_Week.png")
 plt.show()
 ```
 
-The plot shows that there's a fairly even distribution among the days of the week, which is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays show the lowest average step counts, while Saturdays show the highest average step counts.
+The plot shows that step counts are fairly consistent throughout the week. This is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays have the lowest average step counts, while Saturdays have the highest average step counts.
 
 
 ### Daily steps versus time of the day (distinguishing weekdays and weekend)
