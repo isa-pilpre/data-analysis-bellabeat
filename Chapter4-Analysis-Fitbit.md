@@ -374,7 +374,7 @@ plt.show()
 The histogram shows that the majority of Fitbit users average around 7,500 steps per day, with a few outliers reaching up to 16,000 steps.
 
 
-### Distribution of steps per day of the week
+### Average steps per day of the week
 
 Let's check the distribution of average steps among the days of the week. Let's run a SQL query to calculate the average steps per user per day of the week and then visualize the distribution in Python or R. 
 
@@ -408,17 +408,17 @@ client = bigquery.Client()
 
 # SQL query based on your specifications
 query = """
-SELECT 
+SELECT
     EXTRACT(DAYOFWEEK FROM ActivityDate) AS DayOfWeek,
     ROUND(AVG(TotalSteps), 2) AS AvgSteps,
     COUNT(DISTINCT Id) AS UserCount
-FROM 
+FROM
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
-GROUP BY 
+GROUP BY
     DayOfWeek
-HAVING 
+HAVING
     UserCount >= 0.7 * 35
-ORDER BY 
+ORDER BY
     DayOfWeek;
 """
 
@@ -426,7 +426,7 @@ ORDER BY
 query_job = client.query(query)
 df = query_job.to_dataframe()
 
-# Map the day of the week to labels and reorder the days (starting from Monday)
+# Map the day of the week to labels
 day_labels = {1: 'Sunday', 2: 'Monday', 3: 'Tuesday', 4: 'Wednesday', 5: 'Thursday', 6: 'Friday', 7: 'Saturday'}
 df['DayOfWeek'] = df['DayOfWeek'].map(day_labels)
 
@@ -435,12 +435,26 @@ day_order = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday',
 df['DayOfWeek'] = pd.Categorical(df['DayOfWeek'], categories=day_order, ordered=True)
 df = df.sort_values('DayOfWeek')
 
-# Set up the plot style
-sns.set(style="whitegrid")
+# Use the steps_dict to create a list of colors, where the intensity reflects the number of steps
+max_steps = max(df['AvgSteps'])
+min_steps = min(df['AvgSteps'])
 
-# Plot the average steps per day of the week
+# Normalize the steps between 0 and 1 for color intensity
+normalized_steps = [(steps - min_steps) / (max_steps - min_steps) for steps in df['AvgSteps']]
+
+# Define the color palette (lighter for lower steps, darker for higher steps)
+colors = sns.light_palette("pink", as_cmap=False, n_colors=len(normalized_steps))
+
+# Map normalized steps to the color palette
+color_list = [colors[int(value * (len(colors) - 1))] for value in normalized_steps]
+
+# Set up the figure and change the background color to violet
 plt.figure(figsize=(10, 6))
-sns.barplot(x='DayOfWeek', y='AvgSteps', hue='DayOfWeek', data=df, palette='Blues_d', dodge=False, legend=False)
+ax = plt.gca()
+ax.set_facecolor('violet')  # Set the background to violet
+
+# Plot the average steps per day of the week using the color list for bar color
+sns.barplot(x='DayOfWeek', y='AvgSteps', data=df, palette=color_list, dodge=False, legend=False)
 
 # Customize the plot
 plt.title('Average Steps Per Day of the Week\n(For Days with >= 70% User Logging)')
@@ -450,11 +464,12 @@ plt.xticks(rotation=45)
 plt.tight_layout()
 
 # Save and show the plot
-plt.savefig("Average_Steps_Per_Day_of_Week.png")
+plt.savefig("fitbit_average_steps_per_day_of_week.png")
 plt.show()
+
 ```
 
-The plot shows that step counts are fairly consistent throughout the week. This is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays have the lowest average step counts, while Saturdays have the highest average step counts.
+The plot shows that step counts are fairly consistent throughout the week. This is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays have the lowest average step counts, while Mondays, Wednesdays and Saturdays have the highest average step counts.
 
 
 ### Activity levels across the day for each user
