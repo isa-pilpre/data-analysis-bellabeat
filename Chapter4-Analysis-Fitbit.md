@@ -302,6 +302,8 @@ plt.show()
 
 Output:
 
+
+![Average Steps Per Day](images/Fitbit_average_steps_per_day_70_percent.png)
 The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
 The daily average is around 7,000 steps, which is below the daily recommendation of 10,000 steps.
 
@@ -371,6 +373,9 @@ plt.show()
 
 ```
 
+Output:
+
+![Average Steps Distribution](images/Fitbit_average_steps_distribution.png)
 The histogram shows that the majority of Fitbit users average around 7,500 steps per day, with a few outliers reaching up to 16,000 steps.
 
 
@@ -457,7 +462,7 @@ ax.set_facecolor('violet')  # Set the background to violet
 sns.barplot(x='DayOfWeek', y='AvgSteps', data=df, palette=color_list, dodge=False, legend=False)
 
 # Customize the plot
-plt.title('Average Steps Per Day of the Week\n(For Days with >= 70% User Logging)')
+plt.title('Average Steps Per Day of the Week')
 plt.xlabel('Day of the Week')
 plt.ylabel('Average Steps')
 plt.xticks(rotation=45)
@@ -468,6 +473,10 @@ plt.savefig("fitbit_average_steps_per_day_of_week.png")
 plt.show()
 
 ```
+
+Output:
+
+![Average Steps Per Day of the Week](images/Fitbit_average_steps_per_day_of_week.png)
 
 The plot shows that step counts are fairly consistent throughout the week. This is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays have the lowest average step counts, while Mondays, Wednesdays and Saturdays have the highest average step counts.
 
@@ -573,14 +582,18 @@ plt.savefig("Fitbit_active_minutes_per_day_70_percent.png")
 
 ```
 
-Results: The activity levels remain fairly consistent every day through the dataset period. Results show an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (intense workouts) for 25-30 minutes per day.
+Output:
+
+![Activity Patterns](images/Fitbit_active_minutes_per_day_70_percent.png)
+
+The activity levels remain fairly consistent every day through the dataset period. Results show an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (intense workouts) for 25-30 minutes per day.
 
 
 
 
 ### Daily steps versus time of the day (and weekdays vs weekend)
 
-I would like to see the change in step activity over time, from days where at least 70% of the users reported their activity:
+Let's see the change in step activity during the period of the day (morning, afternoon and evening), from days where at least 70% of the users reported their activity:
 
 
 ```sql
@@ -735,8 +748,14 @@ ggplot(fitbit_steps, aes(x = PeriodOfDay, y = TotalSteps, fill = is_weekend)) +
 
 ```
 
+Output:
 
-### Average intensity versus time of the day (and weekdays vs weekend)
+![Activity Patterns](images/Fitbit_total_steps_per_period_70_percent.png)
+
+The plot shows that Fitbit users take more steps in the afternoons. Mornings and evenings have fairly similar counts. 
+
+
+### Average intensity versus period of the day (morning, afternoon, and evening)
 
 Again, I started by running an SQL query in BigQuery:
 
