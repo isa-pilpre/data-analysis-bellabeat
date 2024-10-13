@@ -536,14 +536,14 @@ df['ActivityDay'] = pd.to_datetime(df['ActivityDay'])
 # Set up Seaborn for plotting
 sns.set(style="whitegrid")
 
-# Plot the data
+# Plot the data with Bellabeat color theme
 plt.figure(figsize=(14, 7))
-sns.lineplot(x='ActivityDay', y='AvgVeryActiveMinutes', data=df, label='Very Active Minutes')
-sns.lineplot(x='ActivityDay', y='AvgFairlyActiveMinutes', data=df, label='Fairly Active Minutes')
-sns.lineplot(x='ActivityDay', y='AvgLightlyActiveMinutes', data=df, label='Lightly Active Minutes')
+sns.lineplot(x='ActivityDay', y='AvgVeryActiveMinutes', data=df, label='Very Active Minutes', color='red')
+sns.lineplot(x='ActivityDay', y='AvgFairlyActiveMinutes', data=df, label='Fairly Active Minutes', color='orange')
+sns.lineplot(x='ActivityDay', y='AvgLightlyActiveMinutes', data=df, label='Lightly Active Minutes', color='purple')
 
 # Add labels and title
-plt.title("Average Active Minutes Per Day (Filtered for 70% of Users)")
+plt.title("Average Active Minutes Per Day")
 plt.xlabel("Date")
 plt.ylabel("Average Active Minutes")
 plt.xticks(rotation=45)
