@@ -77,7 +77,7 @@ With the CSV files uploaded as tables in BigQuery, I begin the analysis using SQ
 
 ### Verifying data integrity (date range and Fitbit user count)
 
-To check if the number of unique users matches expectations, I ran the following query:
+To check if the number of unique users matches expectations, I ran the following query for the `daily_activity` table:
 
 ``` sql
 SELECT 
@@ -93,7 +93,7 @@ Row 	UniqueUserCount
 1 	   35
 ```
 
-The count shows 35 users instead of the expected 30 on this table, which is acceptable. For the data to be relevant, I realize though that I need to check on each of my SQL queries that at least 70% users reported their activity. 
+The count shows 35 users instead of the expected 30 on the `daily_activity` table, which is acceptable. 
 
 Next, I verified that the date range matches the dataset's intended timeframe (March 12, 2016, to May 12, 2016):
 
@@ -116,12 +116,12 @@ Row 	   MinDate          MaxDate
 
 ```
 
-The dataset covers the expected period, so data integrity is confirmed, at least on this table.
+The `daily_activity` table covers the expected period, so data integrity is confirmed, at least on this table.
 
 
 ### Total steps per day (for at least 70% of Fitbit users)
 
-To explore user activity, I calculated the total steps per day for the days where at least 70% of users reported their activity using SQL and a Python notebook.
+To make sure that data was relevant, I calculated the total steps per day for the days where at least 70% of users reported their activity.
 
 SQL query:
 
@@ -192,7 +192,7 @@ for sunday in sundays:
     plt.text(sunday, df['TotalSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
 
 # Customize the plot
-plt.title('Total Steps Per Day\nFor 70% of Fitbit Users')
+plt.title('Total Steps Per Day')
 plt.xlabel('Date')
 plt.ylabel('Total Steps')
 plt.xticks(rotation=45)
@@ -201,14 +201,14 @@ plt.ylim(0, df['TotalSteps'].max() * 1.1)
 plt.tight_layout()
 
 # Save the plot
-plt.savefig("Fitbit_total_steps_over_time_70_percent.png")
+plt.savefig("Fitbit_total_steps_per_day_70_percent.png")
 plt.show()
 
 ```
 
 Output:
 
-![Total Steps Over Time](images/Fitbit_total_steps_over_time_70_Percent_Users.png)
+![Total Steps Per Day](images/Fitbit_total_steps_per_day_70_percent.png)
 
 The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
 
@@ -216,7 +216,7 @@ The plot shows that Fitbit sample users walk pretty regularly every day. Sundays
 
 ### Average steps per day (for at least 70% of Fitbit users)
 
-To explore user activity, I calculated the average steps per day for the days where at least 70% of users reported their activity using SQL and a Python notebook.
+To make sure that data was relevant, I calculated the average steps per day for the days where at least 70% of users reported their activity:
 
 SQL query:
 
@@ -287,7 +287,7 @@ for sunday in sundays:
     plt.text(sunday, df['AvgSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
 
 # Customize the plot
-plt.title('Average Steps Per Day\nFor 70% of Fitbit Users')
+plt.title('Average Steps Per Day')
 plt.xlabel('Date')
 plt.ylabel('Average Steps')
 plt.xticks(rotation=45)
@@ -296,7 +296,7 @@ plt.ylim(0, df['AvgSteps'].max() * 1.1)
 plt.tight_layout()
 
 # Save the plot
-plt.savefig("Fitbit_average_steps_over_time_70_percent.png")
+plt.savefig("Fitbit_average_steps_per_day_70_percent.png")
 plt.show()
 ```
 
@@ -573,7 +573,7 @@ plt.savefig("Fitbit_active_minutes_per_day_70_percent.png")
 
 ```
 
-Results: The activity levels remain fairly consistent every day through the dataset period. Results show an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (very active workouts) for 25-30 minutes per day.
+Results: The activity levels remain fairly consistent every day through the dataset period. Results show an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (intense workouts) for 25-30 minutes per day.
 
 
 
@@ -690,14 +690,10 @@ plt.tight_layout()
 plt.savefig("Fitbit_total_steps_per_period_70_percent.png")
 plt.show()
 
-
-
-
-
 ```
 
 
-After that, I exported the `BigQuery_daily_steps.csv` file to my local `BigQuery_Exports` folder.
+Then I exported the `BigQuery_daily_steps.csv` file to my local `BigQuery_Exports` folder.
 Next, I analyzed the .csv file further in R and created a visualization.
 
 Sample R code:
@@ -963,13 +959,11 @@ After that, I exported the `BigQuery_heartrate_versus_steps.csv` file to my loca
 Next, I analyzed the .csv file further in R and created a visualization.
 
 
-## 5) Analyzing Activity Patterns Around Easter (March 24 - March 30, 2016)
+### Activity patterns around Easter (March 24 - March 30, 2016)
 
-To explore how users' activity levels changed during the Easter period in 2016 (Easter Sunday was March 27, 2016), I used BigQuery to run SQL queries on the `combined_dailyActivity_merged` dataset, which I renamed as the `daily_activity` table in BigQuery. 
+To explore how users' activity levels changed during the Easter period in 2016 (Easter Sunday was March 27, 2016), I ran SQL queries on the `combined_dailyActivity_merged` dataset, which I renamed as the `daily_activity` table in BigQuery. 
 
-### SQL query in BigQuery
-
-The query below calculates the average steps, calories burned, and activity minutes for each day between March 24 and March 30, 2016:
+I ran a SQL query to show the average steps, calories burned, and activity minutes for each day between March 24 and March 30, 2016:
 
 ```sql
 SELECT 
@@ -990,9 +984,7 @@ ORDER BY
     ActivityDate;
 ```
 
-### Data visualization in Python
-
-To visualize the data directly in BigQuery Studio, I used Python to create separate line plots for each metric, marking Easter Sunday (March 27):
+Then I ran a Python script to create separate line plots for each metric, marking Easter Sunday (March 27):
 
 ``` python
 import pandas as pd
@@ -1039,29 +1031,7 @@ plt.tight_layout()
 plt.show()
 ```
 
-### Findings
+Results:
 
 From the analysis, I noticed a gradual increase in steps from Good Friday (March 25) leading up to Easter Sunday (March 27). This pattern indicates that users might be more active around Easter holidays, possibly engaging in outdoor or family activities.
-
-
-### Exporting the CSV file for further analysis and visualization using R
-
-I exported the cleaned dataset as a CSV file (`around_easter.csv`) to further analyze and visualize the data using R. 
-Sample code in R:
-
-``` r
-# Read the CSV file into R
-easter_activity <- read_csv("path_to_your_file/easter_activity_data.csv")
-
-# Plot the steps around Easter
-ggplot(easter_activity, aes(x = ActivityDate, y = AvgSteps)) +
-  geom_line() +
-  geom_vline(xintercept = as.Date("2016-03-27"), linetype = "dashed", color = "red", size = 0.5) +
-  labs(title = "Average Steps Around Easter (March 24 - 30, 2016)",
-       x = "Date",
-       y = "Average Steps") +
-  theme_minimal()
-```
-
-
 
