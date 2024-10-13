@@ -93,7 +93,7 @@ Row 	UniqueUserCount
 1 	   35
 ```
 
-The count shows 35 users instead of the expected 30, which is acceptable.
+The count shows 35 users instead of the expected 30 on this table, which is acceptable. For the data to be relevant, I realize though that I need to check on each of my SQL queries that at least 70% users reported their activity. 
 
 Next, I verified that the date range matches the dataset's intended timeframe (March 12, 2016, to May 12, 2016):
 
@@ -116,7 +116,7 @@ Row 	   MinDate          MaxDate
 
 ```
 
-The dataset covers the expected period, so data integrity is confirmed, at least on that aspect.
+The dataset covers the expected period, so data integrity is confirmed, at least on this table.
 
 
 ### Total steps per day (for at least 70% of Fitbit users)
@@ -210,7 +210,7 @@ Output:
 
 ![Total Steps Over Time](images/Fitbit_total_steps_over_time_70_Percent_Users.png)
 
-The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are a bit slower, especially  compared to each previous Saturdays.
+The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
 
  
 
@@ -302,8 +302,8 @@ plt.show()
 
 Output:
 
-The plot shows that Fitbit sample users exhibit consistent walking patterns each day, with Sundays being slightly less active compared to Saturdays.
-The average daily steps are around 7000, which seems to be a bit slow for Fitbit users.
+The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
+The daily average is around 7,000 steps, which is below the daily recommendation of 10,000 steps.
 
 
 ### Distribution of average steps among users
@@ -461,34 +461,111 @@ The plot shows that step counts are fairly consistent throughout the week. This 
 I run the following SQL query to get the average minutes per day for each activity level for days where at least 70% of the users have logged their data:
 
 ``` sql
+WITH TotalUsers AS (
+  -- Get the total number of distinct users
+  SELECT 
+      COUNT(DISTINCT Id) AS TotalUsersCount
+  FROM 
+      `alien-oarlock-428016-f3.bellabeat.daily_intensity`
+)
+
 SELECT 
-    ActivityDate, 
-    COUNT(DISTINCT Id) AS UserCount,
-    ROUND(AVG(SedentaryMinutes), 2) as AvgSedentaryMinutes,
-    ROUND(AVG(LightlyActiveMinutes), 2) as AvgLightlyActiveMinutes,
-    ROUND(AVG(FairlyActiveMinutes), 2) as AvgFairlyActiveMinutes,
-    ROUND(AVG(VeryActiveMinutes), 2) as AvgVeryActiveMinutes
+   ActivityDay, 
+   COUNT(DISTINCT Id) AS CountId,  -- Count of users per day
+   CAST (ROUND(AVG(VeryActiveMinutes), 0) as INT) AS AvgVeryActiveMinutes,  -- Average very active minutes per day
+   CAST(ROUND(AVG(FairlyActiveMinutes), 0) as INT) AS AvgFairlyActiveMinutes,  -- Average fairly active minutes per day
+   CAST(ROUND(AVG(LightlyActiveMinutes), 0) as INT) AS AvgLightlyActiveMinutes,  -- Average lightly active minutes per day
+   ROUND(AVG(VeryActiveDistance), 2) AS AvgVeryActiveDistance,  -- Average very active distance per day
+   (SELECT TotalUsersCount FROM TotalUsers) AS TotalUsersCount  -- Bring the total count into the query
 FROM 
-    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+   `alien-oarlock-428016-f3.bellabeat.daily_intensity`
 GROUP BY 
-    ActivityDate
+   ActivityDay
 HAVING 
-    UserCount >= 0.7 * 35  -- At least 70% of the users
+   COUNT(DISTINCT Id) >= 0.7 * (SELECT TotalUsersCount FROM TotalUsers)  -- Filter days with at least 70% of users
 ORDER BY 
-    ActivityDate;
+   ActivityDay;
+
 ```
 
 
 ``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
 
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query based on your specifications
+query = """
+WITH TotalUsers AS (
+  -- Get the total number of distinct users
+  SELECT 
+      COUNT(DISTINCT Id) AS TotalUsersCount
+  FROM 
+      `alien-oarlock-428016-f3.bellabeat.daily_intensity`
+)
+
+SELECT 
+   ActivityDay, 
+   COUNT(DISTINCT Id) AS CountId,  -- Count of users per day
+   CAST(ROUND(AVG(VeryActiveMinutes), 0) AS INT) AS AvgVeryActiveMinutes,  -- Average very active minutes per day
+   CAST(ROUND(AVG(FairlyActiveMinutes), 0) AS INT) AS AvgFairlyActiveMinutes,  -- Average fairly active minutes per day
+   CAST(ROUND(AVG(LightlyActiveMinutes), 0) AS INT) AS AvgLightlyActiveMinutes,  -- Average lightly active minutes per day
+   ROUND(AVG(VeryActiveDistance), 2) AS AvgVeryActiveDistance,  -- Average very active distance per day
+   (SELECT TotalUsersCount FROM TotalUsers) AS TotalUsersCount  -- Bring the total count into the query
+FROM 
+   `alien-oarlock-428016-f3.bellabeat.daily_intensity`
+GROUP BY 
+   ActivityDay
+HAVING 
+   COUNT(DISTINCT Id) >= 0.7 * (SELECT TotalUsersCount FROM TotalUsers)  -- Filter days with at least 70% of users
+ORDER BY 
+   ActivityDay;
+"""
+
+# Run the query and load the results into a Pandas DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Convert 'ActivityDay' to datetime for better plotting
+df['ActivityDay'] = pd.to_datetime(df['ActivityDay'])
+
+# Set up Seaborn for plotting
+sns.set(style="whitegrid")
+
+# Plot the data
+plt.figure(figsize=(14, 7))
+sns.lineplot(x='ActivityDay', y='AvgVeryActiveMinutes', data=df, label='Very Active Minutes')
+sns.lineplot(x='ActivityDay', y='AvgFairlyActiveMinutes', data=df, label='Fairly Active Minutes')
+sns.lineplot(x='ActivityDay', y='AvgLightlyActiveMinutes', data=df, label='Lightly Active Minutes')
+
+# Add labels and title
+plt.title("Average Active Minutes Per Day (Filtered for 70% of Users)")
+plt.xlabel("Date")
+plt.ylabel("Average Active Minutes")
+plt.xticks(rotation=45)
+plt.legend()
+
+# Show the plot
+plt.tight_layout()
+plt.show()
+
+# Save the plot (optional)
+plt.savefig("Fitbit_active_minutes_per_day_70_percent.png")
 
 ```
- Results: not very useful...
+
+Results: The activity levels remain fairly consistent every day through the dataset period. Results show an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (very active workouts) for 25-30 minutes per day.
 
 
-### Daily steps versus time of the day (distinguishing weekdays and weekend)
 
-I would like to see the change in step activity over time. However I want to make sure that I only include data from days where at least 70% of the users reported their activity. So let me filter by the count of users per day before summing up the steps:
+
+### Daily steps versus time of the day (and weekdays vs weekend)
+
+I would like to see the change in step activity over time, from days where at least 70% of the users reported their activity:
 
 
 ```sql
@@ -648,7 +725,7 @@ ggplot(fitbit_steps, aes(x = PeriodOfDay, y = TotalSteps, fill = is_weekend)) +
 ```
 
 
-### Average intensity versus time of the day (distinguishing weekdays and weekend)
+### Average intensity versus time of the day (and weekdays vs weekend)
 
 Again, I started by running an SQL query in BigQuery:
 
@@ -869,6 +946,7 @@ ORDER BY
 ```
 After that, I exported the `BigQuery_heartrate_versus_steps.csv` file to my local `BigQuery_Exports` folder.
 Next, I analyzed the .csv file further in R and created a visualization.
+
 
 ## 5) Analyzing Activity Patterns Around Easter (March 24 - March 30, 2016)
 
