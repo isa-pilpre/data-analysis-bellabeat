@@ -28,7 +28,7 @@ The survey included Likert-scale responses with five levels: Strongly Disagree, 
 
 ### 2.3 Transforming data format for analysis and plotting
 
-The data was transformed from a wide format to a long format for easier analysis and visualization using ggplot2. Additionally, question labels were cleaned by removing prefixes and replacing underscores with spaces for better readability in plots.
+The data was transformed from a wide format to a long format for easier analysis and visualization using ggplot2. Additionally, question labels were cleaned by removing prefixes and replacing underscores with spaces for better readability in the visualizations.
 
 Sample code
 
