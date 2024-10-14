@@ -316,13 +316,13 @@ SQL query
 ``` sql
 SELECT 
     Id,
-    ROUND(AVG(TotalSteps), 2) AS AvgStepsPerUser
+    CAST(ROUND(AVG(TotalSteps), 0) as INT) AS AvgStepsPerUser
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY 
     Id
 ORDER BY 
-    AvgStepsPerUser;
+    AvgStepsPerUser DESC;
 
 ```
 
@@ -340,13 +340,13 @@ client = bigquery.Client()
 query = """
 SELECT 
     Id,
-    ROUND(AVG(TotalSteps), 2) AS AvgStepsPerUser
+    CAST(ROUND(AVG(TotalSteps), 0) as INT) AS AvgStepsPerUser
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY 
     Id
 ORDER BY 
-    AvgStepsPerUser;
+    AvgStepsPerUser DESC;
 """
 
 # Run the query and load the results into a DataFrame
