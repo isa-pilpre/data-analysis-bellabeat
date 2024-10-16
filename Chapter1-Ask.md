@@ -1,4 +1,4 @@
-# Chapter 1: Ask phase
+# Chapter 1: Ask
 
 ## 1. Context
 
