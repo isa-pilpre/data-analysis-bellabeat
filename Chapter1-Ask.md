@@ -2,29 +2,19 @@
 
 ## 1. Context
 
-Welcome to my data analysis case study for Bellabeat company. 
-
-In this case study, let's pretend that I am working as a Data Analyst for [Bellabeat](<http://www.bellabeat.com>), a high-tech manufacturer of health-focused products for women.
+This is a data analysis case study for [Bellabeat](<http://www.bellabeat.com>), a fem-tech company specializing in health jewelry trackers. Bellabeat products track daily activity (e.g. steps), heart rate, sleep cycles, menstrual cycles, and more.
 
 ## 2. Business Task
 
-Simply put, I need to **analyze smart device fitness data to help unlock new growth opportunities for Bellebeat**. 
+The goal is to **analyze smart device data to identify trends and provide actionable marketing strategies for Bellabeat**. 
 
-Bellabeat’s Chief Creative Officer, Urška Sršen, has asked me to focus on one of Bellabeat’s products and analyze smart device data to gain insight into how consumers are using their smart devices. The goal is to uncover specific usage behaviors that could inform Bellabeat’s marketing strategy and identify growth opportunities. 
+Bellabeat’s Chief Creative Officer, Urška Sršen, has asked me to focus on one of Bellabeat’s products and analyze smart device data. The goal is to uncover user behavior patterns that can inform Bellabeat marketing strategy and identify growth opportunities. 
 
-### Key areas to investigate
+What do they mean by "smart device data"? 
 
-- **Usage behaviors**: How often and for what purposes consumers use their fitness trackers or smartwatches? (ex. weekday vs weekends, activity trends over the day, sleep monitoring, etc.)
-- **Consumer engagement**: How engaged users are with their devices? Is their usage consistent over time or influenced by specific events or time periods (ex. start of the year, summer)?
-- **Demographics and user profiles**: How different demographic segments (age, education, gender) use their devices. Are there key differences in their behavior.
-- **Consumer sentiment**: Are the smart device users satisfied with their device features? Do they feel their health and wellness improve through usage?
-
-### Aligning data sources with the business task
-
-- **Fitbit dataset**: Provides data on activity levels, sleep patterns, and heart rate, giving insights into daily usage behaviors.
-- **Survey dataset**: Offers demographic information and psychological dimensions, such as attitudes and satisfaction levels, which are relevant to understanding how users feel about their devices.
-- **Reddit and social media data**: Can be used to supplement the above datasets by providing real-time consumer sentiment and feedback on smart devices from a diverse range of users.
-- **Creating my own survey**: Ultimately, I could design my own survey via a platform (SurveyMonkey, Google Forms), target women specifically, and distribute it via social media channels (ex. women’s fitness groups on Facebook, Instagram). This way, I would get a controlled, relevant, and up-to-date dataset.
+- **Activity trends**: How many steps do users walk per day, at what time of the day, on which day of the week, when do they rest the most, etc.?
+- **Demographics**: What are the key demographic segments (age, employment, with a focus on women)?
+- **Consumer sentiment**: How do users feel about their smart device?
 
 
 ## 3. Stakeholders
@@ -32,22 +22,29 @@ Bellabeat’s Chief Creative Officer, Urška Sršen, has asked me to focus on on
 The key stakeholders in this project are:
 
 - **Urška Sršen**: Cofounder and Chief Creative Officer at Bellabeat, who is looking for data insights to support the company's growth.
-- **Sando Mur**: Mathematician and Bellabeat’s cofounder, a key member of the Bellabeat executive team.
-- **Bellabeat Marketing Team**: They will use these insights to adjust their marketing strategy and better connect with customers.
+- **Sando Mur**: Mathematician and Bellabeat’s cofounder, a core member of Bellabeat executive team.
+- **Bellabeat Marketing Team**: They will use these insights to refine their marketing strategy and better connect with customers.
 
-Given the different profiles of these stakeholders, I will likely need to tailor my findings and visuals based on my audience. Urška Sršen, with her creative background, may appreciate more high-level and conceptual insights, while Sando Mur may prefer more technical, data-driven results. The Marketing Team will likely benefit from actionable insights and user-friendly visuals to easily adapt their strategies.
+Given their diverse profiles, I will tailor my findings and visuals to meet their needs: 
 
-These stakeholders will use the analysis results to make informed, data-driven decisions for Bellabeat's marketing and product strategies.
+- Urška Sršen, with her creative background, may appreciate **high-level insights** and very **appealing visualizations** (I will create a Google Slides report with a **Bellabeat color theme** and **high-level recommendations**).
+
+- Sando Mur may prefer **more technical, data-driven results** (I will provide him with this **technical report from Github**). 
+
+- The **Marketing Team** will likely benefit from actionable insights and user-friendly visuals to easily adapt their strategies (the **Google Slides report** will have **clear and actionable insights**).
+
 
 ## 4. Key questions
 
-My analysis will focus on answering the following questions:
 
-**What trends in smart device usage can be identified from the available data?**
-From the avalailable datasets, can we uncover valuable insights regarding activity trends, user demographics, and user feelings towards their smart devices, especially for women users?
+- **What trends can we uncover in smart device data?**
 
-**How can these trends be relevant to Bellabeat's customers today?**
-What insights from this data can help Bellabeat better understand their own users? We will need to align these usage trends with Bellabeat target customers to identify their specific needs and preferences.
+We will analyze trends in activity, demographics and user relationships with their smart devices to identify patterns and preferences.
 
-**How can these insights help shape Bellabeat's marketing strategy?**
-How can the identified patterns guide the marketing team to improve customer engagement and boost sales?
+- **How do these trends align with Bellabeat customers?**
+
+We will match these trends with Bellabeat target audience to better understand customer needs and preferences.
+
+- **How can these trends guide Bellabeat marketing strategies?**
+
+We will recommend tailored marketing strategies based on our insights to increase customer engagement and boost sales for Bellabeat.
