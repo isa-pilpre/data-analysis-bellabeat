@@ -1,17 +1,9 @@
-# Chapter 3: Process phase (Fitbit)
+# Chapter 3: Process (Fitbit)
 
-With the Fitbit dataset now organized and stored in the `Fitbit_Complete_Data` folder, the next step is to assess the data's structure, check for anomalies (nulls, duplicates, out-of-range values, outliers), and clean it when necessary.
-
-## 1) Reminder of the business task
-
-To stay aligned with the business task, I need to remember the following key questions:
-   
-- What are some trends in smart device usage?
-- How could these trends apply to Bellabeat customers?
-- How could these trends help influence Bellabeat marketing strategy?
+With the Fitbit dataset now organized and stored in the `Fitbit_Complete_Data` folder, the next step is to assess the data's structure, check for issues and anomalies, and clean it when necessary.
 
 
-## 2) Reminder of the 18 files
+## 1) Recap of the 18 files
 
 The Fitbit dataset contains the following 18 files:
 
@@ -35,7 +27,7 @@ The Fitbit dataset contains the following 18 files:
 * `sleepDay_merged.csv`
 
 
-## 3) Overview of the data
+## 2) Overview of the data
 
 Before doing any cleaning, I performed a basic overview of all the .csv files to understand their structure, column names, data types, etc. 
 
@@ -68,76 +60,101 @@ for (file in all_files) {
 
 #### Potential trends
 
-Based on the structure and content of the files, several trends seemed to emerge:
+Based on the structure and content of the files, several trends seem to emerge:
 
--  Activity trends: when users are most active based on the `ActivityDate` and `ActivityHour` columns.
--  Intensity trends: insights into activity levels using `VeryActiveMinutes`, `FairlyActiveMinutes`, etc.
--  Seep patterns: using `TotalMinutesAsleep` and `TotalTimeInBed` columns.
--  Recovery patterns: based on the heart rate date (`Value` column in the heart rate file).
+-  Activity trends: when users are more or less active (based on the `ActivityDate` and `ActivityHour` columns, for instance) in terms of steps or distance.
+-  Intensity trends: variations in activity levels (i.e. with the `VeryActiveMinutes`, `FairlyActiveMinutes` columns, etc.).
+-  Sleep trends: sleep patterns with `TotalMinutesAsleep` and `TotalTimeInBed` columns.
+-  Calories trends: calories spent seem to be recorded daily, hourly, and even by the minute.
+-  Heart rate trends: the file `combined_heartrate_seconds_merged.csv` records heart rate (`Value` column) every 5 seconds.
 
-#### Time format issues
+#### Unit issues
 
-Many files contained date-time columns (i.e. `SleepDay`, `ActivityHour`) that needed to be converted into a format recognized by BigQuery (from MM/DD/YYYY HH:MM:SS AM/PM to YYYY-MM-DD HH:MM:SS).
+Many columns do not specify the units used, such as `VeryActiveDistance`, `ModeratelyActiveDistance`, etc. Further research needs to ne done to see if these distances are in meters, km, miles, or another unit. The same issue applies to the `Calories` columns (is this in Joules or else) and the `Value` column in the heart rate data (though we can assume this is BMP.) In the real world, we would ask directly the stakeholders for clarification about these numerical values without units.
+
+#### Date and Time formatting issues
+
+I noticed also right away that there were issues with the date and time columns. For example, the `ActivityDate` column in `combined_dailyActivity_merged.csv` is of type `chr` formatted like: "3/25/2016" "3/26/2016" "3/27/2016" "3/28/2016". Similarly, the `Time` column in `combined_heartrate_seconds_merged.csv` is also of type `chr` with values such as "4/1/2016 7:54:00 AM" "4/1/2016 7:54:05 AM" "4/1/2016 7:54:10 AM" "4/1/2016 7:54:15 AM".
+
+These columns need to be converted into a format recognized by R and by BigQuery (from MM/DD/YYYY HH:MM:SS AM/PM to YYYY-MM-DD HH:MM:SS).
 
 
-## 4) Data cleaning
+#### Column name formatting issues
+Most column names are in CamelCase, but I noticed that in `combined_minuteSleep_merged.csv` the column names were all in lowercase: `date`, `value`, `logId`. I will need to fix that in my cleaning process to make sure all the column names are consistently in CamelCase. 
 
-### Step 1: Fix date-time formats
 
-Many files contained date-time columns in a format inadequate for SQL analysis. I used the lubridate package in R to convert these columns to a standard format (YYYY-MM-DD HH:MM:SS).
+## 3) Data cleaning
 
-R code to fix time formatting:
 
-``` R
-library(readr)
-library(dplyr)
-library(lubridate)
-library(here)
+### Step 1: Standardize column names
 
-# Define folder path and list all files
-folder <- here("Cleaned_Fitbit")
+Sample code:
+
+```r 
+
+# 1 - Read and standardize column names for `combined_minuteSleep_merged.csv` 
+df_sleep <- read_csv(file.path(folder, "combined_minuteSleep_merged.csv"))
+df_sleep <- df_sleep %>%
+  rename(Date = date, Value = value, LogId = logId)  # Fix all column names
+
+# Replace file in the folder 
+write_csv(df_sleep, file.path(folder, "combined_minuteSleep_merged.csv"))
+
+# Show dataframe to make sure new column names are OK
+# df_sleep  => OK!
+
+```
+
+
+### Step 2: Fix Date and Time formatting issues
+
+Sample code:
+
+``` r
+
+# 2- Fix date and time column format
+time_columns <- c("SleepDay", "ActivityHour", "ActivityMinute", "Time", "Date")  # Time-related columns
+date_columns <- c("ActivityDate")  # Date-only column
+
+# Get all CSV files from the Fitbit Complete Data folder
 all_files <- list.files(folder, pattern = "*.csv", full.names = TRUE)
 
-# Define columns needing date-time fixes
-time_columns <- c("SleepDay", "ActivityHour")
-
-# Loop through files and fix time formats
+# Loop through files and apply time format fixes (plus remove duplicates)
 for (file in all_files) {
-  data <- read_csv(file)
+  df <- read_csv(file)
   
+  # Fix date and time formats
   for (col in time_columns) {
-    if (col %in% colnames(data)) {
-      data <- data %>%
-        mutate(!!col := mdy_hms(!!sym(col)))  # Convert time format
+    if (col %in% colnames(df)) {
+      df[[col]] <- mdy_hms(df[[col]])  # Convert time format using mdy_hms()
     }
   }
   
-  # Save cleaned data
-  cleaned_file_name <- paste0("cleaned_", basename(file))
-  write_csv(data, file.path(folder, cleaned_file_name))
-}
+  for (col in date_columns) {
+    if (col %in% colnames(df)) {
+      df[[col]] <- mdy(df[[col]])  # Convert date format using mdy()
+    }
+  }
 
 ```
 
-### Step 2: Remove duplicates
-
-Next, I removed any duplicate records from the data, because duplicates skew analysis results.
+### Step 3: Remove duplicates
 
 Sample code:
+
 ```r
-# Loop through all files to remove duplicates
-for (file in all_files) {
-  data <- read_csv(file)
-  clean_data <- data %>% distinct()  # Remove duplicates
+
+# 3 - Remove duplicates
+  df <- df %>% distinct()  # Remove duplicates
   
-  # Save the cleaned data
+  # Save the cleaned dataframe after all cleaning is done
   cleaned_file_name <- paste0("cleaned_", basename(file))
-  write_csv(clean_data, file.path("Cleaned_Fitbit", cleaned_file_name))
+  write_csv(df, file.path(cleaned_folder, cleaned_file_name))
 }
 
 ```
 
-### Step 3: Null values
+### Step 4: Null values
 
 Null values were detected only in one file:
 
@@ -148,7 +165,7 @@ I am alway wary to delete Null values, as they can be potentially valid, so I le
 
 
 
-### Additional cleaning
+### Step 5: Additional cleaning
 
 #### Outliers 
 
