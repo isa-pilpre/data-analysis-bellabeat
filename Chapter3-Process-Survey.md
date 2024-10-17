@@ -1,30 +1,28 @@
-# Chapter 3: Process phase (Survey)
+# Chapter 3: Process (Survey)
 
 The survey dataset is stored in the `Survey_Data` folder.
 It consists of one Excel file called `Anonymized_UserRelationshipWithTheirSmartDevice_Dataset.xlsx`.
 
-## 1) Reminder of the business task
 
-To stay aligned with the business task, I need to remember the following key questions:
-   
-- What are some trends in smart device usage?
-- How could these trends apply to Bellabeat customers?
-- How could these trends help influence Bellabeat marketing strategy?
+## 1) Overview of the dataset
 
-## 2) Date structure overview
+These are my first observations after I opened the Excel file in Google Sheets:
 
 - Number of rows: 811
 - Number of observations: 809
 - Number of variables (columns): 52
 - General description of variables: demographics info (age, sex, education), users' habits and attitudes towards their smart devices.
 
-When opening the Excel file in Google Sheets, I found out that:
+Furthermore, I found out that:
+
 - The first row contains codes, in no specific order (Q21, Q17, Q19, Q20, Q21, Q22, Q32, Q29, etc.).
 - There are duplicated codes. Ex. column Q19 as num for Sex (male= 1, female=2, other=3, prefer no to say=4) and column Q19 as chr for "How do we reach you" (answer most likely email address).
 - The second row contains survey questions.
 - The third row and below contain the actual answers to the survey (809 observations). 
 
-I investigated the dataset with an R script. 
+
+Then I investigated the dataset with R.
+
 
 ### First row (survey codes)
 R sample code:
@@ -96,7 +94,7 @@ Output:
 [51] "(Optional) If you answered yes, or you would like to receive the outcome of this study: how can we reach you?"                                        [52] "Score"
 ```
 
-## 3) Handling duplicate survey codes
+## 2) Handling duplicate survey codes
 
 The data contained duplicate survey codes ("Q21" and "Q19"). To solve this, I updated the Q21 and Q19 codes by adding descriptive suffixes based on their survey questions:
 
@@ -146,7 +144,7 @@ colnames(survey_df)
 str(survey_df)
 ```
 
-## 4) Simplifying the dataset
+## 3) Simplifying and filtering the dataset
 
 To make the dataset more readable and manageable:
 
@@ -256,10 +254,10 @@ tibble [809 × 46] (S3: tbl_df/tbl/data.frame)
 
 ```
 
-## 5) Handling null values
+## 4) Handling null values
 
-I noticed some users did not answer questions in the first part of the questionnaire, which were personal questions (sex, age, education etc.)
-Keeping in mind my business task and remembering that Bellabeat is a company focused on women's wellness, I feel it is important that the survey data contains demographic informations such as sex and age. If some users did not fill out this information, I choose to remove their data (for now) in order to stay focused on my busuness task.
+Some users did not answer questions in the first part of the questionnaire, which were personal questions (sex, age, education etc.)
+Keeping in mind my business task and remembering that Bellabeat is a company focused on women's wellness, I feel it is important that the survey data contains demographic information such as sex and age. If some users did not fill out this information, I choose to remove their data (for now) in order to stay focused on my busuness task.
 
 Sample code
 ``` r
@@ -290,7 +288,7 @@ So there were only (809 - 786) = 23 people that did not answer demographical inf
 For now on I will work with the survey_df_complete dataset because I want to be able to get insights based on gender in the analysis phase.
 
 
-## 6) Handling Likert-scale items
+## 5) Handling Likert-scale items
 
 I have noticed that questions like Q3 have multiple sub-questions (i.e. Q3_1, Q3_2), each representing a statement rated on a Likert scale.
 Participants rated their agreement from 1 (Strongly Disagree) to 5 (Strongly Agree).
@@ -440,4 +438,4 @@ Output
 [1] "Strongly Disagree" "Somewhat Disagree" "Neutral"  "Somewhat Agree" "Strongly Agree"
 ```
 
-```
+Now that my survey dataset is cleaned, filtered and organized in the `Cleaned_Survey` folder, it is ready for analysis.
