@@ -1,36 +1,31 @@
-# Chapter 4: Analysis phase (Survey)
+# Chapter 4: Analysis (Survey)
 
 Now that the survey dataset `cleaned_survey.csv` is cleaned and stored in the `Cleaned_Survey` folder, it's time to start the actual data analysis.
 
-## 1) Reminder of the business task
+## 1) Further data preparation for analysis
 
-To stay aligned with the business task, I need to keep in mind the following key questions:
-   
-- What are some trends in smart device usage?
-- How could these trends apply to Bellabeat customers?
-- How could these trends help influence Bellabeat marketing strategy?
-
-## 2) Further data preparation for analysis
-
-### 2.1. Filtering respondents by gender and device ownership
+### 1.1. Filtering respondents by gender and device ownership
 
 To focus the analysis on Bellabeat's target customer group (i.e. 100% women who use wearables), the dataset was filtered accordingly. Specifically, only female respondents (`Q19_Sex == 2`) who own smart watches or bracelets (`Q16_Device_Owned == "Smart watches/bracelets (e.g. Polar, FitBit)"`) were included in the analysis.
 
-Sample code
+Sample R code
+
 ```r
 filtered_df <- survey_df %>%
   filter(Q19_Sex == 2, Q16_Device_Owned == "Smart watches/bracelets (e.g. Polar, FitBit)")
 ```
 
-### 2.2. Refining responses to display three types of opinions (Disagree, Neutral, Agree)
+### 1.2. Refining responses to display three types of opinions (Disagree, Neutral, Agree)
 
-The survey included Likert-scale responses with five levels: Strongly Disagree, Somewhat Disagree, Neutral, Somewhat Agree, and Strongly Agree. However, in order to keep all the data but to simplify the visuals, I chose to aggregate Likert responses into three categories: Disagree, Neutral, and Agree.
+The survey included Likert-scale responses with five levels: Strongly Disagree, Somewhat Disagree, Neutral, Somewhat Agree, and Strongly Agree. 
 
-### 2.3 Transforming data format for analysis and plotting
+I chose to aggregate these responses into three categories: Disagree, Neutral, and Agree, for use in summary tables on women's opinions. Given the 20 statements to display, I felt that grouping the levels into three categories would enhance clarity. However, for individual visualizations of women's opinions, I will retain the original five levels.
 
-The data was transformed from a wide format to a long format for easier analysis and visualization using ggplot2. Additionally, question labels were cleaned by removing prefixes and replacing underscores with spaces for better readability in the visualizations.
+### 1.3 Transforming data format for analysis and plotting
 
-Sample code
+The data was transformed from a wide format to a long format for easier analysis and visualization using ggplot2. Additionally, question labels were cleaned by removing prefixes and replacing underscores with spaces for better readability in the plots.
+
+Sample R code
 
 ``` r
 # Transform the data to long format for easier analysis and plotting
@@ -64,13 +59,47 @@ female_long <- female_long %>%
 
 ```
 
-## 3) Exploratory Data Analysis (EDA)
+## 2) Exploratory Data Analysis (EDA)
 
-### 3.1 Summary statistics
+### 2.1 Demographics
 
-Initial exploration involved calculating the count and percentage of "Disagree", "Neutral" and "Agree" responses for each survey statement.
+Let's analyze the age distribution and the employment status of the smart device female users who responded to this survey.
 
-Sample code
+- Age
+
+
+Output in R:
+
+![R Women's Age Distribution](images/Survey_Age_Distribution_Among_Women_Using_Wearables.png)
+
+And in Google Sheets:
+
+![Google Sheets Activity Levels](images/Google_Sheets_women_age_distribution.png)
+
+
+Both plots show that the majority of women using wearables in the survey range between 26 and 45 years old.
+
+
+- Employment status
+
+R plot:
+
+![R Women's Employment Status](images/Survey_Work_Situation_Among_Women_Using_Wearables.png)
+
+And in Google Sheets:
+
+![Google Sheets Employment Status](images/Google_Sheets_women_employment.png)
+
+
+Both plots show that the majority of women using wearables are in active employment (76% full-time employed and 15% part-time employed.)
+
+
+
+### 2.2 Summary statistics
+
+Let's calculate the count and percentage of "Disagree", "Neutral" and "Agree" responses for each survey statement.
+
+Sample R code
 
 ``` r
 # Calculate counts and percentages for all aggregated responses per question
@@ -82,31 +111,31 @@ Sample code
     ungroup()
 ```
 
-### 3.2. Identifying top responses
+### 2.3. Identifying top responses
 
-Identifying the top 5 statements with the highest percentages of "Agree" and "Disagree" responses provideed targeted insights.
+Let's identify the top 10 statements with the highest percentages of "Agree" and "Disagree" responses provideed targeted insights.
 
-Sample code
+Sample R code
 
 ``` r
-# Identify top 5 statements where women agree
+# Identify top 10 statements where women agree
 top_agree <- summary_table %>%
     filter(Response_Aggregated == "Agree") %>%                       # Filter for 'Agree'
     arrange(desc(Percentage)) %>%                                    # Arrange in descending order
-    slice_head(n = 5)                                                # Select top 5
+    slice_head(n = 10)                                               # Select top 10
   
 
-# Identify top 5 statements where women disagree
+# Identify top 10 statements where women disagree
   top_disagree <- summary_table %>%
     filter(Response_Aggregated == "Disagree") %>%                    # Filter for 'Disagree'
-    arrange(desc(Percentage)) %>%                                   # Arrange in descending order
-    slice_head(n = 5)                                               # Select top 5
+    arrange(desc(Percentage)) %>%                                    # Arrange in descending order
+    slice_head(n = 10)                                               # Select top 10
 ```
 
 
 Findings:
 
-- Top 5 statements with highest 'Agree' percentages from women using wearables:
+- Top 10 statements with highest 'Agree' percentages from women using wearables:
   - Question                    Response_Aggregated Count Percentage
   - <chr>                       <ord>               <int>      <dbl>
   - 1 Device Useful For My Goals  Agree                  54       93.1
@@ -116,7 +145,7 @@ Findings:
   - 5 Positive About Device       Agree                  55       87.3
  
 
-- Top 5 statements with highest 'Disagree' percentages from women using wearables:
+- Top 10 statements with highest 'Disagree' percentages from women using wearables:
   - Question                         Response_Aggregated Count Percentage
   - <chr>                            <ord>               <int>      <dbl>
   - 1 Feel Victimized                  Disagree               49       77.8
@@ -126,152 +155,78 @@ Findings:
   - 5 Device Not Helpful               Disagree               41       69.5
  
 
-## 4) Visualizations
 
-Bar charts were created to visualize the distribution of opinions (disagree, neutral, agree) on specific statements about smart devices.
+## 3) Visualizations
 
-### 4.1 Bar charts displaying women's opinions about their smart device
+While the three aggregated opinion levels (disagree, neutral, agree) are useful for summary tables in my Google Slides report on women's opinions, I chose to retain the five original Likert levels to gain more nuanced insights and avoid losing any information about women's views on each specific statement regarding their smart devices.
 
-Sample code
+### 3.1 Bar charts displaying women's opinions about their smart device
+
+Sample R code
 
 ``` r
-# Proceed only if there are no NAs
-if(na_count == 0){
-  
-    # Calculate counts and percentages for all aggregated responses per question
-    summary_table <- female_long %>%
-      group_by(Question, Response_Aggregated) %>%
-      summarise(Count = n(), .groups = 'drop') %>%                      # Count occurrences
-      group_by(Question) %>%                                           # Group by question to calculate percentages
-      mutate(Percentage = Count / sum(Count) * 100) %>%               # Calculate percentage within each question
-      ungroup()
-  
-  # Identify top 5 questions where women agree
-  top_agree <- summary_table %>%
-    filter(Response_Aggregated == "Agree") %>%                       # Filter for 'Agree'
-    arrange(desc(Percentage)) %>%                                    # Arrange in descending order
-    slice_head(n = 5)                                               # Select top 5
-  
-  # Identify top 5 questions where women disagree
-  top_disagree <- summary_table %>%
-    filter(Response_Aggregated == "Disagree") %>%                    # Filter for 'Disagree'
-    arrange(desc(Percentage)) %>%                                   # Arrange in descending order
-    slice_head(n = 5)                                               # Select top 5
-  
-  # Print the results
-  print("Top 5 Questions with Highest 'Agree' Percentages:")
-  print(top_agree)
-  
-  print("Top 5 Questions with Highest 'Disagree' Percentages:")
-  print(top_disagree)
-  
-  # Define groups and their corresponding questions
-  groups <- list(
-    Q3 = c("Positive About Device", "Feel Victimized",
-           "Device Runs Independently", "Device Cannot Initiate Actions",
-           "Me The User In Control", "Device Forces Process On Me",
-           "Device Cannot Change Task", "Device Has Own Intelligence"),
-    Q4 = c("Understand How Device Works", "Not Ideal Use",
-           "Device Active Participant", "Device Dependent On Me",
-           "Freely Choose Tasks", "Cannot Achieve Things I Want",
-           "Device Handles Better Certain Things", "Device Not Helpful"),
-    Q5 = c("Enjoy Device", "Negative Feelings Towards Device",
-           "Miss Device", "Device Pleasurable"),
-    Q6_Q7 = c("Device Has Own Personality", "Device Supports Like Friend",
-              "Consider Naming Device", "Device Part Of Myself",
-              "Dont Like Others Use My Device", "Feel Incomplete Without Device"),
-    Q8_Q9 = c("Device Useful For My Goals", "Device Better Than NonSmart Equivalent",
-              "Function Aspect Most Important", "Device Important Part Lifestyle",
-              "Device Helps Me Larger Community", "Device Helps Me Social Relations"),
-    Q10 = c("Saves Me Time", "Saves Me Money", "Price Most Important Factor")
-  )
-  
-  # Make sure the IMAGES directory exists; if not, create it
-  images_dir <- here("IMAGES")
-  if(!dir.exists(images_dir)){
-    dir.create(images_dir)
-    print(paste("Created directory:", images_dir))
-  }
-  
-  # Function to create and save plots for each group
-  create_and_save_plot <- function(group_name, questions){
-    # Filter summary_table for the current group
-    group_summary <- summary_table %>%
-      filter(Question %in% questions)
-    
-    # Check if there is data to plot
-    if(nrow(group_summary) == 0){
-      print(paste("No data available for group", group_name))
-      return(NULL)
-    }
-    
-    # Create the plot with side-by-side bars for Response_Aggregated
-    p <- ggplot(group_summary, aes(x = reorder(Question, -Percentage), y = Percentage, fill = Response_Aggregated)) +
-      geom_bar(stat = "identity", position = position_dodge(width = 0.8), width = 0.7) + # Side-by-side bars
-      scale_y_continuous(labels = percent_format(scale = 1), limits = c(0, 100)) + # Fixed y-axis from 0% to 100%
-      scale_fill_manual(
-        values = c("Disagree" = "#d73027", "Neutral" = "#fdae61", "Agree" = "#4575b4"),
-        name = "Response",
-        labels = c("Disagree", "Neutral", "Agree"),
-        breaks = c("Disagree", "Neutral", "Agree") # Ensure the order in the legend
-      ) +
-      labs(
-        title = paste("Group", group_name, "- Women Opinions on Smart Watches/Bracelets"),
-        x = "Survey Question",
-        y = "Percentage of Female Respondents"
-      ) +
-      theme_minimal() +
-      theme(
-        axis.text.x = element_text(angle = 45, hjust = 1),
-        legend.position = "bottom",
-        plot.title = element_text(hjust = 0.5)
-      )
-    
-    # Define the file name with "Survey_Women_" prefix
-    file_name <- paste0("Survey_Women_Smart_Watches_Opinions_Group_", group_name, ".png")
-    
-    # Define the full file path within the IMAGES folder
-    file_path <- here("IMAGES", file_name)
-    
-    # Save the plot as a PNG file with a white background
-    ggsave(filename = file_path, plot = p, width = 14, height = 8, dpi = 300, bg = "white")
-    
-    print(paste("Plot saved as", file_path))
-  }
-  
-  # Iterate over each group and create/save plots
-  for(group in names(groups)){
-    create_and_save_plot(group, groups[[group]])
-  }
-  
-} else {
-  print("There are still NAs in the Response_Aggregated column. Please check the data for inconsistencies.")
-}
+# Load the cleaned survey data
+csv_file <- here("DATA", "Survey", "Cleaned_Survey", "cleaned_survey.csv")
+survey_df <- read_csv(csv_file)
 
+str(survey_df)
+glimpse(survey_df)
+
+# Define Likert statements
+likert_statements <- c(
+  "Q3_Positive_About_Device", "Q3_Feel_Victimized",
+  "Q3_Device_Runs_Independently", "Q3_Device_Cannot_Initiate_Actions",
+  "Q3_Me_The_User_In_Control", "Q3_Device_Forces_Process_On_Me",
+  "Q3_Device_Cannot_Change_Task", "Q3_Device_Has_Own_Intelligence",
+  "Q4_Understand_How_Device_Works", "Q4_Not_Ideal_Use",
+  "Q4_Device_Active_Participant", "Q4_Device_Dependent_On_Me",
+  "Q4_Freely_Choose_Tasks", "Q4_Cannot_Achieve_Things_I_Want",
+  "Q4_Device_Handles_Better_Certain_Things", "Q4_Device_Not_Helpful",
+  "Q5_Enjoy_Device", "Q5_Negative_Feelings_Towards_Device",
+  "Q5_Miss_Device", "Q5_Device_Pleasurable",
+  "Q6_Device_Has_Own_Personality", "Q6_Device_Supports_Like_Friend",
+  "Q6_Consider_Naming_Device", "Q7_Device_Part_Of_Myself",
+  "Q7_Dont_Like_Others_Use_My_Device", "Q7_Feel_Incomplete_Without_Device",
+  "Q8_Device_Useful_For_My_Goals", "Q8_Device_Better_Than_NonSmart_Equivalent",
+  "Q8_Function_Aspect_Most_Important", "Q9_Device_Important_Part_Lifestyle",
+  "Q9_Device_Helps_Me_Larger_Community", "Q9_Device_Helps_Me_Social_Relations",
+  "Q10_Saves_Me_Time", "Q10_Saves_Me_Money", "Q10_Price_Most_Important_Factor"
+)
+
+[code snippet removed for clarity]
+
+# To match Bellabeat's target customer base
+# Filter to only women who use wearables (smart watches/bracelets)
+filtered_df <- survey_df %>%
+  filter(Q19_Sex == 2, Q16_Device_Owned == "Smart watches/bracelets (e.g. Polar, FitBit)")
+
+# Convert Likert responses to ordered factors with defined levels
+filtered_df <- filtered_df %>%
+  mutate(across(all_of(likert_statements), ~ factor(.,
+                                                   levels = c("Strongly Disagree", "Somewhat Disagree", "Neutral", "Somewhat Agree", "Strongly Agree"),
+                                                   ordered = TRUE)))
+
+# Check the structure to confirm changes
+str(filtered_df)
+
+[code snippet removed for clarity]
+
+  # Q3: "I’m positive about having this smart device as a part of my daily life."
+plot_percentage_bar(
+  data = filtered_df,
+  question_var = Q3_Positive_About_Device,
+  question_label = question_labels$Q3_Positive_About_Device,
+  colors = likert_colors
+)
 ```
-
-Plot characteristics:
-
-- Color coding:
-  - Red (#d73027) for "Disagree"
-  - Orange (#fdae61) for "Neutral"
-  - Blue (#4575b4) for "Agree"
-
-- Layout:
-  - Side-by-side bars for easy comparison.
-  - Clear labeling of survey questions on the x-axis.
-  - Percentage values represented on the y-axis.
-
-- Legend:
-  - Positioned at the bottom for unobstructed view.
-  - Clearly distinguishes between "Disagree" and "Agree" responses.
-
-### 4.2. Sample plot
-
-(put actual plot)
-
-The sample plot illustrates the percentage of "Agree", "Neutral" and "Disagree" responses among women who use wearable devices such as smart watches or bracelets (Polar, Fitbit), regarding the statement "Device Useful For My Goals." 
  
 
+R plot:
+
+![R Women's Employment Status](images/Survey_Q8_Device_Useful_For_Goals.png)
+
+And in Google Sheets:
+
+![Google Sheets Employment Status](images/Google_Sheets_Q8_Device_Useful_For_Goals.png)
 
   
