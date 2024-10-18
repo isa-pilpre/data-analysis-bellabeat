@@ -1,49 +1,44 @@
-# Chapter 4: Analysis phase (Fitbit)
+# Chapter 4: Analysis (Fitbit)
 
 Now that the Fitbit dataset is cleaned and stored in the `Cleaned_Fitbit` folder, it's time to start the actual data analysis.
 
-## 1) Reminder of the business task
 
-To stay aligned with the business task, I need to keep in mind the following key questions:
-   
-- What are some trends in smart device usage?
-- How could these trends apply to Bellabeat customers?
-- How could these trends help influence Bellabeat marketing strategy?
+## 1) Recap of the 18 files
 
-## 2) Reminder of the 18 files
+The `Cleaned_Fitbit` folder contains the following 18 files:
 
-The Fitbit dataset contains the following 18 files:
-
-* `combined_dailyActivity_merged.csv`
-* `combined_heartrate_seconds_merged.csv`
-* `combined_hourlyCalories_merged.csv`
-* `combined_hourlyIntensities_merged.csv`
-* `combined_hourlySteps_merged.csv`
-* `combined_minuteCaloriesNarrow_merged.csv`
-* `combined_minuteIntensitiesNarrow_merged.csv`
-* `combined_minuteMETsNarrow_merged.csv`
-* `combined_minuteSleep_merged.csv`
-* `combined_minuteStepsNarrow_merged.csv`
-* `combined_weightLogInfo_merged.csv`
-* `dailyCalories_merged.csv`
-* `dailyIntensities_merged.csv`
-* `dailySteps_merged.csv`
-* `minuteCaloriesWide_merged.csv`
-* `minuteIntensitiesWide_merged.csv`
-* `minuteStepsWide_merged.csv`
-* `sleepDay_merged.csv`
+* `cleaned_combined_dailyActivity_merged.csv`
+* `cleaned_combined_heartrate_seconds_merged.csv`
+* `cleaned_combined_hourlyCalories_merged.csv`
+* `cleaned_combined_hourlyIntensities_merged.csv`
+* `cleaned_combined_hourlySteps_merged.csv`
+* `cleaned_combined_minuteCaloriesNarrow_merged.csv`
+* `cleaned_combined_minuteIntensitiesNarrow_merged.csv`
+* `cleaned_combined_minuteMETsNarrow_merged.csv`
+* `cleaned_combined_minuteSleep_merged.csv`
+* `cleaned_combined_minuteStepsNarrow_merged.csv`
+* `cleaned_combined_weightLogInfo_merged.csv`
+* `cleaned_dailyCalories_merged.csv`
+* `cleaned_dailyIntensities_merged.csv`
+* `cleaned_dailySteps_merged.csv`
+* `cleaned_minuteCaloriesWide_merged.csv`
+* `cleaned_minuteIntensitiesWide_merged.csv`
+* `cleaned_minuteStepsWide_merged.csv`
+* `cleaned_sleepDay_merged.csv`
 
 
 ## 2) Approach to the analysis
 
-After reviewing the tibbles, structures, summaries, and column names of the 18 files in the Process phase, I identified several potential trends:
+As I saw in R in the Process phase, several trends seem to emerge:
 
-- Activity trends: when users are most active (morning, afternoon, evening), which day of the week, or is it more on weekends.
-- Intensity trends: when users' activity is more or less intense.
-- Sleep patterns: is there any correlation between activity levels and sleep duration.
-- Heart rate patterns: is there any correlation between activity levels and heart rate changes.
+- Activity trends: when users are more or less active (ex. `ActivityDate` and `ActivityHour`) in terms of steps or distance.
+- Intensity trends: variations in activity levels (ex. `VeryActiveMinutes`, `FairlyActiveMinutes`, etc.).
+- Sleep trends: sleep patterns (ex. `TotalMinutesAsleep` and `TotalTimeInBed`).
+- Calories trends: calories spent seem to be recorded daily, hourly, and even by the minute.
+- Heart rate trends: heart rate (`Value`) recorded every 5 seconds.
 
-I uploaded the 18 files to BigQuery to run SQL queries for further exploration. Although I could conduct the entire analysis in R, I felt more comfortable using SQL first to filter and summarize data. Then I used a Python notebook for quick visualizations in BigQuery, and at last I exported the results as .csv files for detailed analysis and plotting in R.
+
+For further exploration, I uploaded the .csv files to BigQuery to run SQL queries. Although I could conduct the entire analysis in R, I feel more comfortable using SQL queries first. Also in BigQuery I could use a Python notebook for quick visualizations of my SQL query results, which is very handy since it is in the same platform.
 
 
 ## 3) First steps in BigQuery
@@ -71,13 +66,16 @@ With my bucket `bellabeat-proj` created, I uploaded the heart rate .csv file by 
 Finally, I went back to BigQuery Studio. From the left-hand Explorer pane, I navigated to my project and dataset, clicked on the three dots, and selected `Create table`. I was able to browse to my bucket in Google Cloud Studio and import the heart rate file as a new table named `heartrate`.
 
 
-## 4) Data analysis using SQL (with Python and R for visualization)
+## 4) Data analysis in BigQuery using SQL (and Python, Google Sheets and/or R for visualization)
 
-With the CSV files uploaded as tables in BigQuery, I begin the analysis using SQL queries.
+With the CSV files uploaded as tables in BigQuery, I began the analysis by running SQL queries.
+Based on my initial review of the 18 CSV files in R, the `cleaned_combined_dailyActivity_merged.csv` file appears to be the most complete and comprehensive. This file was uploaded as the `daily_activity` table in BigQuery. So let me start running queries on the `daily_activity` table.
 
-### Verifying data integrity (date range and Fitbit user count)
+### a) Verifying data integrity (Fitbit user count and date range)
 
-To check if the number of unique users matches expectations, I ran the following query for the `daily_activity` table:
+- Fitbit user count: let's check if the number of unique users matches expectations with SQL.
+
+SQL query:
 
 ``` sql
 SELECT 
@@ -93,9 +91,12 @@ Row 	UniqueUserCount
 1 	   35
 ```
 
-The count shows 35 users instead of the expected 30 on the `daily_activity` table, which is acceptable. 
+Results: the count shows 35 users instead of the expected 30, which is acceptable. 
 
-Next, I verified that the date range matches the dataset's intended timeframe (March 12, 2016, to May 12, 2016):
+
+- Date range: let's verify if the date range matches the Fitbit dataset's intended timeframe (March 12, 2016, to May 12, 2016).
+
+SQL query:
 
 ``` sql
 
@@ -116,22 +117,52 @@ Row 	   MinDate          MaxDate
 
 ```
 
-The `daily_activity` table covers the expected period, so data integrity is confirmed, at least on this table.
+Results: the `daily_activity` table covers the expected period, so data integrity is confirmed, at least on this table.
 
 
-### Total steps per day (for at least 70% of Fitbit users)
+### b) Summary statistics
 
-To make sure that data was relevant, I calculated the total steps per day for the days where at least 70% of users reported their activity.
+Before plotting, let's first gather some general statistics for steps, distance, and tracker distance across the days where at least 70% of users reported their activity. This analysis will give an overall view of daily step trends and distance patterns among Fitbit users.
 
 SQL query:
 
+``` sql
+SELECT 
+    ROUND(AVG(TotalSteps), 2) AS OverallAvgSteps,
+    ROUND(STDDEV(TotalSteps), 2) AS StdDevSteps,
+    ROUND(AVG(TotalDistance), 2) AS OverallAvgDistance,
+    ROUND(STDDEV(TotalDistance), 2) AS StdDevDistance,
+    ROUND(AVG(TrackerDistance), 2) AS OverallAvgTrackerDistance,
+    ROUND(STDDEV(TrackerDistance), 2) AS StdDevTrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+HAVING 
+    COUNT(DISTINCT Id) >= 0.70 * 35;  -- Representing at least 70% users
+
+``` 
+
+Results:
+
+``` 
+OverallAvgSteps	| StdDevSteps | OverallAvgDistance | StdDevDistance | OverallAvgTrackerDistance | StdDevTrackerDistance
+7281	        5214	    5.22	            3.99	        5.19	                    3.98
 ```
+
+These summary statistics show that the average Fitbit user logs about 7,300 steps per day, with a standard deviation of 5,214, meaning there's quite some variation. Similarly, users walk an average of 5.22 km daily, with also a wide variation (3.99 km) across day. Their tracker distance tends to be close to that at 5.19 km.
+It is important to note that I **assume** the distance unit is in km because it makes more sense with the values found here, but in real life I would check immediately with the person responsible for the Fitbit data source.
+
+
+### c) Average steps per day
+
+For plotting, I will focus on the step counts and ignore distance columns. Why? Because, first, the distance units are not provided. And second, I don't want to plot two different things (step counts and distance) on the same Y axis, for the sake of clarity.
+
+SQL query:
+
+``` sql
 SELECT 
     ActivityDate, 
     COUNT(DISTINCT Id) AS UserCount,
-    ROUND(SUM(TotalSteps), 2) as TotalSteps,
-    ROUND(SUM(TotalDistance), 2) as TotalDistance,
-    ROUND(SUM(TrackerDistance), 2) as TrackerDistance
+    ROUND(AVG(TotalSteps), 2) as AvgSteps
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY 
@@ -140,9 +171,10 @@ HAVING
     UserCount >= 0.70 * 35  -- Representing at least 70% users
 ORDER BY 
     ActivityDate;
+
 ```
 
-Python code for plotting:
+Python code:
 
 ``` python
 import pandas as pd
@@ -153,14 +185,12 @@ from google.cloud import bigquery
 # Initialize BigQuery client
 client = bigquery.Client()
 
-# SQL query based on your specifications
+# SQL query 
 query = """
 SELECT 
     ActivityDate, 
     COUNT(DISTINCT Id) AS UserCount,
-    ROUND(SUM(TotalSteps), 2) as TotalSteps,
-    ROUND(SUM(TotalDistance), 2) as TotalDistance,
-    ROUND(SUM(TrackerDistance), 2) as TrackerDistance
+    ROUND(AVG(TotalSteps), 2) as AvgSteps
 FROM 
     `alien-oarlock-428016-f3.bellabeat.daily_activity`
 GROUP BY 
@@ -171,122 +201,27 @@ ORDER BY
     ActivityDate;
 """
 
-# Run the query and load the results into a DataFrame
+# Run query and load results into a dataframe
 query_job = client.query(query)
 df = query_job.to_dataframe()
 
 # Convert ActivityDate to a datetime object for plotting
 df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
 
-# Set up the plot style
+# Set up plot style
 sns.set(style="whitegrid")
 
-# Set up the plot
-plt.figure(figsize=(14, 7))
-sns.lineplot(data=df, x='ActivityDate', y='TotalSteps', marker='o', color='blue')
-
-# Highlight Sundays for better clarity
-sundays = df[df['ActivityDate'].dt.dayofweek == 6]['ActivityDate']
-for sunday in sundays:
-    plt.axvline(x=sunday, color='orange', linestyle='--', linewidth=0.8)
-    plt.text(sunday, df['TotalSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
-
-# Customize the plot
-plt.title('Total Steps Per Day')
-plt.xlabel('Date')
-plt.ylabel('Total Steps')
-plt.xticks(rotation=45)
-plt.ylim(0, df['TotalSteps'].max() * 1.1)
-
-plt.tight_layout()
-
-# Save the plot
-plt.savefig("Fitbit_total_steps_per_day_70_percent.png")
-plt.show()
-
-```
-
-Output:
-
-![Total Steps Per Day](images/Fitbit_total_steps_per_day_70_percent.png)
-
-The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
-
- 
-
-### Average steps per day (for at least 70% of Fitbit users)
-
-To make sure that data was relevant, I calculated the average steps per day for the days where at least 70% of users reported their activity:
-
-SQL query:
-
-```
-SELECT 
-    ActivityDate, 
-    COUNT(DISTINCT Id) AS UserCount,
-    ROUND(AVG(TotalSteps), 2) as AvgSteps,
-    ROUND(AVG(TotalDistance), 2) as AvgDistance,
-    ROUND(AVG(TrackerDistance), 2) as AvgTrackerDistance
-FROM 
-    `alien-oarlock-428016-f3.bellabeat.daily_activity`
-GROUP BY 
-    ActivityDate
-HAVING 
-    UserCount >= 0.70 * 35  -- Representing at least 70% users
-ORDER BY 
-    ActivityDate;
-
-```
-
-Python code for plotting:
-``` python
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
-from google.cloud import bigquery
-
-# Initialize BigQuery client
-client = bigquery.Client()
-
-# SQL query based on your specifications
-query = """
-SELECT 
-    ActivityDate, 
-    COUNT(DISTINCT Id) AS UserCount,
-    ROUND(AVG(TotalSteps), 2) as AvgSteps,
-    ROUND(AVG(TotalDistance), 2) as AvgDistance,
-    ROUND(AVG(TrackerDistance), 2) as AvgTrackerDistance
-FROM 
-    `alien-oarlock-428016-f3.bellabeat.daily_activity`
-GROUP BY 
-    ActivityDate
-HAVING 
-    UserCount >= 0.70 * 35  -- Representing at least 70% users
-ORDER BY 
-    ActivityDate;
-"""
-
-# Run the query and load the results into a DataFrame
-query_job = client.query(query)
-df = query_job.to_dataframe()
-
-# Convert ActivityDate to a datetime object for plotting
-df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
-
-# Set up the plot style
-sns.set(style="whitegrid")
-
-# Set up the plot
+# Set up plot
 plt.figure(figsize=(14, 7))
 sns.lineplot(data=df, x='ActivityDate', y='AvgSteps', marker='o', color='blue')
 
-# Highlight Sundays for better clarity
+# Highlight Sundays for clarity
 sundays = df[df['ActivityDate'].dt.dayofweek == 6]['ActivityDate']
 for sunday in sundays:
     plt.axvline(x=sunday, color='orange', linestyle='--', linewidth=0.8)
     plt.text(sunday, df['AvgSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
 
-# Customize the plot
+# Customize plot
 plt.title('Average Steps Per Day')
 plt.xlabel('Date')
 plt.ylabel('Average Steps')
@@ -295,7 +230,7 @@ plt.ylim(0, df['AvgSteps'].max() * 1.1)
 
 plt.tight_layout()
 
-# Save the plot
+# Save plot
 plt.savefig("Fitbit_average_steps_per_day_70_percent.png")
 plt.show()
 ```
@@ -303,16 +238,23 @@ plt.show()
 Output:
 
 
-![Average Steps Per Day](images/Fitbit_average_steps_per_day_70_percent.png)
-The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
-The daily average is around 7,000 steps, which is below the daily recommendation of 10,000 steps.
+![Python - Average Steps Per Day](images/Fitbit_average_steps_per_day_70_percent.png)
+
+The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays, and Saturdays show a peak.
+
+Since I have in mind my business task and the final Google Sheets presentation that I will show to the stakeholders, and since I know the main stakeholders are primarily the COO who has an artistic background as well as Bellabeat marketing team who want clear, actionable charts, I want to complement the analysis with nicer visualizations. So I exported the SQL results into Google Sheets for additional visualizations. Here's the same data plotted in Google Sheets:
+
+![Google Sheets - Average Steps Per Day](images/Google_Sheets_Average_Steps_Per_Day.png)
 
 
-### Distribution of average steps among users
 
-Let's check the distribution of average steps among all users. It might help identify if there are outliers (users with very low or high step counts) that might skew the overall average. Let's run a SQL query to calculate the average steps per user across the period and then visualize the distribution in Python or R. 
+### d) Distribution of steps among users
 
-SQL query
+Let's check the distribution of average steps among users. It might help identify if there are outliers that might skew the overall average.
+
+
+SQL query:
+
 ``` sql
 SELECT 
     Id,
@@ -327,6 +269,7 @@ ORDER BY
 ```
 
 Python code:
+
 ``` python
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -349,18 +292,18 @@ ORDER BY
     AvgStepsPerUser DESC;
 """
 
-# Run the query and load the results into a DataFrame
+# Run query and load results into a dataframe
 query_job = client.query(query)
 df = query_job.to_dataframe()
 
-# Set up the plot style
+# Set up plot style
 sns.set(style="whitegrid")
 
 # Plot the distribution of average steps per user
 plt.figure(figsize=(10, 6))
 sns.histplot(df['AvgStepsPerUser'], bins=15, kde=True, color='blue')
 
-# Customize the plot
+# Customize plot
 plt.title('Distribution of Average Steps per User')
 plt.xlabel('Average Steps Per Day')
 plt.ylabel('Frequency')
@@ -375,15 +318,31 @@ plt.show()
 
 Output:
 
-![Average Steps Distribution](images/Fitbit_average_steps_distribution.png)
-The histogram shows that the majority of Fitbit users average around 7,500 steps per day, with a few outliers reaching up to 16,000 steps.
+![Python - Average Steps Distribution](images/Fitbit_average_steps_distribution.png)
+
+The histogram shows: 
+
+- median step count per user is roughly 7,300 steps/day (precisely 7,299 steps/day)
+- average step count is roughly 7,000 steps/day (precisely 6,982 steps/day) 
+- 16 users out of 34 (approx. 47%) walk fewer than 7,000 steps/day.
+- 20 users out of 34 (approx. 59%) walk fewer than 7,500 steps/day.
+- 28 users out of 34 (approx. 82%)  walk fewer than 10,000 steps/day.
 
 
-### Average steps per day of the week
+Again, to complement the analysis, I exported the SQL results into Google Sheets for additional visualizations. Here's the same data plotted in Google Sheets:
 
-Let's check the distribution of average steps among the days of the week. Let's run a SQL query to calculate the average steps per user per day of the week and then visualize the distribution in Python or R. 
+![Google Sheets - Average Steps Distribution](images/Google_Sheets_Distribution_of_Average_Steps_Among_Users.png)
 
-SQL query
+
+The results are quite different because both histograms do not have the same bucket size.
+
+
+### e) Average steps per day of the week
+
+Let's check the distribution of average steps among the days of the week.
+
+SQL query:
+
 ``` sql
 SELECT 
     EXTRACT(DAYOFWEEK FROM ActivityDate) AS DayOfWeek,
@@ -401,6 +360,7 @@ ORDER BY
 ```
 
 Python code:
+
 ``` python
 
 import pandas as pd
@@ -476,13 +436,146 @@ plt.show()
 
 Output:
 
-![Average Steps Per Day of the Week](images/Fitbit_average_steps_per_day_of_week.png)
+![Python - Average Steps Per Day of the Week](images/Fitbit_average_steps_per_day_of_week.png)
 
 The plot shows that step counts are fairly consistent throughout the week. This is coherent with previous plots where we saw that Fitbit users tend to walk regularly every day. Sundays have the lowest average step counts, while Mondays, Wednesdays and Saturdays have the highest average step counts.
 
 
-### Activity levels across the day for each user
-I run the following SQL query to get the average minutes per day for each activity level for days where at least 70% of the users have logged their data:
+Here are the same results using Google Sheets for plotting:
+
+![Google Sheets - Average Steps Per Day of the Week](images/Google_Sheets_Average_Steps_vs_Day_of_the_Week.png)
+
+Again, the Google Sheet chart is more visually appealing and more clear. It was easy to add labels on Google Sheets, so I could add important information (how many average steps per day) on each day of the week on this graph. I am sure we can do the same thing in Python though (just need to learn it). 
+
+
+### e) Average steps per time of the day
+
+Let's see the average steps of each user per time of the day.
+
+SQL query:
+
+``` sql
+WITH DailyUserCounts AS (
+    SELECT
+        DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,
+        COUNT(DISTINCT Id) AS TotalUsers
+    FROM
+        `alien-oarlock-428016-f3.bellabeat.hourly_steps`
+    GROUP BY
+        ActivityDate
+)
+
+SELECT
+    EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) AS HourOfDay,
+    CAST(ROUND(AVG(h.StepTotal),0) as INT) AS AverageStepsPerHour,
+    DATE(TIMESTAMP(h.ActivityHour)) AS ActivityDate
+FROM
+    `alien-oarlock-428016-f3.bellabeat.hourly_steps` h
+JOIN
+    DailyUserCounts d
+ON
+    DATE(TIMESTAMP(h.ActivityHour)) = d.ActivityDate
+GROUP BY
+    HourOfDay, ActivityDate, d.TotalUsers
+HAVING
+    COUNT(DISTINCT h.Id) >= 0.7 * d.TotalUsers
+ORDER BY
+    HourOfDay;
+
+```
+
+
+Python code:
+``` python
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query for average steps per hour of the day
+query = """
+WITH DailyUserCounts AS (
+    SELECT
+        DATE(TIMESTAMP(ActivityHour)) AS ActivityDate,
+        COUNT(DISTINCT Id) AS TotalUsers
+    FROM
+        `alien-oarlock-428016-f3.bellabeat.hourly_steps`
+    GROUP BY
+        ActivityDate
+)
+
+SELECT
+    EXTRACT(HOUR FROM TIMESTAMP(h.ActivityHour)) AS HourOfDay,
+    CAST(ROUND(AVG(h.StepTotal),0) as INT) AS AverageStepsPerHour,
+    DATE(TIMESTAMP(h.ActivityHour)) AS ActivityDate
+FROM
+    `alien-oarlock-428016-f3.bellabeat.hourly_steps` h
+JOIN
+    DailyUserCounts d
+ON
+    DATE(TIMESTAMP(h.ActivityHour)) = d.ActivityDate
+GROUP BY
+    HourOfDay, ActivityDate, d.TotalUsers
+HAVING
+    COUNT(DISTINCT h.Id) >= 0.7 * d.TotalUsers
+ORDER BY
+    HourOfDay;
+"""
+
+# Run query and load results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Convert ActivityDate to datetime (optional, for further analysis)
+df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
+
+# Set up plot style
+sns.set(style="whitegrid")
+
+# Plotting the average steps per hour of the day
+plt.figure(figsize=(14, 7))
+sns.lineplot(data=df, x='HourOfDay', y='AverageStepsPerHour', marker='o', color='blue')
+
+# Customize plot
+plt.title('Average Steps Per Hour of the Day')
+plt.xlabel('Hour of the Day (24-hour format)')
+plt.ylabel('Average Steps')
+plt.xticks(range(0, 24))
+plt.grid(True)
+
+# Save the plot as a PNG file
+plt.savefig("Fitbit_average_steps_per_hour_of_the_day.png")
+
+# Show the plot
+plt.show()
+
+```
+
+Output:
+
+![Python - Average Steps Per Hour of the Day](images/Fitbit_average_steps_per_hour_of_day.png)
+
+The plot shows that the highest step activity occurs at 12 pm (noon), as well as 6 pm and 7 pm. We can see consistent step activity between 10 am and 7 pm.
+
+
+Here are the same results using Google Sheets for plotting, using a scatter plot instead of a line chart:
+
+![Google Sheets - Average Steps Per Hour of the Day](images/Google_Sheets_Average_Steps_per_Hour_of_the_Day.png)
+
+In this case, the Python plot is much more clear.
+I did not use the same chart though (scatter plot instead of a line chart).
+
+
+
+### f) Activity intensity patterns
+
+Let's check the average minutes per day for each activity level (for days where at least 70% of the users have logged their data).
+
+SQL query:
 
 ``` sql
 WITH TotalUsers AS (
@@ -512,6 +605,8 @@ ORDER BY
 
 ```
 
+
+Python code:
 
 ``` python
 import pandas as pd
@@ -582,16 +677,23 @@ plt.savefig("Fitbit_active_minutes_per_day_70_percent.png")
 
 ```
 
-Output:
+Output in Python:
 
-![Activity Patterns](images/Fitbit_active_minutes_per_day_70_percent.png)
+![Python Activity Levels](images/Fitbit_active_minutes_per_day_70_percent.png)
 
-The activity levels remain fairly consistent every day through the dataset period. Results show an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (intense workouts) for 25-30 minutes per day.
+And in Google Sheets:
+
+![Google Sheets Activity Levels](images/Google_Sheets_activity_levels.png)
+
+In this case, both Python and Google Sheets visualizations look equal clarity-wise.
+
+Both plots show that activity levels remain fairly consistent every day through the dataset period. There is an average of light activity (walking, light exercise routines) during 200 minutes per day, fair activity (brisk walking) for 10-15 minutes per day, and high activity (intense workouts) for 25-30 minutes per day.
 
 
 
+### g) Other analysis (not kept because of flaws or because results did not look conclusive) - More research needed
 
-### Daily steps versus time of the day (and weekdays vs weekend)
+#### Daily steps versus period of day (morning, afternoon, evening) - NOT KEPT IN FINAL REPORT
 
 Let's see the change in step activity during the period of the day (morning, afternoon and evening), from days where at least 70% of the users reported their activity:
 
@@ -632,7 +734,8 @@ ORDER BY
 
 ```
 
-Then I plot the results in my Python notebook:
+Python code:
+
 ``` python
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -755,9 +858,9 @@ Output:
 The plot shows that Fitbit users take more steps in the afternoons. Mornings and evenings have fairly similar counts. 
 
 
-### Average intensity versus period of the day (morning, afternoon, and evening)
+#### Average intensity versus period of the day (morning, afternoon, and evening) - NOT KEPT IN FINAL REPORT
 
-Again, I started by running an SQL query in BigQuery:
+SQL query:
 
 ```sql
 SELECT
@@ -823,9 +926,9 @@ ggplot(fitbit_intensity, aes(x = PeriodOfDay, y = Sum_Average_Intensity, fill = 
 
 
 
-### Sleep (sleep duration and time in bed) versus steps
+#### Sleep (sleep duration and time in bed) versus steps - - NOT KEPT IN FINAL REPORT
 
-I started by running an SQL query in BigQuery:
+SQL query:
 
 ``` sql
 SELECT 
@@ -884,9 +987,9 @@ ggplot(fitbit_steps_sleep, aes(x = StepTotal, y = TotalSleepHours)) +
   )
 ```
 
-### Very active minutes versus calories spent
+#### Very active minutes versus calories spent - NOT KEPT IN FINAL REPORT
 
-SQL query in BigQuery:
+SQL query:
 
 ``` sql
 SELECT 
@@ -937,9 +1040,9 @@ ggplot(fitbit_active_vs_calories, aes(x = TotalVeryActiveMinutes, y = TotalCalor
 ```
 
 
-### Heart rate versus steps
+#### Heart rate versus steps - NOT KEPT IN FINAL REPORT
 
-First I ran an SQL query in BigQuery:
+SQL query:
 
 ``` sql
 -- Calculates the average heart rate (AVG(Value)) for each user (Id) per day (ActivityDay).
@@ -978,7 +1081,104 @@ After that, I exported the `BigQuery_heartrate_versus_steps.csv` file to my loca
 Next, I analyzed the .csv file further in R and created a visualization.
 
 
-### Activity patterns around Easter (March 24 - March 30, 2016)
+#### Total steps per day - NOT KEPT IN FINAL REPORT
+
+To make sure that data is significant, let me calculate the total steps per day for the days where at least 70% of users reported their activity.
+
+SQL query:
+
+``` sql
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(SUM(TotalSteps), 2) as TotalSteps,
+    ROUND(SUM(TotalDistance), 2) as TotalDistance,
+    ROUND(SUM(TrackerDistance), 2) as TrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 0.70 * 35  -- Representing at least 70% users
+ORDER BY 
+    ActivityDate;
+```
+
+Python code for plotting:
+
+``` python
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from google.cloud import bigquery
+
+# Initialize BigQuery client
+client = bigquery.Client()
+
+# SQL query based on your specifications
+query = """
+SELECT 
+    ActivityDate, 
+    COUNT(DISTINCT Id) AS UserCount,
+    ROUND(SUM(TotalSteps), 2) as TotalSteps,
+    ROUND(SUM(TotalDistance), 2) as TotalDistance,
+    ROUND(SUM(TrackerDistance), 2) as TrackerDistance
+FROM 
+    `alien-oarlock-428016-f3.bellabeat.daily_activity`
+GROUP BY 
+    ActivityDate
+HAVING 
+    UserCount >= 0.70 * 35  -- Representing at least 70% users
+ORDER BY 
+    ActivityDate;
+"""
+
+# Run the query and load the results into a DataFrame
+query_job = client.query(query)
+df = query_job.to_dataframe()
+
+# Convert ActivityDate to a datetime object for plotting
+df['ActivityDate'] = pd.to_datetime(df['ActivityDate'])
+
+# Set up the plot style
+sns.set(style="whitegrid")
+
+# Set up the plot
+plt.figure(figsize=(14, 7))
+sns.lineplot(data=df, x='ActivityDate', y='TotalSteps', marker='o', color='blue')
+
+# Highlight Sundays for better clarity
+sundays = df[df['ActivityDate'].dt.dayofweek == 6]['ActivityDate']
+for sunday in sundays:
+    plt.axvline(x=sunday, color='orange', linestyle='--', linewidth=0.8)
+    plt.text(sunday, df['TotalSteps'].min(), 'Sunday', rotation=90, color='orange', fontsize=8, va='bottom', ha='center')
+
+# Customize the plot
+plt.title('Total Steps Per Day')
+plt.xlabel('Date')
+plt.ylabel('Total Steps')
+plt.xticks(rotation=45)
+plt.ylim(0, df['TotalSteps'].max() * 1.1)
+
+plt.tight_layout()
+
+# Save the plot
+plt.savefig("Fitbit_total_steps_per_day_70_percent.png")
+plt.show()
+
+```
+
+Output:
+
+![Total Steps Per Day](images/Fitbit_total_steps_per_day_70_percent.png)
+
+The plot shows that Fitbit sample users walk pretty regularly every day. Sundays are the slowest days, while Mondays, Wednesdays and Saturdays show a peak.
+
+ 
+
+
+
+#### Activity patterns around Easter (March 24 - March 30, 2016) - NOT KEPT IN FINAL REPORT
 
 To explore how users' activity levels changed during the Easter period in 2016 (Easter Sunday was March 27, 2016), I ran SQL queries on the `combined_dailyActivity_merged` dataset, which I renamed as the `daily_activity` table in BigQuery. 
 
@@ -1052,5 +1252,8 @@ plt.show()
 
 Results:
 
-From the analysis, I noticed a gradual increase in steps from Good Friday (March 25) leading up to Easter Sunday (March 27). This pattern indicates that users might be more active around Easter holidays, possibly engaging in outdoor or family activities.
+Not conclusive
+
+
+I could do much more analysis work, but I feel I already have enough for creating a final Google Slides presentation and PDF report where I could provide actionable insights and recommendations based on my findings and visualizations.
 
