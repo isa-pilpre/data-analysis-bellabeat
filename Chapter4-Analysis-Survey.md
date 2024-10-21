@@ -373,22 +373,20 @@ plot_percentage_bar(
 
 Bar chart in R:
 
-![R - "My smart device is useful for achieving my goals"](images/Survey_Q8_Device_Useful_For_Goals.png)
+![R Bar Chart - "My smart device is useful for achieving my goals"](images/Survey_Q8_Device_Useful_For_Goals.png)
+
 
 Bar chart in Google Sheets:
 
 ![Google Sheets Bar Chart - "My smart device is useful for achieving my goals"](images/Google_Sheets_device_useful_goals.png)
 
-Pie chart in Google Sheets:
+
+Since I was plotting women's levels of agreement as percentages, I also created a pie chart in Google Sheets to provide different perspective on the same data:
 
 ![Google Sheets Pie Chart - "My smart device is useful for achieving my goals"](images/Google_Sheets_device_useful_goals_pie_chart.png)
 
 
-
-
-
 The same process was applied to each survey statement.
 
-With all these findings from both Fitbit and the survey datasets, I am ready to create a Google Slides presentation and provide insights and data-based recommendations to Bellabeat stakeholders.
-
+Based on these insights from both the Fitbit and survey datasets, I am now ready to create a Google Slides presentation and provide data-driven recommendations to Bellabeat stakeholders.
   

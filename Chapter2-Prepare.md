@@ -14,34 +14,26 @@ However, because of this dataset's limitations (small sample size, data collecte
 
 Available [here](https://www.mdpi.com/2306-5729/9/4/56), this dataset includes survey responses from over 500 individuals, collected between May and July 2020. The larger, more recent sample makes it more representative and relevant. Additionally, the survey asked respondents whether they were male (1) or female (2), which makes it better suited to Bellabeat’s focus on women. Lastly, this dataset adds a psychological dimension to the analysis by exploring user attitudes and interactions with their smart devices, which is good addition to the Fitbit data.
 
+
 ## 2. Data organization
 
-### Overall structure for the Bellabeat project
+The project is managed in a Git repository (`git-repos/data-analysis-bellabeat`) for good version control.
 
-The project is organized as follows:
+The git repository `data-analysis-bellabeat` mirrors the overall structure of the BELLABEAT project, with the following subdirectories:
 
-BELLABEAT: Project main directory.
-Contains four main branches (DATA, SCRIPTS, IMAGES, REPORTS):
+- `R`: R scripts used for data analysis and visualization.
+- `Python`: Python scripts used for data analysis and visualization.
+- `SQL`: SQL queries (in BigQuery) used for data extraction and transformation.
+- `CSV`: All CSV files used and generated during the analysis.
+- `Images`: All visualizations and plots generated during the project.
 
-  - DATA: All the datasets used in this project
-    - VAULT: Original, unmodified datasets (Fitbit and Survey)
-    - Fitbit: Working directory for Fitbit data
-       - Fitbit_Complete_Data: Complete Fitbit data, before cleaning
-       - Cleaned_Fitbit: Cleaned Fitbit data, ready for analysis
-       - BigQuery_Exports: Files exported from BigQuery
-    - Survey: Working directory for Survey data
-       - Survey_Data: Survey data, before cleaning
-       - Cleaned_Survey: Cleaned Survey data, ready for analysis
-       - BigQuery_Exports: Files exported from BigQuery
+Additional project subdirectories include:
 
-  - SCRIPTS: All the scripts used in this project
-    - R: R scripts
-    - Python: Python scripts
-    - SQL: SQL queries (BigQuery) 
-    - Shell: Shell scripts (bash) 
-     
-  - IMAGES: All the images and plots in this project
-  - REPORTS: All the reports made in this project
+- `DATA`: Original datasets and cleaned datasets, categorized into Fitbit and Survey data.
+- `SCRIPTS`: All the scripts used in the project, categorized by language (R, Python, SQL, shell).
+- `IMAGES`: All generated images and plots for analysis.
+- `REPORTS`: Reports generated from the analysis process.
+
 
 
 ## 3. Preparing the datasets
