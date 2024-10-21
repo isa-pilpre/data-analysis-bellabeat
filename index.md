@@ -2,7 +2,7 @@
 
 This is a capstone project for my Google Data Analytics Certificate Program. The analysis focuses on Bellabeat, a company that designs fem-tech products for women’s health.
 
-Project Table of Content:
+## Project Table of Content:
 
 * [Chapter 1: Ask](Chapter1-Ask)
 * [Chapter 2: Prepare](Chapter2-Prepare)
