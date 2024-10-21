@@ -1,6 +1,6 @@
-# Data Analysis Project: Bellabeat
+# Analyzing Smart Device Data
 
-This is a data analysis project for Bellabeat, a company that sells fem-tech products for women’s health.
+This is a data analysis case study for Bellabeat, a company focused on fem-tech products for women's health.
 
 ## Table of Content:
 
